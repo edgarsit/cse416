@@ -271,7 +271,64 @@ class CoursePlan
 
 //Website stuff
 
-app.get("/", (req, res) => {
+let user={}
+
+app.get("/Login", (req, res) => {
     writeLogin(req,res);
 });
 
+function writeLogin(req,res) {
+    res.setHeader("Content-Type", "text/html");
+    let query = url.parse(req.url, true).query;// says .parse is deprecated. I think it should be replaced by .search but I'll test it out on Tuesday
+    let username = query.username? query.username : "";
+    let password = query.password ? query.password: "";
+
+    //for action="/authorize", that's where the google authorization will be. Just need to figure out how to set that up
+    let html = `
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title> Login </title>
+    </head>
+
+    <body>
+        <h1> MAST Login Page </h1><br>
+        <form method="get" action = "/authorize">
+            <span>Username: </span>
+            <input type="text" name="username" value=""><br>
+            <span>Password: </span>
+            <input type="text" name="password" value=""><br>
+            <input type="submit" value="Login">
+        </form>
+        <br><br>
+    `;
+    let sql = `SELECT * FROM User WHERE username ='` + username + `'
+    AND password ='` + password + `'`;
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        if(result.length>0)
+        {
+            let isGPD=result[0].usertype=="Graduate Program Director";
+            if(isGPD==true)
+            {
+                user=new GraduateProgramDirector(result[0].username,result[0].password);
+                res.redirect("/GPD_home");//url names can be changed if you can think of something better.
+            }
+            else
+            {
+                //set user to new Student object by pulling relavent information frim teh database
+                //if it seems difficult to do it here, I think setting user to a User object might work
+                //if you run the query command right after redirection
+                res.redirect("/Student");
+            }
+        }
+        else
+        {
+            //add some kind of alert to say invalid credentials
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.write(html + "\n\n</body>\n</html>");
+            res.end();
+        }
+    });
+};
