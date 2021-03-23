@@ -41,6 +41,19 @@ class User
     {
         //Will be implemented at some point after HW6
     }
+    getUserName()
+    {
+        return this.userName
+    }
+    getPassword()
+    {
+        return this.password
+    }
+    getIsGPD()
+    {
+        return this.isGPD
+    }
+    //no setters for these variables i think
 }
 
 class Student extends User 
@@ -57,10 +70,69 @@ class Student extends User
         this.sbuID=sbuID
         //add this.degreeRequirements once implemented after HW6
     }
+
     shareCoursePlan(student)
     {
         //Will be implemented at some point after HW6
         //share this.coursePlan with student
+    }
+
+    getDepartment()
+    {
+        return this.department
+    }
+    getReqVers()
+    {
+        return this.reqVers
+    }
+    getGradSemester()
+    {
+        return this.gradSemester
+    }
+    getCoursePlan()
+    {
+        return this.coursePlan
+    }
+    getGraduated()
+    {
+        return this.graduated
+    }
+    getComments()
+    {
+        return this.comments
+    }
+    getSbuID()
+    {
+        return this.sbuID
+    }
+
+    setDepartment(n)
+    {
+        this.department=n
+    }
+    setReqVers(n)
+    {
+        this.reqVers=n
+    }
+    setGradSemester(n)
+    {
+        this.gradSemester=n
+    }
+    setCoursePlan(n)//not sure if this function should exist, also idk if this should be deep copied or not
+    {
+        this.coursePlan=n
+    }
+    setGraduated(n)
+    {
+        this.graduated=n
+    }
+    setComments(n)
+    {
+        this.comments=n
+    }
+    setSbuID(n)
+    {
+        this.sbuID=n
     }
 }
 
@@ -108,14 +180,94 @@ class Course
     constructor(department,courseNum,section,semester,year,timeslot,prerequisites)
     {
         this.department=department
-        this.courseNUm=courseNum
+        this.courseNum=courseNum
         this.section=section
         this.semester=semester
         this.year=year
         this.timeslot=timeslot
         this.prerequisites=prerequisites
     }
+
+    getDepartment()
+    {
+        return this.department
+    }
+    getCourseNum()
+    {
+        return this.courseNum
+    }
+    getSection()
+    {
+        return this.section
+    }
+    getSemester()
+    {
+        return this.semester
+    }
+    getYear()
+    {
+        return this.year
+    }
+    getTimeslot()
+    {
+        return this.timeslot
+    }
+    getPrerequisites()
+    {
+        return this.prerequisites
+    }
+
+    setDepartment(n)
+    {
+        this.department=n
+    }
+    setCourseNum(n)
+    {
+        this.courseNum=n
+    }
+    setSection(n)
+    {
+        this.section=n
+    }
+    setSemester(n)
+    {
+        this.semester=n
+    }
+    setYear(n)
+    {
+        this.year=n
+    }
+    setTimeslot(n)
+    {
+        this.timeslot=n
+    }
+    setPrerequisites(n)
+    {
+        this.prerequisites=n
+    }
 }
+
+class CoursePlan
+{
+    constructor(courses,hasTaken)//not sure if these parameters should be
+    {
+        this.courses=courses
+        this.hasTaken=hasTaken//not sure if this is where this goes
+        //comments will be implemented after HW6
+    }
+
+    getCourses()
+    {
+        return this.courses
+    }
+    getHasTaken()
+    {
+        return this.hasTaken
+    }
+    //not sure about setters and other possible methods
+}
+
+//Degree Requirements and Requirement classes will be implemented after HW6
 
 //Website stuff
 
