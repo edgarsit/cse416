@@ -11,6 +11,7 @@ var con=mysql.createConnection({
     database: "mydb"
 });
 
+const port = 3000;
 const express = require("express");
 const app = express();
 const url = require('url');
@@ -270,12 +271,15 @@ class CoursePlan
 //Degree Requirements and Requirement classes will be implemented after HW6
 
 //Website stuff
-
 let user={}
 
 app.get("/Login", (req, res) => {
     writeLogin(req,res);
 });
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+  });
 
 function writeLogin(req,res) {
     res.setHeader("Content-Type", "text/html");
