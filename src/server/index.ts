@@ -109,6 +109,55 @@ function writeLogin(req: any, res: any) {
   res.end();
 }
 
+function writeGPDHome(req,res) {
+  res.setHeader("Content-Type", "text/html");
+
+  
+  let html = `
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+      <title> GPD Home </title>
+  </head>
+
+  <body>
+      <h1> GPD Home </h1><br>
+      <form action="/Import_Course_Offerings" method = "get">
+          <button>Import Course Offerings</button>
+      </form>
+      <br>
+      <form action="/Delete_Student" method = "get">
+          <button>Delete Student Data</button>
+      </form>
+      <br>
+      <form action="/Import_Student_Data" method = "get">
+          <button>Import Student Data</button>
+      </form>
+      <br>
+      <form action="/Import_Grades" method = "get">
+          <button>Import Grades</button>
+      </form>
+      <br>
+      <form action="/Add_Student" method = "get">
+          <button>Add Student</button>
+      </form>
+      <br>
+      <form action="/Search_Students" method = "get">
+          <button>Search Students</button>
+      </form>
+      <br>
+  `;
+ 
+      res.writeHead(200, {"Content-Type": "text/html"});
+      res.write(html + "\n\n</body>\n</html>");
+      res.end();
+};
+
+server.get('/GPD_Home', (req, res) => {
+  writeGPDHome(req,res);
+});
+
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url));
   res.send(
