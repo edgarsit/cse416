@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Counter from '../server/Counter';
+import App from '../common/app';
 
-ReactDOM.render(<Counter />, document.getElementById('app'));
+ReactDOM.hydrate(<App />, document.getElementById('app'));

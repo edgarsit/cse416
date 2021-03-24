@@ -23,7 +23,32 @@
         "react",
         "@typescript-eslint"
     ],
-    "rules": {},
+    "rules": {
+        "import/extensions": [
+            1,
+            "never"
+        ],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "allow": "as-needed",
+                "extensions": [
+                    ".tsx"
+                ]
+            }
+        ],
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": [
+            "error",
+            {
+                "ignoreTypeReferences": true
+            }
+        ],
+        "max-classes-per-file": [
+            "error",
+             8
+        ]
+    },
     "ignorePatterns": [
         "/build"
     ]
