@@ -1,4 +1,3 @@
-import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 
@@ -72,6 +71,11 @@ passport.deserializeUser((user, done) => {
   done(null, user as any);
 });
 
+server.get('/', passport.authenticate(['local', 'google'], {
+  successRedirect: '/main',
+  failureRedirect: '/login'
+}))
+
 server.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
@@ -81,33 +85,6 @@ server.get('/auth/google/callback',
 
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
-
-function writeLogin(req: any, res: any) {
-  const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <title>MAST Login Page</title>
-    <style>
-    a.button {
-        -webkit-appearance: button;
-        -moz-appearance: button;
-        appearance: button;
-
-        text-decoration: none;
-        color: initial;
-    }
-    </style>
-    </head>
-    <body>
-        <h1>MAST Login</h1>
-        <a href="/auth/google" class="button">Sign in with Google</a>
-  </body>
-    </html>
-    `;
-  res.write(html);
-  res.end();
-}
 
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url));
