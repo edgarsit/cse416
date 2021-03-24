@@ -15,6 +15,17 @@ const port = 3000;
 const express = require("express");
 const app = express();
 const url = require('url');
+var passport = require('passport')
+var session = require('express-session')
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+  }))
+
+  app.use(passport.initialize())
+  app.use(passport.session())
 
 
 //Classes
@@ -272,67 +283,102 @@ class CoursePlan
 
 //Website stuff
 let user={}
+var email = ""
 
-app.get("/Login", (req, res) => {
+app.get("/", (req, res) => {
+    res.redirect("/login");
+});
+
+app.get("/login", (req, res) => {
     writeLogin(req,res);
 });
+
+
+app.get("/loggedin", (req, res) => { //this is just temporary to show login was succesful
+    html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <title>Login Page</title> 
+    <body> 
+        <h1> logged in </h1>
+  </body>
+    </html>
+    `;
+    res.write(html);
+    res.end()
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
   });
 
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+passport.use(new GoogleStrategy({
+    clientID: "589334683714-avfdqoj5h3dsu1dmf32srq0fssrhn0hr.apps.googleusercontent.com",
+    clientSecret: "WK1A4X2GEW5x1f6AHLsyqsWx",
+    callbackURL: "http://localhost:3000/auth/google/callback",
+
+  },
+  async (accessToken, refreshToken, profile, done) => {
+      const newUser = {
+          googleId: profile.id,
+          displayName: profile.name.givenName
+      }
+       done(null,newUser);
+
+  }
+));
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
+
+app.get("/auth/google/callback", 
+  passport.authenticate('google', { failureRedirect: '/login'}),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/loggedin');
+  });
+
+
+app.get("/auth/google",
+  passport.authenticate('google', { scope: ['profile'] }));
+
+
+
 function writeLogin(req,res) {
-    res.setHeader("Content-Type", "text/html");
-    let query = url.parse(req.url, true).query;// says .parse is deprecated. I think it should be replaced by .search but I'll test it out on Tuesday
-    let username = query.username? query.username : "";
-    let password = query.password ? query.password: "";
 
     //for action="/authorize", that's where the google authorization will be. Just need to figure out how to set that up
     let html = `
     <!DOCTYPE html>
     <html lang="en">
-
     <head>
-        <title> Login </title>
+    <title>MAST Login Page</title> 
+    <style>
+    a.button {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+    
+        text-decoration: none;
+        color: initial;
+    }
+    </style>
     </head>
+    <body> 
 
-    <body>
-        <h1> MAST Login Page </h1><br>
-        <form method="get" action = "/authorize">
-            <span>Username: </span>
-            <input type="text" name="username" value=""><br>
-            <span>Password: </span>
-            <input type="text" name="password" value=""><br>
-            <input type="submit" value="Login">
-        </form>
-        <br><br>
+        <h1>MAST Login</h1>
+        <a href="/auth/google" class="button">Sign in with Google</a>
+
+  </body>
+    </html>
     `;
-    let sql = `SELECT * FROM User WHERE username ='` + username + `'
-    AND password ='` + password + `'`;
-    con.query(sql, function(err, result) {
-        if (err) throw err;
-        if(result.length>0)
-        {
-            let isGPD=result[0].usertype=="Graduate Program Director";
-            if(isGPD==true)
-            {
-                user=new GraduateProgramDirector(result[0].username,result[0].password);
-                res.redirect("/GPD_home");//url names can be changed if you can think of something better.
-            }
-            else
-            {
-                //set user to new Student object by pulling relavent information frim teh database
-                //if it seems difficult to do it here, I think setting user to a User object might work
-                //if you run the query command right after redirection
-                res.redirect("/Student");
-            }
-        }
-        else
-        {
-            //add some kind of alert to say invalid credentials
-            res.writeHead(200, {"Content-Type": "text/html"});
-            res.write(html + "\n\n</body>\n</html>");
-            res.end();
-        }
-    });
+    res.write(html);
+    res.end()
+
 };
