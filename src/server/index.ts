@@ -174,6 +174,23 @@ function writeSearch(req,res) {
       <title> Student Search </title>
   </head><body>
   <h1> Student Search </h1><br>
+  <form action="/GPD_Home" method = "get">
+          <button>Home</button>
+  </form>
+  <form method="get" action = "/Search_Students">
+            <input type="text" name="search" value="">
+            <b>in</b>
+            <select name="filter">
+                <option value="allFields">All Fields</option>
+                <option value="userName">Username</option>
+                <option value="sbu_id">SBU_ID</option>
+            </select>
+            <input type="submit" value="Submit">
+            <br>
+            Example searches: Joe, 112233445
+        </form>
+  <br>
+
   
   <br>
 `;
