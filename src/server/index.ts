@@ -86,7 +86,6 @@ server.get('/auth/google/callback',
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-<<<<<<< HEAD
 function writeLogin(req: any, res: any) {
   const html = `
     <!DOCTYPE html>
@@ -128,6 +127,10 @@ function writeGPDHome(req,res) {
 
   <body>
       <h1> GPD Home </h1><br>
+      <form action="/Scrape_Course_Information" method = "get">
+          <button>Scrape Course Information</button>
+      </form>
+      <br>
       <form action="/Import_Course_Offerings" method = "get">
           <button>Import Course Offerings</button>
       </form>
@@ -154,17 +157,40 @@ function writeGPDHome(req,res) {
       <br>
   `;
  
-      res.writeHead(200, {"Content-Type": "text/html"});
-      res.write(html + "\n\n</body>\n</html>");
-      res.end();
+    res.writeHead(200, {"Content-Type": "text/html"});
+    res.write(html + "\n\n</body>\n</html>");
+    res.end();
 };
+
+function writeSearch(req,res) {
+  res.setHeader("Content-Type", "text/html");
+
+  
+  let html = `
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+      <title> Student Search </title>
+  </head><body>
+  <h1> Student Search </h1><br>
+  
+  <br>
+`;
+  res.writeHead(200, {"Content-Type": "text/html"});
+  res.write(html + "\n\n</body>\n</html>");
+  res.end();
+};
+
 
 server.get('/GPD_Home', (req, res) => {
   writeGPDHome(req,res);
 });
 
-=======
->>>>>>> afc18e576d06c0eca74e7e7774d41880434ad09c
+server.get('/Search_Students', (req, res) => {
+  writeSearch(req,res);
+});
+
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url));
   res.send(
