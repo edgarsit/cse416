@@ -1,4 +1,3 @@
-import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 
@@ -72,6 +71,11 @@ passport.deserializeUser((user, done) => {
   done(null, user as any);
 });
 
+server.get('/', passport.authenticate(['local', 'google'], {
+  successRedirect: '/main',
+  failureRedirect: '/login'
+}))
+
 server.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
@@ -82,6 +86,7 @@ server.get('/auth/google/callback',
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
+<<<<<<< HEAD
 function writeLogin(req: any, res: any) {
   const html = `
     <!DOCTYPE html>
@@ -158,6 +163,8 @@ server.get('/GPD_Home', (req, res) => {
   writeGPDHome(req,res);
 });
 
+=======
+>>>>>>> afc18e576d06c0eca74e7e7774d41880434ad09c
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url));
   res.send(
