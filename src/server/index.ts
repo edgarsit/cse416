@@ -2,12 +2,15 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 
 import mongoose from 'mongoose';
+import { DocumentType } from '@typegoose/typegoose';
 
 import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
-import { StudentModel, GPDModel, UserModel } from './models';
+import { StudentModel, GPDModel, UserModel, User } from './models';
 import { ServerApp } from '../common/app';
+
 
 const html = (body: string) => `
   <!DOCTYPE html>
@@ -23,6 +26,9 @@ const html = (body: string) => `
 
 const port = 3000;
 const server = express();
+
+server.use(express.urlencoded({ extended: true }));
+server.use(express.text());
 
 server.use(express.static('build'));
 
@@ -55,13 +61,29 @@ passport.use(new GoogleStrategy({
   callbackURL: 'http://localhost:3000/auth/google/callback',
 },
 
-async (accessToken, refreshToken, profile, done) => {
-  const newUser = {
-    googleId: profile.id,
-    displayName: profile.name?.givenName,
-  };
-  done(null, newUser);
-}));
+  async (accessToken, refreshToken, profile, done) => {
+    const newUser = {
+      googleId: profile.id,
+      displayName: profile.name?.givenName,
+    };
+    done(null, newUser);
+  })
+);
+
+passport.use(new LocalStrategy(
+  function (username: string, password: string, done: (arg0: any, arg1?: boolean | DocumentType<User>, arg2?: { message: string; }) => void) {
+    UserModel.findOne({ userName: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -71,52 +93,31 @@ passport.deserializeUser((user, done) => {
   done(null, user as any);
 });
 
-server.get('/', passport.authenticate(['local', 'google'], {
-  successRedirect: '/main',
-  failureRedirect: '/login'
-}))
+server.get('/', (req, res) => {
+  if (req.user) {
+    if ((req.user as any).__t === 'GPD') {
+      res.redirect('home')
+    } else {
+      res.redirect('home')
+    }
+  } else {
+    res.redirect('/login')
+  }
+})
 
 server.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication, redirect home.
     res.redirect('/loggedin');
-  });
+  }
+);
 
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-function writeLogin(req: any, res: any) {
-  const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <title>MAST Login Page</title>
-    <style>
-    a.button {
-        -webkit-appearance: button;
-        -moz-appearance: button;
-        appearance: button;
-
-        text-decoration: none;
-        color: initial;
-    }
-    </style>
-    </head>
-    <body>
-        <h1>MAST Login</h1>
-        <a href="/auth/google" class="button">Sign in with Google</a>
-  </body>
-    </html>
-    `;
-  res.write(html);
-  res.end();
-}
-
-function writeGPDHome(req,res) {
+function writeGPDHome(req, res) {
   res.setHeader("Content-Type", "text/html");
-
-  
   let html = `
   <!DOCTYPE html>
   <html lang="en">
@@ -156,16 +157,16 @@ function writeGPDHome(req,res) {
       </form>
       <br>
   `;
- 
-    res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(html + "\n\n</body>\n</html>");
-    res.end();
+
+  res.writeHead(200, { "Content-Type": "text/html" });
+  res.write(html + "\n\n</body>\n</html>");
+  res.end();
 };
 
 function writeSearch(req,res) {
   res.setHeader("Content-Type", "text/html");
 
-  
+
   let html = `
   <!DOCTYPE html>
   <html lang="en">
@@ -191,7 +192,7 @@ function writeSearch(req,res) {
         </form>
   <br>
 
-  
+
   <br>
 `;
   res.writeHead(200, {"Content-Type": "text/html"});
@@ -201,12 +202,21 @@ function writeSearch(req,res) {
 
 
 server.get('/GPD_Home', (req, res) => {
-  writeGPDHome(req,res);
+  writeGPDHome(req, res);
 });
 
 server.get('/Search_Students', (req, res) => {
   writeSearch(req,res);
 });
+
+server.post('/login',
+  (req, res) => {
+    return passport.authenticate('local', {
+      failureRedirect: '/login',
+      successRedirect: '/'
+    })(req, res)
+  }
+)
 
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url));

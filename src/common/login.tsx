@@ -17,16 +17,16 @@ export default class Login extends React.Component<{}, { error: string, loading:
         Login
         <br />
         <br />
-        <form>
+        <form action='login' method='post'>
           <div>
             Username
           <br />
-            <Input type="text" autoComplete="new-password" />
+            <Input type="text" autoComplete="new-password" name='username' />
           </div>
           <div style={{ marginTop: 10 }}>
             Password
           <br />
-            <Input type="password" autoComplete="new-password" />
+            <Input type="password" autoComplete="new-password" name='password' />
           </div>
           {error ?? (
             <>
@@ -35,14 +35,14 @@ export default class Login extends React.Component<{}, { error: string, loading:
             </>
           )}
           <br />
-          <input type="button" value={loading ? 'Loading...' : 'Login'} />
+          <input type="submit" value={loading ? 'Loading...' : 'Login'} />
         </form>
       </div>
     );
   }
 }
 
-interface InputProps { type: string, autoComplete: string }
+interface InputProps { type: string, autoComplete: string, name: string }
 class Input extends React.Component<InputProps, { value: string }> {
   constructor(props: InputProps) {
     super(props);

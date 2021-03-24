@@ -44,7 +44,7 @@ export class Routes extends React.Component {
 function Home() {
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/home">MAST System</Navbar.Brand>
+      <Navbar.Brand href="/login">MAST System</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
