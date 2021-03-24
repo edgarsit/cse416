@@ -1,44 +1,60 @@
 import React, { useState } from 'react';
 
-export default class Login extends React.Component<{ history: string[] }, { error: string, loading: boolean }> {
-    render() {
-        const username = useFormInput('');
-        const password = useFormInput('');
-        const { error, loading } = this.state;
+export default class Login extends React.Component<{}, { error: string, loading: boolean }> {
+  constructor(props: {}) {
+    super(props);
+    this.state = { error: '', loading: false };
+  }
 
-        // handle button click of login form
-        const handleLogin = () => {
-            this.props.history.push('/dashboard');
-        }
+  render() {
+    const { error, loading } = this.state;
 
-        return (
-            <div>
-                <a href="/auth/google" className="button">Sign in with Google</a>
-
-                Login<br /><br />
-                <div>
-                    Username<br />
-                    <input type="text" {...username} autoComplete="new-password" />
-                </div>
-                <div style={{ marginTop: 10 }}>
-                    Password<br />
-                    <input type="password" {...password} autoComplete="new-password" />
-                </div>
-                {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-                <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} /><br />
-            </div>
-        );
-    }
+    return (
+      <div className='login'>
+        <div>
+          <a href="/auth/google" className="button">Sign in with Google</a>
+        </div>
+        Login
+        <br />
+        <br />
+        <form>
+          <div>
+            Username
+          <br />
+            <Input type="text" autoComplete="new-password" />
+          </div>
+          <div style={{ marginTop: 10 }}>
+            Password
+          <br />
+            <Input type="password" autoComplete="new-password" />
+          </div>
+          {error ?? (
+            <>
+              <small style={{ color: 'red' }}>{error}</small>
+              <br />
+            </>
+          )}
+          <br />
+          <input type="button" value={loading ? 'Loading...' : 'Login'} />
+        </form>
+      </div>
+    );
+  }
 }
 
-const useFormInput = (initialValue: any) => {
-    const [value, setValue] = useState(initialValue);
-
-    const handleChange = (e: any) => {
-        setValue(e.target.value);
-    }
-    return {
-        value,
-        onChange: handleChange
-    }
+interface InputProps { type: string, autoComplete: string }
+class Input extends React.Component<InputProps, { value: string }> {
+  constructor(props: InputProps) {
+    super(props);
+    this.state = { value: '' };
+  }
+  render() {
+    return (
+      <input
+        {...this.props}
+        value={this.state.value}
+        onChange={(e) => this.setState({ value: e.target.value })}
+      />
+    );
+  }
 }

@@ -3,12 +3,12 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 
 import mongoose from 'mongoose';
-import { StudentModel, GPDModel, UserModel } from './models';
 
 import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import session from 'express-session';
-import App from '../common/app';
+import { StudentModel, GPDModel, UserModel } from './models';
+import { ServerApp } from '../common/app';
 
 const html = (body: string) => `
   <!DOCTYPE html>
@@ -56,13 +56,13 @@ passport.use(new GoogleStrategy({
   callbackURL: 'http://localhost:3000/auth/google/callback',
 },
 
-  async (accessToken, refreshToken, profile, done) => {
-    const newUser = {
-      googleId: profile.id,
-      displayName: profile.name?.givenName,
-    };
-    done(null, newUser);
-  }));
+async (accessToken, refreshToken, profile, done) => {
+  const newUser = {
+    googleId: profile.id,
+    displayName: profile.name?.givenName,
+  };
+  done(null, newUser);
+}));
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -110,7 +110,7 @@ function writeLogin(req: any, res: any) {
 }
 
 server.get('*', (req, res) => {
-  const body = renderToString(React.createElement(App));
+  const body = renderToString(ServerApp(req.url));
   res.send(
     html(
       body,
@@ -122,15 +122,15 @@ server.get('*', (req, res) => {
   await mongoose.connect('mongodb://localhost:27017/', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: 'cse416'
+    dbName: 'cse416',
   });
   mongoose.connection.db.dropDatabase();
 
   const { _id: id } = await StudentModel.create({
-    userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0
+    userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
   });
   const userName = 'asd';
-  const password = 'asd'
+  const password = 'asd';
   const r = await UserModel.findOne({ userName, password });
   console.log(r);
 

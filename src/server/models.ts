@@ -110,6 +110,16 @@ export class Student extends User {
   // @rprop()
   public degreeRequirements?: DegreeRequirements
 
+  public async editStudentInformation(this: DocumentType<Student>) {
+    // TODO
+  }
+  public async viewCoursePlanHistory(this: DocumentType<Student>) {
+    // TODO
+  }
+  public async suggestCoursePlan(this: DocumentType<Student>) {
+    // TODO
+  }
+
   public async shareCoursePlan(this: DocumentType<Student>, c: CoursePlan) {
     // TODO
   }

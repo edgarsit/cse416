@@ -3,14 +3,24 @@ import {
   Button, Form, FormControl, Nav, Navbar, NavDropdown,
 } from 'react-bootstrap';
 import {
+  StaticRouter,
   Switch,
   Route,
   Link,
   useRouteMatch,
   useParams,
 } from 'react-router-dom';
+import Login from './login';
 
-export default class Routes extends React.Component {
+export function ServerApp(url:string) {
+  return (
+    <StaticRouter location={url}>
+      <Routes />
+    </StaticRouter>
+  );
+}
+
+export class Routes extends React.Component {
   render() {
     return (
       <Switch>
@@ -19,6 +29,9 @@ export default class Routes extends React.Component {
         </Route>
         <Route path="/topics">
           <Topics />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/">
           <Home />
@@ -47,7 +60,7 @@ function Home() {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  )
+  );
 }
 
 function About() {

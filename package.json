@@ -21,7 +21,7 @@
     "react-router-dom": "^5.2.0"
   },
   "scripts": {
-    "start": "ts-node src/server/index.ts",
+    "start": "npm run build && ts-node src/server/index.ts",
     "watch": "nodemon --ext ts,tsx --watch src src/server/index.ts",
     "build": "webpack --mode=development --env platform=web",
     "lint": "npx eslint src --ext .js,.jsx,.ts,.tsx"
