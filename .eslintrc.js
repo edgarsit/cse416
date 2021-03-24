@@ -1,4 +1,4 @@
-{
+module.exports = {
     "env": {
         "browser": true,
         "es2021": true,
@@ -47,7 +47,8 @@
         "max-classes-per-file": [
             "error",
              8
-        ]
+        ],
+        "linebreak-style": ["error", (require("os").EOL === "\r\n" ? "windows" : "unix")]
     },
     "ignorePatterns": [
         "/build"

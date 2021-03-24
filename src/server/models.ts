@@ -28,7 +28,7 @@ export class DegreeRequirements {
     public requirements!: [string]
 }
 
-export class CourePlanComment {
+export class CoursePlanComment {
     @rprop({ ref: () => Student })
     public author!: Ref<Student>
 
@@ -102,13 +102,13 @@ export class Student extends User {
   public graduated!: boolean
 
   @rprop()
-  public comments!: boolean
+  public comments!: string
 
   @rprop()
   public sbuId!: number
 
-  @rprop()
-  public degreeRequirements!: DegreeRequirements
+  // @rprop()
+  public degreeRequirements?: DegreeRequirements
 
   public async shareCoursePlan(this: DocumentType<Student>, c: CoursePlan) {
     // TODO

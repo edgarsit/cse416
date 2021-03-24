@@ -2,30 +2,20 @@ import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 
-import { getModelForClass } from '@typegoose/typegoose';
 import mongoose from 'mongoose';
-import App from '../common/app';
-// import { User } from './models';
+import { StudentModel, GPDModel, UserModel } from './models';
 
-const html = ({ body }: { body: string }) => `
+import passport from 'passport';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import session from 'express-session';
+import App from '../common/app';
+
+const html = (body: string) => `
   <!DOCTYPE html>
   <html>
     <head>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script>
-    function onSignIn(googleUser) {
-      console.log(googleUser)
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }
-    </script>
-    <meta name="google-signin-client_id" content="22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com">
     </head>
     <body style='margin:0'>
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
       <div id='app'>${body}</div>
     </body>
     <script src='public/client.js' defer></script>
@@ -37,36 +27,112 @@ const server = express();
 
 server.use(express.static('build'));
 
+server.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.get('/loggedin', (req, res) => { // this is just temporary to show login was succesful
+  const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <title>Login Page</title>
+    <body>
+        <h1> logged in </h1>
+  </body>
+    </html>
+    `;
+  res.write(html);
+  res.end();
+});
+
+passport.use(new GoogleStrategy({
+  clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
+  clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
+  callbackURL: 'http://localhost:3000/auth/google/callback',
+},
+
+  async (accessToken, refreshToken, profile, done) => {
+    const newUser = {
+      googleId: profile.id,
+      displayName: profile.name?.givenName,
+    };
+    done(null, newUser);
+  }));
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user as any);
+});
+
+server.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect('/loggedin');
+  });
+
+server.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+function writeLogin(req: any, res: any) {
+  const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <title>MAST Login Page</title>
+    <style>
+    a.button {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+
+        text-decoration: none;
+        color: initial;
+    }
+    </style>
+    </head>
+    <body>
+        <h1>MAST Login</h1>
+        <a href="/auth/google" class="button">Sign in with Google</a>
+  </body>
+    </html>
+    `;
+  res.write(html);
+  res.end();
+}
+
 server.get('*', (req, res) => {
   const body = renderToString(React.createElement(App));
   res.send(
-    html({
+    html(
       body,
-    }),
+    ),
   );
 });
-
-// UserModel is a regular Mongoose Model with correct types
-// const UserModel = getModelForClass(User);
 
 (async () => {
   await mongoose.connect('mongodb://localhost:27017/', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: 'cse416',
+    dbName: 'cse416'
   });
   mongoose.connection.db.dropDatabase();
 
-  // const { _id: id } = await UserModel.create({ userName: 'asd', password: 'asd' });
-  // const userName = 'asd';
-  // const password = 'asd'
-  // const r = await UserModel.findOne({ userName });
-  // console.log(r);
-  // if (r?.password === password) {
-  //   // Do login
-  // } else {
-  //   // fail
-  // }
+  const { _id: id } = await StudentModel.create({
+    userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0
+  });
+  const userName = 'asd';
+  const password = 'asd'
+  const r = await UserModel.findOne({ userName, password });
+  console.log(r);
 
   server.listen(3000, () => console.log(`http://localhost:${port}/ !`));
 })();

@@ -27,17 +27,21 @@ module.exports = function (env, argv) {
             },
           ],
         },
-      ],
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        }
+      ]
     },
   };
 
   // server-specific configuration
-  if (env.platform === 'server') {
-    base.target = 'node';
-  } else {
+  if (env.platform === 'web') {
     // client-specific configurations
     base.entry = './src/client/clientEntry.tsx';
-    base.output.filename = 'js/client.js';
+    base.output.filename = 'public/client.js';
+  } else {
+    base.target = 'node';
   }
 
   return base;
