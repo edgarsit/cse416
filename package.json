@@ -1,0 +1,28 @@
+{
+  "name": "cse416",
+  "version": "1.0.0",
+  "description": "CSE 416 Project",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgarsit/cse416.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edgarsit/cse416/issues"
+  },
+  "homepage": "https://github.com/edgarsit/cse416#readme"
+}
