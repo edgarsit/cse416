@@ -11,6 +11,7 @@ import session from 'express-session';
 import { StudentModel, GPDModel, UserModel, User } from './models';
 import { ServerApp } from '../common/app';
 
+const url = require('url');
 
 const html = (body: string) => `
   <!DOCTYPE html>
@@ -166,6 +167,9 @@ function writeGPDHome(req, res) {
 function writeSearch(req,res) {
   res.setHeader("Content-Type", "text/html");
 
+  let query = url.parse(req.url, true).query;
+  let search = query.search ? query.search : "";
+  let filter = query.filter ? query.filter: "";
 
   let html = `
   <!DOCTYPE html>
@@ -185,18 +189,60 @@ function writeSearch(req,res) {
                 <option value="allFields">All Fields</option>
                 <option value="userName">Username</option>
                 <option value="sbu_id">SBU_ID</option>
+                <option value="track">Track</option>
+                <option value="graduationSemester">Graduation Semester</option>
             </select>
             <input type="submit" value="Submit">
             <br>
-            Example searches: Joe, 112233445
+            Example searches: Joe, 112233445,
         </form>
+        <br><br>
+        <table>
+            <tr>
+                <th> Name </th>
+                <th> Graduation Semester </th>
+                <th> Number of Semesters in Program </th>
+                <th> Satisfied </th>
+                <th> Pending </th>
+                <th> Unsatisfied </th>
+            </tr>
   <br>
+`; //idk how username is gonna be stored so example might be different
+//also filter might need different options
+//last three or four columns will be implemented later, can sub in with 0 values for now
 
+//get Student Table : Select * from Student
+let student_table={}// replace this with mongodb stuff
+if(filter == "allFields") // this might have to be adjusted to match mongodb syntax, as well as updated if filters change
+        student_table = `SELECT * FROM Studen
+            WHERE username   LIKE '%` + search + `%' OR
+                track  LIKE '%` + search + `%' OR
+                gradSemester  LIKE '%` + search + `%' OR
+                sbu_Id  LIKE '%` + search + `%'`;
+//sql to search usernames
+else if (filter == "username")
+  student_table = `SELECT * FROM Student
+    WHERE username   LIKE '%` + search + `%';`;
+//sql to search sbu id
+else if (filter == "sbu_id")
+  student_table = `SELECT * FROM Student
+    WHERE sbuId   LIKE '%` + search + `%';
+    ORDER BY sbuId`;
+    
+//sql to search track
+else if (filter == "track")
+  student_table = `SELECT * FROM Student
+    WHERE track   LIKE '%` + search + `%';`;
+//sql to reqVers
+else if (filter == "graduationSemester")
+  student_table = `SELECT * FROM Student
+    WHERE graduated=FALSE AND graduationSemester   LIKE '%` + search + `%';`;
 
-  <br>
-`;
+//run query on student table to get information
+//add each row of information into the table with html+=`...` as a loop
+
   res.writeHead(200, {"Content-Type": "text/html"});
-  res.write(html + "\n\n</body>\n</html>");
+  res.write(html + "\n</table>\n\n</body>\n</html>");
   res.end();
 };
 
