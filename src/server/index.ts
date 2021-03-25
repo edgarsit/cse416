@@ -246,6 +246,28 @@ else if (filter == "graduationSemester")
   res.end();
 };
 
+function writeAddStudent(req,res){
+
+  let html = `
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+      <title> Add Student </title>
+  </head>
+
+  <body>
+      <h1> Add Student </h1><br>
+      <form method="get" action = "/authorize">
+          <span>Username: </span>
+          <input type="text" name="username" value=""><br>
+          <span>Password: </span>
+          <input type="text" name="password" value=""><br>
+          <input type="submit" value="Login">
+      </form>
+      <br><br>
+  `;
+};
 
 server.get('/GPD_Home', (req, res) => {
   writeGPDHome(req, res);
@@ -253,6 +275,10 @@ server.get('/GPD_Home', (req, res) => {
 
 server.get('/Search_Students', (req, res) => {
   writeSearch(req,res);
+});
+
+server.get('/Add_Student', (req, res) => {
+  writeAddStudent(req,res);
 });
 
 server.post('/login',
