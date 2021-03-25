@@ -64,19 +64,18 @@ export function Routes({ values }: { values?: any[][] }) {
   );
 }
 
-
 function Home() {
   return (
     <div>
       <Bar />
-      <Container fluid='sm'>
-        <Button className='my-3' href='/imports' block>Imports</Button>
-        <Button className='my-3' href='/addStudent' block>Add Student</Button>
-        <Form action='deleteAll' method='post'>
-          <Button className='my-3' name='del' value='del' type='submit' block>Delete All data</Button>
+      <Container fluid="sm">
+        <Button className="my-3" href="/imports" block>Imports</Button>
+        <Button className="my-3" href="/addStudent" block>Add Student</Button>
+        <Form action="deleteAll" method="post">
+          <Button className="my-3" name="del" value="del" type="submit" block>Delete All data</Button>
         </Form>
-        <Button className='my-3' href='/searchForStudent' block>Browse/search for students</Button>
-        <Button className='my-3' href='/viewEnrollmentTrends' block>View Enrollment Trends</Button>
+        <Button className="my-3" href="/searchForStudent" block>Browse/search for students</Button>
+        <Button className="my-3" href="/viewEnrollmentTrends" block>View Enrollment Trends</Button>
       </Container>
     </div>
   );

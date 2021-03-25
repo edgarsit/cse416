@@ -1,6 +1,5 @@
-import React from "react";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
 export default function Bar(props: { title?: string }) {
   return (
@@ -21,7 +20,8 @@ export default function Bar(props: { title?: string }) {
       <div style={{
         marginLeft: 'auto',
         marginRight: 'auto',
-      }}>
+      }}
+      >
         {props.title}
       </div>
       <a href="/logout">Logout</a>

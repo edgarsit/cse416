@@ -10,23 +10,23 @@ export default class Login extends React.Component<{}, { error: string, loading:
     const { error, loading } = this.state;
 
     return (
-      <div className='login'>
+      <div className="login">
         <div>
           <a href="/auth/google" className="button">Sign in with Google</a>
         </div>
         Login
         <br />
         <br />
-        <form action='login' method='post'>
+        <form action="login" method="post">
           <div>
             Username
-          <br />
-            <Input type="text" autoComplete="new-password" name='username' />
+            <br />
+            <Input type="text" autoComplete="new-password" name="username" />
           </div>
           <div style={{ marginTop: 10 }}>
             Password
-          <br />
-            <Input type="password" autoComplete="new-password" name='password' />
+            <br />
+            <Input type="password" autoComplete="new-password" name="password" />
           </div>
           {error ?? (
             <>
@@ -48,6 +48,7 @@ class Input extends React.Component<InputProps, { value: string }> {
     super(props);
     this.state = { value: '' };
   }
+
   render() {
     return (
       <input

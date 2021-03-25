@@ -1,16 +1,18 @@
 import React from 'react';
-import { Alert, Button, Col, Container, Dropdown, DropdownButton, Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
+import {
+  Alert, Button, Col, Container, Dropdown, DropdownButton, Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip,
+} from 'react-bootstrap';
 import Bar from './bar';
 
 export const cols = {
-  "userName": ['Name', 'Name', 'text'],
-  "sat": ['Sat Reqs', 'Satisfied Requirements'],
-  "pend": ['Pend Reqs', 'Pending Requirements'],
-  "unsat": ['Unsat Reqs', 'Unatisfied Requirements'],
-  "gradSemester": ['Grad Sem', 'Graduation Semester'],
-  "nsem": ['# Sem', 'Number of Semesters in the Program'],
-  "valid": ['P Valid', 'Course Plan Validity', ['Valid', 'Invalid']],
-  "compl": ['P Compl', 'Course Plan Completeness', ['Complete', 'Incomplete']],
+  userName: ['Name', 'Name', 'text'],
+  sat: ['Sat Reqs', 'Satisfied Requirements'],
+  pend: ['Pend Reqs', 'Pending Requirements'],
+  unsat: ['Unsat Reqs', 'Unatisfied Requirements'],
+  gradSemester: ['Grad Sem', 'Graduation Semester'],
+  nsem: ['# Sem', 'Number of Semesters in the Program'],
+  valid: ['P Valid', 'Course Plan Validity', ['Valid', 'Invalid']],
+  compl: ['P Compl', 'Course Plan Completeness', ['Complete', 'Incomplete']],
 } as const;
 
 type cols_t = typeof cols;
@@ -21,39 +23,49 @@ export default function SearchForStudent({ values }: { values?: any[][] }) {
   const [data, setData] = React.useState(values ?? []);
 
   const onHide = (e) => {
-    setModalShow(false)
-    setAlertShow(true)
-    setTimeout(() => setAlertShow(false), 1000)
+    setModalShow(false);
+    setAlertShow(true);
+    setTimeout(() => setAlertShow(false), 1000);
     e.preventDefault();
   };
 
   return (
     <>
-      <Bar title='Browse/Search For Student' />
-      <Container className='my-2'>
-        <Button variant='primary' onClick={() => setModalShow(true)}>
+      <Bar title="Browse/Search For Student" />
+      <Container className="my-2">
+        <Button variant="primary" onClick={() => setModalShow(true)}>
           Filters
-                </Button>
-        <Alert show={alertShow} variant='info'> Loading... </Alert>
+        </Button>
+        <Alert show={alertShow} variant="info"> Loading... </Alert>
       </Container>
-      <Container className='my-2'>
+      <Container className="my-2">
         <Table striped bordered hover responsive>
           <thead>
-            <tr>{
+            <tr>
+              {
               Object.entries(cols).map(([k, [s, l, _]]) => (
-                <OverlayTrigger key={k} placement='bottom' overlay={
-                  <Tooltip id={k}>{l}</Tooltip>
-                }>
+                <OverlayTrigger
+                  key={k}
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id={k}>{l}</Tooltip>
+                }
+                >
                   <th>{s}</th>
                 </OverlayTrigger>
               ))
-            }</tr>
+            }
+            </tr>
           </thead>
           <tbody>
-            { // TODO Fix
-              data.map((x, i) => <tr key={i}>
-                {x.map((y, i) => <td key={i}> {y} </td>)}
-              </tr>)
+            { // TODO Fix idx
+              data.map((x, i) => (
+                <tr key={i}>
+                  {x.map((y, i) => (
+                    <td key={i}>{y}</td>
+                  ))}
+                </tr>
+              ))
             }
           </tbody>
         </Table>
@@ -64,10 +76,10 @@ export default function SearchForStudent({ values }: { values?: any[][] }) {
         cols={cols}
       />
     </>
-  )
+  );
 }
 
-function NumberInput({ k, l }: { k: string ,l:string}) {
+function NumberInput({ k, l }: { k: string, l:string}) {
   const [selected, setSelected] = React.useState('=');
   return (
     <InputGroup>
@@ -78,55 +90,59 @@ function NumberInput({ k, l }: { k: string ,l:string}) {
         id={k}
       >
         {
-          ['=', '>', '<', '!='].map(v => (
+          ['=', '>', '<', '!='].map((v) => (
             <Dropdown.Item onClick={() => setSelected(v)} key={v}>{v}</Dropdown.Item>
           ))
         }
       </DropdownButton>
-      <Form.Control type="hidden" value={selected} name={k + 'c'} />
+      <Form.Control type="hidden" value={selected} name={`${k}c`} />
       <Form.Control type="number" placeholder={l} name={k} />
     </InputGroup>
-  )
+  );
 }
 
 function MakeGroup({ cols }: { cols: cols_t }) {
-  return <>{Object.entries(cols).map(([k, [_, l, t]]) => (
-    <Form.Group as={Row} controlId={l} key={l} className='p-2'>
-      <Form.Label column>
-        {l}
-      </Form.Label>
-      <Col>
-        {
-          (t === 'text') ?
-            <Form.Control type='text' placeholder={l} name={k} />
-            :
-            (Array.isArray(t)) ?
-              <Form.Control as='select' name={k} >
-                <option>Ignore</option>
-                {
+  return (
+    <>
+      {Object.entries(cols).map(([k, [_, l, t]]) => (
+        <Form.Group as={Row} controlId={l} key={l} className="p-2">
+          <Form.Label column>
+            {l}
+          </Form.Label>
+          <Col>
+            {
+          (t === 'text')
+            ? <Form.Control type="text" placeholder={l} name={k} />
+            : (Array.isArray(t))
+              ? (
+                <Form.Control as="select" name={k}>
+                  <option>Ignore</option>
+                  {
                   t.map((v) => <option>{v}</option>)
                 }
-              </Form.Control>
-              :
-              <NumberInput k={k} l={l}  />
+                </Form.Control>
+              )
+              : <NumberInput k={k} l={l} />
         }
-      </Col>
-    </Form.Group>
-  ))}</>
+          </Col>
+        </Form.Group>
+      ))}
+    </>
+  );
 }
 
 function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide: (e?: any) => void, cols: cols_t }) {
   return (
     <Modal
       {...{ show, onHide }}
-      size='lg'
-      aria-labelledby='contained-modal-title-vcenter'
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id='contained-modal-title-vcenter'>
+        <Modal.Title id="contained-modal-title-vcenter">
           Filters
-          </Modal.Title>
+        </Modal.Title>
       </Modal.Header>
       <Form action="/searchForStudent" method="get">
         <Modal.Body>

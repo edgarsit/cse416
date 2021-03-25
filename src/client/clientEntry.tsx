@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Routes } from '../common/app';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 declare global {
   interface Window {
