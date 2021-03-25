@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <p><%=  messages %></p>
+<div className='login'>
+<div>
+  <a href="/auth/google" className="button">Sign in with Google</a>
+</div>
+Login
+<form action="/auth" method="post">
+  <div>
+      <label>Username:</label>
+      <input type="text" name="username"/>
+  </div>
+  <div>
+      <label>Password:</label>
+      <input type="password" name="password"/>
+  </div>
+  <div>
+      <input type="submit" value="Log In"/>
+  </div>
+</form>
+
+</div>
+</body>
+</html>

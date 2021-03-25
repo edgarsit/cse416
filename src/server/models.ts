@@ -1,3 +1,4 @@
+
 import {
   getDiscriminatorModelForClass, getModelForClass, prop, DocumentType,
 } from '@typegoose/typegoose';
@@ -50,7 +51,7 @@ export class Course {
     public year!: Date
 
     @rprop()
-    public timeslot!: String
+    public timeslot!: string
 
     @rprop({ ref: () => Course })
     public prerequisites!: Ref<Course>[]
@@ -113,9 +114,11 @@ export class Student extends User {
   public async editStudentInformation(this: DocumentType<Student>) {
     // TODO
   }
+
   public async viewCoursePlanHistory(this: DocumentType<Student>) {
     // TODO
   }
+
   public async suggestCoursePlan(this: DocumentType<Student>) {
     // TODO
   }
