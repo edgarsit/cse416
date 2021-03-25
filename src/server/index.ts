@@ -2,15 +2,18 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 
 import mongoose from 'mongoose';
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'; 
+import { DocumentType } from '@typegoose/typegoose';
+
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import session from 'express-session';
-import { StudentModel, GPDModel, UserModel } from './models';
+import { StudentModel, GPDModel, UserModel, User } from './models';
 import { ServerApp } from '../common/app';
 import { fileURLToPath } from 'node:url';
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var bodyParser = require('body-parser');
+
 
 const html = (body: string) => `
   <!DOCTYPE html>
@@ -27,6 +30,9 @@ const html = (body: string) => `
 
 const port = 3000;
 const server = express();
+
+server.use(express.urlencoded({ extended: true }));
+server.use(express.text());
 
 server.use(express.static('build'));
 server.use(bodyParser.json()); // support json encoded bodies
@@ -62,13 +68,29 @@ passport.use(new GoogleStrategy({
   callbackURL: 'http://localhost:3000/auth/google/callback',
 },
 
-async (accessToken, refreshToken, profile, done) => {
-  const newUser = {
-    googleId: profile.id,
-    displayName: profile.name?.givenName,
-  };
-  done(null, newUser);
-}));
+  async (accessToken, refreshToken, profile, done) => {
+    const newUser = {
+      googleId: profile.id,
+      displayName: profile.name?.givenName,
+    };
+    done(null, newUser);
+  })
+);
+
+passport.use(new LocalStrategy(
+  function (username: string, password: string, done: (arg0: any, arg1?: boolean | DocumentType<User>, arg2?: { message: string; }) => void) {
+    UserModel.findOne({ userName: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
 
 
