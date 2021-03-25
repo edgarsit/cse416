@@ -8,10 +8,10 @@ import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
-import { StudentModel, UserModel, User } from './models';
+import { StudentModel, UserModel, User, GPDModel, Student } from './models';
 import { ServerApp } from '../common/app';
 
-const url = require('url');
+import url from 'url';
 
 const html = (body: string) => `
   <!DOCTYPE html>
@@ -32,8 +32,6 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
 
 server.use(express.static('build'));
-server.use(express.json()); // support json encoded bodies
-server.use(express.urlencoded({ extended: true })); // support encoded bodies
 
 server.use(session({
   secret: 'keyboard cat',
@@ -45,10 +43,11 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    UserModel.findOne({userName: username}, function(err, user) {
+  function (username, password, done) {
+    UserModel.findOne({ userName: username }, function (err, user) {
       if (err) {
-        return done(err); }
+        return done(err);
+      }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
@@ -57,8 +56,11 @@ passport.use(new LocalStrategy(
   }
 ));
 
-server.post('/auth', passport.authenticate('local', { successRedirect: '/',
-                                                    failureRedirect: '/login' }));
+server.post('/auth', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
+
 passport.use(new GoogleStrategy({
   clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
@@ -116,16 +118,15 @@ server.get('/auth/google/callback',
     res.redirect('/');
   });
 
-  server.get('/auth/google',
+server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-  function loggedIn(req, res, next) {
-    if (req.user == undefined) {
-      res.redirect('/login');
-    } else {
-      next();
-        
-    }
+function loggedIn(req, res, next) {
+  if (req.user == undefined) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
 }
 
 function writeGPDHome(req, res) {
@@ -172,10 +173,10 @@ function writeGPDHome(req, res) {
   res.end();
 };
 
-function writeSearch(req,res){
+function writeSearch(req, res) {
   let query = url.parse(req.url, true).query
-  let filter = query.filter? query.filter : "";
-  let search = query.search? query.search : "";
+  let filter = query.filter ? query.filter : "";
+  let search = query.search ? query.search : "";
 
   let html = `
   <!DOCTYPE html>
@@ -214,45 +215,45 @@ function writeSearch(req,res){
             </tr>
   <br>
 `; //idk how username is gonna be stored so example might be different
-//also filter might need different options
-//last three or four columns will be implemented later, can sub in with 0 values for now
+  //also filter might need different options
+  //last three or four columns will be implemented later, can sub in with 0 values for now
 
-//get Student Table : Select * from Student
-let student_table={}// replace this with mongodb stuff
-if(filter == "allFields") // this might have to be adjusted to match mongodb syntax, as well as updated if filters change
-        student_table = `SELECT * FROM Student
+  //get Student Table : Select * from Student
+  let student_table = {}// replace this with mongodb stuff
+  if (filter == "allFields") // this might have to be adjusted to match mongodb syntax, as well as updated if filters change
+    student_table = `SELECT * FROM Student
             WHERE username   LIKE '%` + search + `%' OR
                 track  LIKE '%` + search + `%' OR
                 gradSemester  LIKE '%` + search + `%' OR
                 sbu_Id  LIKE '%` + search + `%'`;
-//sql to search usernames
-else if (filter == "username")
-  student_table = `SELECT * FROM Student
+  //sql to search usernames
+  else if (filter == "username")
+    student_table = `SELECT * FROM Student
     WHERE username   LIKE '%` + search + `%';`;
-//sql to search sbu id
-else if (filter == "sbu_id")
-  student_table = `SELECT * FROM Student
+  //sql to search sbu id
+  else if (filter == "sbu_id")
+    student_table = `SELECT * FROM Student
     WHERE sbuId   LIKE '%` + search + `%';
     ORDER BY sbuId`;
-    
-//sql to search track
-else if (filter == "track")
-  student_table = `SELECT * FROM Student
+
+  //sql to search track
+  else if (filter == "track")
+    student_table = `SELECT * FROM Student
     WHERE track   LIKE '%` + search + `%';`;
-//sql to reqVers
-else if (filter == "graduationSemester")
-  student_table = `SELECT * FROM Student
+  //sql to reqVers
+  else if (filter == "graduationSemester")
+    student_table = `SELECT * FROM Student
     WHERE graduated=FALSE AND graduationSemester   LIKE '%` + search + `%';`;
 
-//run query on student table to get information
-//add each row of information into the table with html+=`...` as a loop
+  //run query on student table to get information
+  //add each row of information into the table with html+=`...` as a loop
 
-  res.writeHead(200, {"Content-Type": "text/html"});
+  res.writeHead(200, { "Content-Type": "text/html" });
   res.write(html + "\n</table>\n\n</body>\n</html>");
   res.end();
 };
 
-function writeAddStudent(req,res){
+function writeAddStudent(req, res) {
 
   let html = `
   <!DOCTYPE html>
@@ -280,22 +281,33 @@ server.get('/GPD_Home', (req, res) => {
 });
 
 server.get('/Add_Student', (req, res) => {
-  writeAddStudent(req,res);
+  writeAddStudent(req, res);
 });
 
 server.get('/Search_Students', (req, res) => {
-  writeSearch(req,res);
+  writeSearch(req, res);
 });
 
-
 server.post('/login',
-  (req, res) => {
-    return passport.authenticate('local', {
-      failureRedirect: '/login',
-      successRedirect: '/'
-    })(req, res)
-  }
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    successRedirect: '/'
+  })
 )
+
+server.post('/addStudent', async (req, res) => {
+  const s = req.body;
+  console.log(s)
+  console.log(await StudentModel.create(s));
+  res.redirect('/')
+})
+
+server.post('/deleteAll', async (req, res) => {
+  await StudentModel.deleteMany({});
+  console.log(await StudentModel.find({}))
+  res.redirect('/')
+})
+
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
@@ -316,13 +328,11 @@ server.get('*', (req, res) => {
   });
   mongoose.connection.db.dropDatabase();
 
-  const { _id: id } = await StudentModel.create({
+  await StudentModel.create({
     userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
   });
-  const userName = 'asd';
-  const password = 'asd';
-  const r = await UserModel.findOne({ userName, password });
-  console.log(r);
+  await GPDModel.create({ userName: 'qwe', password: 'qwe' });
+
 
   server.listen(3000, () => console.log(`http://localhost:${port}/ !`));
 })();

@@ -11,12 +11,12 @@ import {
   useParams,
 } from 'react-router-dom';
 
-import AddStudent from './addstudent';
+import AddStudent from './addStudent';
 import Imports from './imports';
 import Login from './login';
 import Bar from './bar';
-import SearchForStudent from './searchforstudent';
-import ViewEnrollmentTrends from './viewenrollmenttrends';
+import SearchForStudent from './searchForStudent';
+import ViewEnrollmentTrends from './viewEnrollmentTrends';
 
 export function ServerApp(url: string) {
   return (
@@ -66,7 +66,9 @@ function Home() {
       <Container fluid='sm'>
         <Button className='my-3' href='/imports' block>Imports</Button>
         <Button className='my-3' href='/addStudent' block>Add Student</Button>
-        <Button className='my-3' href='/deleteAll' block>Delete All data</Button>
+        <Form action='deleteAll' method='post'>
+          <Button className='my-3' name='del' value='del' type='submit' block>Delete All data</Button>
+        </Form>
         <Button className='my-3' href='/searchForStudent' block>Browse/search for students</Button>
         <Button className='my-3' href='/viewEnrollmentTrends' block>View Enrollment Trends</Button>
       </Container>
