@@ -8,9 +8,8 @@ import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
-import { StudentModel, GPDModel, UserModel, User } from './models';
+import { StudentModel, UserModel, User } from './models';
 import { ServerApp } from '../common/app';
-import { fileURLToPath } from 'node:url';
 
 const url = require('url');
 
@@ -33,8 +32,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
 
 server.use(express.static('build'));
-server.use(bodyParser.json()); // support json encoded bodies
-server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+server.use(express.json()); // support json encoded bodies
+server.use(express.urlencoded({ extended: true })); // support encoded bodies
 
 server.use(session({
   secret: 'keyboard cat',
@@ -48,7 +47,7 @@ server.use(passport.session());
 passport.use(new LocalStrategy(
   function(username, password, done) {
     UserModel.findOne({userName: username}, function(err, user) {
-      if (err) { 
+      if (err) {
         return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
@@ -238,7 +237,7 @@ else if (filter == "sbu_id")
   student_table = `SELECT * FROM Student
     WHERE sbuId   LIKE '%` + search + `%';
     ORDER BY sbuId`;
-    
+
 //sql to search track
 else if (filter == "track")
   student_table = `SELECT * FROM Student
