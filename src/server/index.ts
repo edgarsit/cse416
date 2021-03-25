@@ -10,6 +10,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
 import { StudentModel, GPDModel, UserModel, User } from './models';
 import { ServerApp } from '../common/app';
+import { fileURLToPath } from 'node:url';
 
 const url = require('url');
 
@@ -32,6 +33,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
 
 server.use(express.static('build'));
+server.use(bodyParser.json()); // support json encoded bodies
+server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 server.use(session({
   secret: 'keyboard cat',
@@ -42,20 +45,21 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.get('/loggedin', (req, res) => { // this is just temporary to show login was succesful
-  const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <title>Login Page</title>
-    <body>
-        <h1> logged in </h1>
-  </body>
-    </html>
-    `;
-  res.write(html);
-  res.end();
-});
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    UserModel.findOne({userName: username}, function(err, user) {
+      if (err) { 
+        return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
+server.post('/auth', passport.authenticate('local', { successRedirect: '/',
+                                                    failureRedirect: '/login' }));
 passport.use(new GoogleStrategy({
   clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
@@ -196,6 +200,12 @@ function writeSearch(req,res) {
             <br>
             Example searches: Joe, 112233445,
         </form>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <input type="submit" value="Log In"/>
+    </div>
+</form>
         <br><br>
         <table>
             <tr>
