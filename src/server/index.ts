@@ -4,14 +4,12 @@ import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 
+import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
-import { StudentModel, GPDModel, UserModel, User } from './models';
+import { StudentModel, UserModel, User } from './models';
 import { ServerApp } from '../common/app';
-import { fileURLToPath } from 'node:url';
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var bodyParser = require('body-parser');
 
 const url = require('url');
 
@@ -27,7 +25,6 @@ const html = (body: string) => `
   </html>
 `;
 
-
 const port = 3000;
 const server = express();
 
@@ -35,8 +32,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
 
 server.use(express.static('build'));
-server.use(bodyParser.json()); // support json encoded bodies
-server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+server.use(express.json()); // support json encoded bodies
+server.use(express.urlencoded({ extended: true })); // support encoded bodies
 
 server.use(session({
   secret: 'keyboard cat',
@@ -50,7 +47,7 @@ server.use(passport.session());
 passport.use(new LocalStrategy(
   function(username, password, done) {
     UserModel.findOne({userName: username}, function(err, user) {
-      if (err) { 
+      if (err) {
         return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
@@ -92,12 +89,28 @@ passport.use(new LocalStrategy(
   }
 ));
 
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
 
+passport.deserializeUser((user, done) => {
+  done(null, user as any);
+});
 
-
+server.get('/', (req, res) => {
+  if (req.user) {
+    if ((req.user as any).__t === 'GPD') {
+      res.redirect('home')
+    } else {
+      res.redirect('home')
+    }
+  } else {
+    res.redirect('/login')
+  }
+})
 
 server.get('/auth/google/callback',
-  passport.authenticate('google'),
+  passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication, redirect home.
     res.redirect('/');
@@ -274,47 +287,6 @@ server.get('/Search_Students', (req, res) => {
   writeSearch(req,res);
 });
 
-passport.serializeUser((user, done) => {
-  done(null, user as any);
-});
-
-passport.deserializeUser((user, done) => {
-  done(null, user as any);
-});
-
-server.get("/login", (req, res) => {
-  var html = 
-  
-  `
-  <!DOCTYPE html>
-  <html lang="en">
-  <body>
-  <div className='login'>
-  <div>
-    <a href="/auth/google" className="button">Sign in with Google</a>
-  </div>
-  Login
-  <form action="/auth" method="post">
-    <div>
-        <label>Username:</label>
-        <input type="text" name="username"/>
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password"/>
-    </div>
-    <div>
-        <input type="submit" value="Log In"/>
-    </div>
-</form>
-  
-</div>
-</body>
-</html>`
-res.write(html);
-res.end()
-
-});
 
 server.post('/login',
   (req, res) => {
@@ -327,7 +299,7 @@ server.post('/login',
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-server.get('*', loggedIn, (req, res, next) => {
+server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url));
   res.send(
     html(

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Form, FormControl, Nav, Navbar, NavDropdown,
+  Button, Container, Form, FormControl, Nav, Navbar, NavDropdown, Row,
 } from 'react-bootstrap';
 import {
   StaticRouter,
@@ -11,7 +11,14 @@ import {
   useParams,
 } from 'react-router-dom';
 
-export function ServerApp(url:string) {
+import AddStudent from './addstudent';
+import Imports from './imports';
+import Login from './login';
+import Bar from './bar';
+import SearchForStudent from './searchforstudent';
+import ViewEnrollmentTrends from './viewenrollmenttrends';
+
+export function ServerApp(url: string) {
   return (
     <StaticRouter location={url}>
       <Routes />
@@ -29,6 +36,21 @@ export class Routes extends React.Component {
         <Route path="/topics">
           <Topics />
         </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/imports">
+          <Imports />
+        </Route>
+        <Route path="/addStudent">
+          <AddStudent />
+        </Route>
+        <Route path="/searchForStudent">
+          <SearchForStudent />
+        </Route>
+        <Route path="/viewEnrollmentTrends">
+          <ViewEnrollmentTrends />
+        </Route>
         <Route path="/">
           <Home />
         </Route>
@@ -39,23 +61,16 @@ export class Routes extends React.Component {
 
 function Home() {
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/login">MAST System</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/home">Home</Nav.Link>
-          <Nav.Link href="/about">Link</Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <div>
+      <Bar />
+      <Container fluid='sm'>
+        <Button className='my-3' href='/imports' block>Imports</Button>
+        <Button className='my-3' href='/addStudent' block>Add Student</Button>
+        <Button className='my-3' href='/deleteAll' block>Delete All data</Button>
+        <Button className='my-3' href='/searchForStudent' block>Browse/search for students</Button>
+        <Button className='my-3' href='/viewEnrollmentTrends' block>View Enrollment Trends</Button>
+      </Container>
+    </div>
   );
 }
 
