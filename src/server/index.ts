@@ -4,12 +4,14 @@ import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 
-import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
-import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
 import { StudentModel, GPDModel, UserModel, User } from './models';
 import { ServerApp } from '../common/app';
+import { fileURLToPath } from 'node:url';
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var bodyParser = require('body-parser');
 
 const url = require('url');
 
@@ -25,6 +27,7 @@ const html = (body: string) => `
   </html>
 `;
 
+
 const port = 3000;
 const server = express();
 
@@ -32,6 +35,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
 
 server.use(express.static('build'));
+server.use(bodyParser.json()); // support json encoded bodies
+server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 server.use(session({
   secret: 'keyboard cat',
@@ -42,20 +47,21 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.get('/loggedin', (req, res) => { // this is just temporary to show login was succesful
-  const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <title>Login Page</title>
-    <body>
-        <h1> logged in </h1>
-  </body>
-    </html>
-    `;
-  res.write(html);
-  res.end();
-});
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    UserModel.findOne({userName: username}, function(err, user) {
+      if (err) { 
+        return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
+server.post('/auth', passport.authenticate('local', { successRedirect: '/',
+                                                    failureRedirect: '/login' }));
 passport.use(new GoogleStrategy({
   clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
@@ -86,47 +92,37 @@ passport.use(new LocalStrategy(
   }
 ));
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
 
-passport.deserializeUser((user, done) => {
-  done(null, user as any);
-});
 
-server.get('/', (req, res) => {
-  if (req.user) {
-    if ((req.user as any).__t === 'GPD') {
-      res.redirect('home')
-    } else {
-      res.redirect('home')
-    }
-  } else {
-    res.redirect('/login')
-  }
-})
+
 
 server.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google'),
   (req, res) => {
     // Successful authentication, redirect home.
-    res.redirect('/loggedin');
-  }
-);
+    res.redirect('/');
+  });
 
-server.get('/auth/google',
+  server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
+
+  function loggedIn(req, res, next) {
+    if (req.user == undefined) {
+      res.redirect('/login');
+    } else {
+      next();
+        
+    }
+}
 
 function writeGPDHome(req, res) {
   res.setHeader("Content-Type", "text/html");
   let html = `
   <!DOCTYPE html>
   <html lang="en">
-
   <head>
       <title> GPD Home </title>
   </head>
-
   <body>
       <h1> GPD Home </h1><br>
       <form action="/Scrape_Course_Information" method = "get">
@@ -158,18 +154,15 @@ function writeGPDHome(req, res) {
       </form>
       <br>
   `;
-
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(html + "\n\n</body>\n</html>");
   res.end();
 };
 
-function writeSearch(req,res) {
-  res.setHeader("Content-Type", "text/html");
-
-  let query = url.parse(req.url, true).query;
-  let search = query.search ? query.search : "";
-  let filter = query.filter ? query.filter: "";
+function writeSearch(req,res){
+  let query = url.parse(req.url, true).query
+  let filter = query.filter? query.filter : "";
+  let search = query.search? query.search : "";
 
   let html = `
   <!DOCTYPE html>
@@ -214,7 +207,7 @@ function writeSearch(req,res) {
 //get Student Table : Select * from Student
 let student_table={}// replace this with mongodb stuff
 if(filter == "allFields") // this might have to be adjusted to match mongodb syntax, as well as updated if filters change
-        student_table = `SELECT * FROM Studen
+        student_table = `SELECT * FROM Student
             WHERE username   LIKE '%` + search + `%' OR
                 track  LIKE '%` + search + `%' OR
                 gradSemester  LIKE '%` + search + `%' OR
@@ -273,12 +266,54 @@ server.get('/GPD_Home', (req, res) => {
   writeGPDHome(req, res);
 });
 
+server.get('/Add_Student', (req, res) => {
+  writeAddStudent(req,res);
+});
+
 server.get('/Search_Students', (req, res) => {
   writeSearch(req,res);
 });
 
-server.get('/Add_Student', (req, res) => {
-  writeAddStudent(req,res);
+passport.serializeUser((user, done) => {
+  done(null, user as any);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user as any);
+});
+
+server.get("/login", (req, res) => {
+  var html = 
+  
+  `
+  <!DOCTYPE html>
+  <html lang="en">
+  <body>
+  <div className='login'>
+  <div>
+    <a href="/auth/google" className="button">Sign in with Google</a>
+  </div>
+  Login
+  <form action="/auth" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" name="username"/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <input type="submit" value="Log In"/>
+    </div>
+</form>
+  
+</div>
+</body>
+</html>`
+res.write(html);
+res.end()
+
 });
 
 server.post('/login',
@@ -289,8 +324,10 @@ server.post('/login',
     })(req, res)
   }
 )
+server.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
 
-server.get('*', (req, res) => {
+server.get('*', loggedIn, (req, res, next) => {
   const body = renderToString(ServerApp(req.url));
   res.send(
     html(
