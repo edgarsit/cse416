@@ -16,7 +16,7 @@ import Imports from './imports';
 import Login from './login';
 import Bar from './bar';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
-import SearchForStudent from './searchforstudent';
+import SearchForStudent from './searchForStudent';
 
 export function ServerApp(url: string) {
   return (

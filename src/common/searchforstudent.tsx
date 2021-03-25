@@ -20,10 +20,11 @@ export default function SearchForStudent({ values }: { values?: any[][] }) {
   const [alertShow, setAlertShow] = React.useState(false);
   const [data, setData] = React.useState(values ?? []);
 
-  const onHide = () => {
+  const onHide = (e) => {
     setModalShow(false)
     setAlertShow(true)
     setTimeout(() => setAlertShow(false), 1000)
+    e.preventDefault();
   };
 
   return (
@@ -66,7 +67,7 @@ export default function SearchForStudent({ values }: { values?: any[][] }) {
   )
 }
 
-function NumberInput({ l }: { l: string }) {
+function NumberInput({ k, l }: { k: string ,l:string}) {
   const [selected, setSelected] = React.useState('=');
   return (
     <InputGroup>
@@ -74,16 +75,16 @@ function NumberInput({ l }: { l: string }) {
         as={InputGroup.Prepend}
         variant="outline-secondary"
         title={selected}
-        id={l}
+        id={k}
       >
         {
           ['=', '>', '<', '!='].map(v => (
-            <Dropdown.Item onClick={() => setSelected(v)}>{v}</Dropdown.Item>
+            <Dropdown.Item onClick={() => setSelected(v)} key={v}>{v}</Dropdown.Item>
           ))
         }
       </DropdownButton>
-      <Form.Control type="hidden" value={selected} name={l + 'c'} />
-      <Form.Control type="number" placeholder={l} name={l} required />
+      <Form.Control type="hidden" value={selected} name={k + 'c'} />
+      <Form.Control type="number" placeholder={l} name={k} />
     </InputGroup>
   )
 }
@@ -97,25 +98,24 @@ function MakeGroup({ cols }: { cols: cols_t }) {
       <Col>
         {
           (t === 'text') ?
-            <Form.Control type='text' placeholder={l} name={l} required />
+            <Form.Control type='text' placeholder={l} name={k} />
             :
             (Array.isArray(t)) ?
-              <Form.Control as='select' name={l} required>
+              <Form.Control as='select' name={k} >
+                <option>Ignore</option>
                 {
-                  t.map((v) => {
-                    <option>{v}</option>
-                  })
+                  t.map((v) => <option>{v}</option>)
                 }
               </Form.Control>
               :
-              <NumberInput l={l} />
+              <NumberInput k={k} l={l}  />
         }
       </Col>
     </Form.Group>
   ))}</>
 }
 
-function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide: () => void, cols: cols_t }) {
+function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide: (e?: any) => void, cols: cols_t }) {
   return (
     <Modal
       {...{ show, onHide }}
@@ -134,7 +134,7 @@ function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide
           <MakeGroup cols={cols} />
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit" onClick={onHide}>Apply</Button>
+          <Button type="submit">Apply</Button>
         </Modal.Footer>
       </Form>
     </Modal>

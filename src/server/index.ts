@@ -11,7 +11,7 @@ import session from 'express-session';
 import { StudentModel, UserModel, User, GPDModel } from './models';
 import { ServerApp, ServerSearchForStudent } from '../common/app';
 import { URL } from 'url';
-import { cols } from '../common/searchforstudent';
+import { cols } from '../common/searchForStudent';
 
 const html = (body: string, val?: any) => {
   const v = val != undefined ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -222,7 +222,8 @@ const getQS = (originalURL: string): any => {
   const r: any = {}
   for (const k of Object.keys(cols)) {
     const v = params.get(k);
-    if (v != null) {
+    // TODO Fix hack
+    if (v != null && v !== '' && v != 'Ignore') {
       r[k] = v
     }
   }
@@ -230,8 +231,7 @@ const getQS = (originalURL: string): any => {
 }
 
 server.get('/searchForStudent', async (req, res) => {
-  console.log(req.query)
-  // TODO fix
+  // TODO fix sec
   const s = await StudentModel.find(getQS(req.originalUrl));
   const values = s.map((v) =>
     [
@@ -243,6 +243,7 @@ server.get('/searchForStudent', async (req, res) => {
       0,
     ]
   );
+  // TODO Fix qs
   const body = renderToString(ServerSearchForStudent(req.url, { values }));
   res.send(html(body, { values }));
 });
@@ -256,8 +257,7 @@ server.post('/login',
 
 server.post('/addStudent', async (req, res) => {
   const s = req.body;
-  console.log(s)
-  console.log(await StudentModel.create(s));
+  await StudentModel.create(s)
   res.redirect('/')
 })
 
