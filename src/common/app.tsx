@@ -10,7 +10,6 @@ import {
   useRouteMatch,
   useParams,
 } from 'react-router-dom';
-import Login from './login';
 
 export function ServerApp(url:string) {
   return (
@@ -29,9 +28,6 @@ export class Routes extends React.Component {
         </Route>
         <Route path="/topics">
           <Topics />
-        </Route>
-        <Route path="/login">
-          <Login />
         </Route>
         <Route path="/">
           <Home />
