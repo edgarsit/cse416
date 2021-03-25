@@ -9,6 +9,10 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "lib": [
+      "DOM",
+      "ES2019"
+    ]
   }
 }

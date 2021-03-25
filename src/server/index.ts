@@ -8,22 +8,31 @@ import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
-import { StudentModel, UserModel, User, GPDModel, Student } from './models';
-import { ServerApp } from '../common/app';
+import { StudentModel, UserModel, User, GPDModel } from './models';
+import { ServerApp, ServerSearchForStudent } from '../common/app';
+import { URL } from 'url';
+import { cols } from '../common/searchforstudent';
 
-import url from 'url';
-
-const html = (body: string) => `
+const html = (body: string, val?: any) => {
+  const v = val != undefined ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
+  return `
   <!DOCTYPE html>
   <html>
     <head>
+    <link
+      rel="stylesheet"
+      href="/public/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+${v}
+    <script src='public/client.js' defer></script>
     </head>
     <body style='margin:0'>
       <div id='app'>${body}</div>
     </body>
-    <script src='public/client.js' defer></script>
   </html>
-`;
+`};
 
 const port = 3000;
 const server = express();
@@ -32,6 +41,9 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
 
 server.use(express.static('build'));
+server.use('/public', express.static('public'));
+
+server.set('query parser', 'simple')
 
 server.use(session({
   secret: 'keyboard cat',
@@ -173,86 +185,6 @@ function writeGPDHome(req, res) {
   res.end();
 };
 
-function writeSearch(req, res) {
-  let query = url.parse(req.url, true).query
-  let filter = query.filter ? query.filter : "";
-  let search = query.search ? query.search : "";
-
-  let html = `
-  <!DOCTYPE html>
-  <html lang="en">
-
-  <head>
-      <title> Student Search </title>
-  </head><body>
-  <h1> Student Search </h1><br>
-  <form action="/GPD_Home" method = "get">
-          <button>Home</button>
-  </form>
-  <form method="get" action = "/Search_Students">
-            <input type="text" name="search" value="">
-            <b>in</b>
-            <select name="filter">
-                <option value="allFields">All Fields</option>
-                <option value="userName">Username</option>
-                <option value="sbu_id">SBU_ID</option>
-                <option value="track">Track</option>
-                <option value="graduationSemester">Graduation Semester</option>
-            </select>
-            <input type="submit" value="Submit">
-            <br>
-            Example searches: Joe, 112233445,
-        </form>
-        <br><br>
-        <table>
-            <tr>
-                <th> Name </th>
-                <th> Graduation Semester </th>
-                <th> Number of Semesters in Program </th>
-                <th> Satisfied </th>
-                <th> Pending </th>
-                <th> Unsatisfied </th>
-            </tr>
-  <br>
-`; //idk how username is gonna be stored so example might be different
-  //also filter might need different options
-  //last three or four columns will be implemented later, can sub in with 0 values for now
-
-  //get Student Table : Select * from Student
-  let student_table = {}// replace this with mongodb stuff
-  if (filter == "allFields") // this might have to be adjusted to match mongodb syntax, as well as updated if filters change
-    student_table = `SELECT * FROM Student
-            WHERE username   LIKE '%` + search + `%' OR
-                track  LIKE '%` + search + `%' OR
-                gradSemester  LIKE '%` + search + `%' OR
-                sbu_Id  LIKE '%` + search + `%'`;
-  //sql to search usernames
-  else if (filter == "username")
-    student_table = `SELECT * FROM Student
-    WHERE username   LIKE '%` + search + `%';`;
-  //sql to search sbu id
-  else if (filter == "sbu_id")
-    student_table = `SELECT * FROM Student
-    WHERE sbuId   LIKE '%` + search + `%';
-    ORDER BY sbuId`;
-
-  //sql to search track
-  else if (filter == "track")
-    student_table = `SELECT * FROM Student
-    WHERE track   LIKE '%` + search + `%';`;
-  //sql to reqVers
-  else if (filter == "graduationSemester")
-    student_table = `SELECT * FROM Student
-    WHERE graduated=FALSE AND graduationSemester   LIKE '%` + search + `%';`;
-
-  //run query on student table to get information
-  //add each row of information into the table with html+=`...` as a loop
-
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.write(html + "\n</table>\n\n</body>\n</html>");
-  res.end();
-};
-
 function writeAddStudent(req, res) {
 
   let html = `
@@ -284,8 +216,35 @@ server.get('/Add_Student', (req, res) => {
   writeAddStudent(req, res);
 });
 
-server.get('/Search_Students', (req, res) => {
-  writeSearch(req, res);
+// TODO fix
+const getQS = (originalURL: string): any => {
+  const params = new URL(originalURL, 'http://localhost').searchParams;
+  const r: any = {}
+  for (const k of Object.keys(cols)) {
+    const v = params.get(k);
+    if (v != null) {
+      r[k] = v
+    }
+  }
+  return r
+}
+
+server.get('/searchForStudent', async (req, res) => {
+  console.log(req.query)
+  // TODO fix
+  const s = await StudentModel.find(getQS(req.originalUrl));
+  const values = s.map((v) =>
+    [
+      v.userName,
+      0, 0, 0,
+      v.gradSemester,
+      0,
+      0,
+      0,
+    ]
+  );
+  const body = renderToString(ServerSearchForStudent(req.url, { values }));
+  res.send(html(body, { values }));
 });
 
 server.post('/login',
@@ -304,7 +263,6 @@ server.post('/addStudent', async (req, res) => {
 
 server.post('/deleteAll', async (req, res) => {
   await StudentModel.deleteMany({});
-  console.log(await StudentModel.find({}))
   res.redirect('/')
 })
 

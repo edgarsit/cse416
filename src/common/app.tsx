@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Container, Form, FormControl, Nav, Navbar, NavDropdown, Row,
+  Button, Container, Form,
 } from 'react-bootstrap';
 import {
   StaticRouter,
@@ -15,8 +15,8 @@ import AddStudent from './addStudent';
 import Imports from './imports';
 import Login from './login';
 import Bar from './bar';
-import SearchForStudent from './searchForStudent';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
+import SearchForStudent from './searchforstudent';
 
 export function ServerApp(url: string) {
   return (
@@ -25,39 +25,45 @@ export function ServerApp(url: string) {
     </StaticRouter>
   );
 }
-
-export class Routes extends React.Component {
-  render() {
-    return (
-      <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/topics">
-          <Topics />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/imports">
-          <Imports />
-        </Route>
-        <Route path="/addStudent">
-          <AddStudent />
-        </Route>
-        <Route path="/searchForStudent">
-          <SearchForStudent />
-        </Route>
-        <Route path="/viewEnrollmentTrends">
-          <ViewEnrollmentTrends />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    );
-  }
+export function ServerSearchForStudent(url: string, { values }: { values: any[][] }) {
+  return (
+    <StaticRouter location={url}>
+      <Routes values={values} />
+    </StaticRouter>
+  );
 }
+
+export function Routes({ values }: { values?: any[][] }) {
+  return (
+    <Switch>
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/topics">
+        <Topics />
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/imports">
+        <Imports />
+      </Route>
+      <Route path="/addStudent">
+        <AddStudent />
+      </Route>
+      <Route path="/searchForStudent">
+        <SearchForStudent values={values} />
+      </Route>
+      <Route path="/viewEnrollmentTrends">
+        <ViewEnrollmentTrends />
+      </Route>
+      <Route path="/home">
+        <Home />
+      </Route>
+    </Switch>
+  );
+}
+
 
 function Home() {
   return (

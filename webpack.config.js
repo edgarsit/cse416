@@ -1,5 +1,7 @@
 const path = require('path');
 
+// https://github.com/webpack-contrib/mini-css-extract-plugin
+
 module.exports = function (env, argv) {
   // default to the server configuration
   const base = {

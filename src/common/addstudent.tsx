@@ -24,11 +24,11 @@ export default function AddStudent() {
             continue
         }
         a.push(
-            <Form.Group as={Row} controlId={f} key={f} className='bm-2'>
+            <Form.Group as={Row} controlId={f} key={f} className='py-2'>
                 <Form.Label column>
                     {f}
                 </Form.Label>
-                <Col sm={10}>
+                <Col>
                     <Form.Control type="text" placeholder={f} name={f} required />
                 </Col>
             </Form.Group>

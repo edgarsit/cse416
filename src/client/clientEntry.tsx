@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { Routes } from '../common/app';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 
+import { Routes } from '../common/app';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
+declare global {
+  interface Window {
+    _v?: any;
+  }
+}
+
+const { values = undefined } = window._v ?? {};
 ReactDOM.hydrate((
   <BrowserRouter>
-    <Routes />
+    <Routes values={values} />
   </BrowserRouter>
 ), document.getElementById('app'));
