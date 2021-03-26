@@ -27,6 +27,13 @@ export function ServerApp(url: string, { values, user }: { values?: any[], user?
     </StaticRouter>
   );
 }
+export function ServerSearchForStudent(url: string, { values }: { values: any[][] }) {
+  return (
+    <StaticRouter location={url}>
+      <Routes values={values} />
+    </StaticRouter>
+  );
+}
 
 export function Routes({ values, user}: { values?: any[] , user?:any}) {
   return (
@@ -36,9 +43,6 @@ export function Routes({ values, user}: { values?: any[] , user?:any}) {
       </Route>
       <Route path="/topics">
         <Topics />
-      </Route>
-      <Route path="/login">
-        <Login />
       </Route>
       <Route path="/imports">
         <Imports />
@@ -55,7 +59,7 @@ export function Routes({ values, user}: { values?: any[] , user?:any}) {
       <Route path="/viewEnrollmentTrends">
         <ViewEnrollmentTrends />
       </Route>
-      <Route path="/home">
+      <Route path="/GPD_Home">
         <Home />
       </Route>
     </Switch>

@@ -1,7 +1,8 @@
+//@ts-nocheck
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
-import passport from 'passport';
+import { DocumentType } from '@typegoose/typegoose';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
@@ -11,7 +12,15 @@ import {
   StudentModel, UserModel, GPDModel,
 } from './models';
 import { ServerApp } from '../common/app';
+import { fileURLToPath } from 'node:url';
+import { ServerApp, ServerSearchForStudent } from '../common/app';
 import { cols } from '../common/searchForStudent';
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var bodyParser = require('body-parser');
+var flash = require('connect-flash');
+const url = require('url');
+
 
 const html = (body: string, val?: any) => {
   const v = val != undefined ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -37,14 +46,16 @@ ${v}
 
 const port = 3000;
 const server = express();
-
 server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
-
+server.use(flash());
+server.set('view engine', 'ejs');
 server.use(express.static('build'));
 server.use('/public', express.static('public'));
 
 server.set('query parser', 'simple');
+server.use(bodyParser.json()); // support json encoded bodies
+server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 server.use(session({
   secret: 'keyboard cat',
@@ -56,23 +67,17 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 passport.use(new LocalStrategy(
-  (username, password, done) => {
-    UserModel.findOne({ userName: username }, (err, user) => {
+  function(username, password, done) {
+    UserModel.findOne({userName: username, password: password}, function(err, user) {
       if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(err); }
+      if (!user||!password) {
+        return done(null, false, {message: "Try again incorrect credentials"});
       }
       return done(null, user);
     });
   },
 ));
-
-server.post('/auth', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-}));
 
 passport.use(new GoogleStrategy({
   clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
@@ -80,54 +85,33 @@ passport.use(new GoogleStrategy({
   callbackURL: 'http://localhost:3000/auth/google/callback',
 },
 
-async (accessToken, refreshToken, profile, done) => {
-  const newUser = {
-    googleId: profile.id,
-    displayName: profile.name?.givenName,
-  };
-  done(null, newUser);
-}));
+  function (accessToken, refreshToken, profile, done) {
+      UserModel.findOne({userName: profile.emails[0].value}, function(err, user) {
+      if (err) {
+        return done(err)
+      }
+      if(!user){
+        return done(null, false, {message: "The Google Account used is not associated with a MAST Account"});
+      }
 
-passport.use(new LocalStrategy(
-  (username, password, done) => {
-    UserModel.findOne({ userName: username }, (err, user) => {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (user.password !== password) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
       return done(null, user);
     });
-  },
-));
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser<Express.User>((user, done) => {
-  done(null, user);
-});
-
-server.get('/', (req, res) => {
-  if (req.user) {
-    if ((req.user as any).__t === 'GPD') {
-      res.redirect('home');
-    } else {
-      res.redirect('home');
-    }
-  } else {
-    res.redirect('/login');
   }
-});
+
+  )
+);
+
 
 server.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', {failureRedirect: '/login',failureFlash: true}),
   (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    if((req.user as any).__t === 'Student'){
+      res.redirect('/Student_Home');
+    }else{
+      res.redirect('/GPD_Home');
+    }
+
   });
 
 server.get('/auth/google',
@@ -167,6 +151,15 @@ const pickFromQ = <T>(s: DocumentType<T> | null) => {
   }
   return r
 }
+server.post('/auth', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true} ),
+function(req, res) {
+  if((req.user as any).__t === 'Student'){
+    res.redirect('/Student_Home');
+  }else{
+    res.redirect('/GPD_Home');
+  }
+}
+);
 
 server.get('/searchForStudent', async (req, res) => {
   // TODO sec forall tbh
@@ -219,13 +212,46 @@ server.post('/addStudent', async (req, res) => {
   res.redirect('/');
 });
 
-server.post('/deleteAll', async (req, res) => {
-  await StudentModel.deleteMany({});
-  res.redirect('/');
+server.get("/login", (req, res) => {
+res.render('login',  {messages : req.flash("error")});
+res.end()
+
 });
 
+
+server.post('/deleteAll', loggedIn, async (req, res, next) => {
+  await StudentModel.deleteMany({});
+  res.redirect('/GPD_Home');
+});
+
+server.get('/student_Home', loggedIn, async (req, res, next) => {
+  StudentModel.findOne({userName: (req.user.userName)}, function(err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('student', {users : user})
+    }
+});
+});
+
+server.get('/GPD_Home', loggedIn, (req, res, next) => {
+  const body = renderToString(ServerApp(req.url));
+  res.send(
+    html(
+      body,
+    ),
+  );
+});
+
+server.post('/addStudent', loggedIn, async (req, res) => {
+  const s = req.body;
+  await StudentModel.create(s);
+  res.redirect('/GPD_Home');
+});
+
+
 server.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+  passport.authenticate('google', { scope: ['email'], failureFlash: true}));
 
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url, {}));
@@ -244,10 +270,15 @@ server.get('*', (req, res) => {
   });
   mongoose.connection.db.dropDatabase();
 
+      const { _id: id } = await GPDModel.create({
+        userName: 'ayoub.benchaita@stonybrook.edu', password: 'asd'})
   await StudentModel.create({
-    userName: 'asd', password: 'asd', department: 'CS', track: '', requirementVersion: '1', gradSemester: '123', coursePlan: '', graduated: false, comments: '', sbuId: 0,
-  });
-  await GPDModel.create({ userName: 'qwe', password: 'qwe' });
+          userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
+        });
+  const userName = 'ayoub.benchaita@stonybrook.edu';
+  const password = 'asd';
+  const r = await UserModel.findOne({ userName, password });
+  console.log(r);
 
   server.listen(3000, () => console.log(`http://localhost:${port}/ !`));
 })();
