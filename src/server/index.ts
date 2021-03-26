@@ -1,5 +1,5 @@
 // eslint
-
+//@ts-nocheck
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
@@ -63,7 +63,7 @@ server.use(passport.session());
 
 passport.use(new LocalStrategy(
   ((username, password, done) => {
-    UserModel.findOne({ userName: username, password }, (err, user) => {
+    UserModel.findOne({ userName: username, password: password }, (err, user) => {
       if (err) {
         return done(err);
       }
@@ -80,7 +80,7 @@ passport.use(new GoogleStrategy({
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
   callbackURL: 'http://localhost:3000/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
-  UserModel.findOne({ userName: profile.emails?.[0].value }, (err, user) => {
+  UserModel.findOne({ userName: profile.emails[0].value }, (err, user) => {
     if (err) {
       return done(err);
     }
@@ -97,12 +97,10 @@ server.get('/auth/google/callback',
     if ((req.user as any).__t === 'Student') {
       res.redirect('/Student_Home');
     } else {
-      res.redirect('/GPD_Home');
+      res.redirect('/');
     }
   });
 
-server.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
 
 function loggedIn(req, res, next) {
   if (req.user == undefined) {
@@ -146,7 +144,7 @@ server.post('/auth', passport.authenticate('local', { failureRedirect: '/login',
     }
   });
 
-server.get('/searchForStudent', async (req, res) => {
+server.get('/searchForStudent', loggedIn, async (req, res) => {
   // TODO sec forall tbh
   const s = await StudentModel.find(getQS(req.originalUrl));
   const values = s.map((x) => {
@@ -164,7 +162,7 @@ server.get('/searchForStudent', async (req, res) => {
   res.send(html(body, { values }));
 });
 
-server.get('/editStudentInformation', async (req, res) => {
+server.get('/editStudentInformation', loggedIn, async (req, res) => {
   const params = new URL(req.originalUrl, 'http://localhost').searchParams;
   // TODO wtf
   const userName = params.get('userName') as any;
@@ -203,7 +201,7 @@ server.get('/login', (req, res) => {
 
 server.post('/deleteAll', loggedIn, async (req, res, next) => {
   await StudentModel.deleteMany({});
-  res.redirect('/GPD_Home');
+  res.redirect('/');
 });
 
 server.get('/student_Home', loggedIn, async (req, res, next) => {
@@ -219,13 +217,21 @@ server.get('/student_Home', loggedIn, async (req, res, next) => {
 server.post('/addStudent', loggedIn, async (req, res) => {
   const s = req.body;
   await StudentModel.create(s);
-  res.redirect('/GPD_Home');
+  res.redirect('/');
 });
 
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['email'], failureFlash: true }));
 
-server.get('*', (req, res) => {
+
+passport.serializeUser((user, done) => {
+    done(null, user as any);
+  });
+  
+passport.deserializeUser((user, done) => {
+    done(null, user as any);
+  });
+server.get('*', loggedIn, (req, res) => {
   const body = renderToString(ServerApp(req.url, {}));
   res.send(
     html(
