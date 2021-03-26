@@ -34,8 +34,14 @@ module.exports = function (env, argv) {
   };
 
   if (env.platform === 'web') {
-    base.entry = './src/client/clientEntry.tsx';
-    base.output.filename = 'public/client.js';
+    base.entry = {
+      client: './src/client/client.tsx',
+      login: './src/client/login.tsx'
+    };
+    base.output = {
+      filename: '[name].js',
+      path: __dirname + '/build/public',
+    };
   } else {
     base.target = 'node';
   }

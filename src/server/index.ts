@@ -79,9 +79,7 @@ passport.use(new GoogleStrategy({
   clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
   callbackURL: 'http://localhost:3000/auth/google/callback',
-},
-
-((accessToken, refreshToken, profile, done) => {
+}, (accessToken, refreshToken, profile, done) => {
   UserModel.findOne({ userName: profile.emails?.[0].value }, (err, user) => {
     if (err) {
       return done(err);
@@ -89,10 +87,9 @@ passport.use(new GoogleStrategy({
     if (!user) {
       return done(null, false, { message: 'The Google Account used is not associated with a MAST Account' });
     }
-
     return done(null, user);
   });
-})));
+}));
 
 server.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login', failureFlash: true }),
@@ -107,7 +104,6 @@ server.get('/auth/google/callback',
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-// TODO fix + use
 function loggedIn(req, res, next) {
   if (req.user == undefined) {
     res.redirect('/login');
@@ -189,11 +185,10 @@ server.post('/editStudentInformation', async (req, res) => {
   res.redirect(req.originalUrl);
 });
 
-server.post('/login',
-  passport.authenticate('local', {
-    failureRedirect: '/login',
-    successRedirect: '/',
-  }));
+server.post('/login', passport.authenticate('local', {
+  failureRedirect: '/login',
+  successRedirect: '/',
+}));
 
 server.post('/addStudent', async (req, res) => {
   const s = req.body;
@@ -219,15 +214,6 @@ server.get('/student_Home', loggedIn, async (req, res, next) => {
       res.render('student', { users: user });
     }
   });
-});
-
-server.get('/GPD_Home', loggedIn, (req, res, next) => {
-  const body = renderToString(ServerApp(req.url, {}));
-  res.send(
-    html(
-      body,
-    ),
-  );
 });
 
 server.post('/addStudent', loggedIn, async (req, res) => {

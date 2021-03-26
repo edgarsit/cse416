@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Form, Container, Button, Row, Col,
 } from 'react-bootstrap';
-import Bar from './util';
+import { Bar } from './util';
 import { cols } from './searchForStudent';
 
 export default function EditStudentInformation(

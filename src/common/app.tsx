@@ -2,18 +2,11 @@ import React from 'react';
 import {
   Button, Container, Form,
 } from 'react-bootstrap';
-import {
-  StaticRouter,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-} from 'react-router-dom';
+import { StaticRouter, Switch, Route } from 'react-router-dom';
 
 import AddStudent from './addStudent';
 import Imports from './imports';
-import Bar from './util';
+import { Bar } from './util';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
 import EditStudentInformation from './editStudentInformation';
@@ -26,15 +19,8 @@ export function ServerApp(url: string, { values, user }: { values?: any[], user?
     </StaticRouter>
   );
 }
-export function ServerSearchForStudent(url: string, { values }: { values: any[][] }) {
-  return (
-    <StaticRouter location={url}>
-      <Routes values={values} />
-    </StaticRouter>
-  );
-}
 
-export function Routes({ values, user }: { values?: any[], user?:any}) {
+export function Routes({ values, user }: { values?: any[], user?: any }) {
   return (
     <Switch>
       <Route path="/imports">
@@ -52,7 +38,7 @@ export function Routes({ values, user }: { values?: any[], user?:any}) {
       <Route path="/viewEnrollmentTrends">
         <ViewEnrollmentTrends />
       </Route>
-      <Route path="/GPD_Home">
+      <Route path="/">
         <Home />
       </Route>
     </Switch>
@@ -61,7 +47,7 @@ export function Routes({ values, user }: { values?: any[], user?:any}) {
 
 function Home() {
   return (
-    <div>
+    <>
       <Bar />
       <Container fluid="sm">
         <Button className="my-3" href="/imports" block>Imports</Button>
@@ -72,6 +58,6 @@ function Home() {
         <Button className="my-3" href="/searchForStudent" block>Browse/search for students</Button>
         <Button className="my-3" href="/viewEnrollmentTrends" block>View Enrollment Trends</Button>
       </Container>
-    </div>
+    </>
   );
 }

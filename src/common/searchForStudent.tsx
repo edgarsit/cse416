@@ -4,17 +4,17 @@ import {
   Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Bar from './util';
+import { Bar, Field } from './util';
 
 export const cols = {
-  userName: ['Name', 'Name', 'text'],
+  userName: ['Name', 'Name', 'string'],
   sat: ['Sat Reqs', 'Satisfied Requirements'],
   pend: ['Pend Reqs', 'Pending Requirements'],
   unsat: ['Unsat Reqs', 'Unatisfied Requirements'],
   gradSemester: ['Grad Sem', 'Graduation Semester'],
   nsem: ['# Sem', 'Number of Semesters in the Program'],
-  valid: ['P Valid', 'Course Plan Validity', ['Valid', 'Invalid']],
-  compl: ['P Compl', 'Course Plan Completeness', ['Complete', 'Incomplete']],
+  valid: ['P Valid', 'Course Plan Validity', ['Valid', 'Invalid', 'Ignore']],
+  compl: ['P Compl', 'Course Plan Completeness', ['Complete', 'Incomplete', 'Ignore']],
 } as const;
 
 type cols_t = typeof cols;
@@ -45,18 +45,18 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
           <thead>
             <tr>
               {
-              Object.entries(cols).map(([k, [s, l, _]]) => (
-                <OverlayTrigger
-                  key={k}
-                  placement="bottom"
-                  overlay={
-                    <Tooltip id={k}>{l}</Tooltip>
-                }
-                >
-                  <th>{s}</th>
-                </OverlayTrigger>
-              ))
-            }
+                Object.entries(cols).map(([k, [s, l, _]]) => (
+                  <OverlayTrigger
+                    key={k}
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id={k}>{l}</Tooltip>
+                    }
+                  >
+                    <th>{s}</th>
+                  </OverlayTrigger>
+                ))
+              }
             </tr>
           </thead>
           <tbody>
@@ -85,62 +85,6 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
   );
 }
 
-function NumberInput({ k }: { k: string }) {
-  const [selected, setSelected] = React.useState('=');
-  return (
-    <InputGroup>
-      <DropdownButton
-        as={InputGroup.Prepend}
-        variant="outline-secondary"
-        title={selected}
-        id={k}
-      >
-        {
-          // TODO != fix width
-          ['=', '>', '<', '!='].map((v) => (
-            <Dropdown.Item onClick={() => setSelected(v)} key={v}>
-              {v}
-            </Dropdown.Item>
-          ))
-        }
-      </DropdownButton>
-      <Form.Control type="hidden" value={selected} name={`${k}c`} />
-      <Form.Control type="number" name={k} />
-    </InputGroup>
-  );
-}
-
-// TODO loop before call
-function MakeGroup({ cols }: { cols: cols_t }) {
-  return (
-    <>
-      {Object.entries(cols).map(([k, [_, l, t]]) => (
-        <Form.Group as={Row} controlId={l} key={l} className="p-2">
-          <Form.Label column>
-            {l}
-          </Form.Label>
-          <Col>
-            {
-          (t === 'text')
-            ? <Form.Control type="text" name={k} />
-            : (Array.isArray(t))
-              ? (
-                <Form.Control as="select" name={k}>
-                  <option>Ignore</option>
-                  {
-                  t.map((v) => <option>{v}</option>)
-                }
-                </Form.Control>
-              )
-              : <NumberInput k={k} />
-        }
-          </Col>
-        </Form.Group>
-      ))}
-    </>
-  );
-}
-
 function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide: (e?: any) => void, cols: cols_t }) {
   return (
     <Modal
@@ -157,7 +101,9 @@ function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide
       </Modal.Header>
       <Form action="/searchForStudent" method="get">
         <Modal.Body>
-          <MakeGroup cols={cols} />
+          {
+            Object.entries(cols).map(([k, [_, l, t]]) => (<Field key={k} long={l} name={k} type={t ?? 'number'} cmp={true} />))
+          }
         </Modal.Body>
         <Modal.Footer>
           <Button type="submit">Apply</Button>
