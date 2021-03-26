@@ -29,7 +29,7 @@ We use the [Airbnb style](https://github.com/airbnb/javascript), enforced with E
 
 ## 3. Implementation Status Report
 
-See <implementation-grading-sheet.xlsx> and <implementation-status-team5.md>
+See [implementation-grading-sheet-team5.xlsx](implementation-grading-sheet-team5.xlsx) and [implementation-status-team5.md](implementation-status-team5.md)
 
 ## 4. Installation Manual
 
