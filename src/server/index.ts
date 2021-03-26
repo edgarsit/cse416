@@ -6,10 +6,11 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
 import { URL } from 'url';
+import { DocumentType } from '@typegoose/typegoose';
 import {
   StudentModel, UserModel, GPDModel,
 } from './models';
-import { ServerApp, ServerSearchForStudent } from '../common/app';
+import { ServerApp } from '../common/app';
 import { cols } from '../common/searchForStudent';
 
 const html = (body: string, val?: any) => {
@@ -25,7 +26,7 @@ const html = (body: string, val?: any) => {
       crossorigin="anonymous"
     />
 ${v}
-    <script src='public/client.js' defer></script>
+    <script src='/public/client.js' defer></script>
     </head>
     <body style='margin:0'>
       <div id='app'>${body}</div>
@@ -106,8 +107,8 @@ passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user as any);
+passport.deserializeUser<Express.User>((user, done) => {
+  done(null, user);
 });
 
 server.get('/', (req, res) => {
@@ -132,6 +133,7 @@ server.get('/auth/google/callback',
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
+// TODO fix + use
 function loggedIn(req, res, next) {
   if (req.user == undefined) {
     res.redirect('/login');
@@ -140,13 +142,13 @@ function loggedIn(req, res, next) {
   }
 }
 
-// TODO fix
 const getQS = (originalURL: string) => {
   const params = new URL(originalURL, 'http://localhost').searchParams;
   const r = {};
+  // TODO hoist
   for (const k of Object.keys(cols)) {
     const v = params.get(k);
-    // TODO Fix hack
+    // TODO Fix hack -> hasOwnProp
     if (v != null && v !== '' && v != 'Ignore') {
       r[k] = v;
     }
@@ -154,21 +156,56 @@ const getQS = (originalURL: string) => {
   return r;
 };
 
+const pickFromQ = <T>(s: DocumentType<T> | null) => {
+  const r = {}
+  if (s == null) { return r }
+  // TODO undoc, lean?
+  for (const [k, v] of Object.entries((s as any)._doc)) {
+    if (!k.startsWith('_')) {
+      r[k] = v
+    }
+  }
+  return r
+}
+
 server.get('/searchForStudent', async (req, res) => {
-  // TODO fix sec
+  // TODO sec forall tbh
   const s = await StudentModel.find(getQS(req.originalUrl));
-  const values = s.map((v) => [
-    v.userName,
-    0, 0, 0,
-    v.gradSemester,
-    0,
-    0,
-    0,
-  ]);
-  // TODO Fix qs
-  const body = renderToString(ServerSearchForStudent(req.url, { values }));
+  const values = s.map((x) => {
+    const a = {}
+    // TODO undoc maybe lean
+    for (const [k, v] of Object.entries((x as any)._doc)) {
+      if (!k.startsWith('_')) {
+        a[k] = v
+      }
+    }
+    return a
+  })
+  // TODO qs state modal
+  const body = renderToString(ServerApp(req.url, { values }));
   res.send(html(body, { values }));
 });
+
+server.get('/editStudentInformation', async (req, res) => {
+  const params = new URL(req.originalUrl, 'http://localhost').searchParams;
+  // TODO wtf
+  const userName = params.get('userName') as any;
+  // TODO proper err
+  const user = pickFromQ(await StudentModel.findOne({ userName }));
+  const body = renderToString(ServerApp(req.url, { user }));
+  res.send(html(body, { user }));
+})
+
+server.post('/editStudentInformation', async (req, res) => {
+  try {
+    await StudentModel.findOneAndUpdate(
+      { userName: req.body.userName },
+      // TODO wtf
+      { ...req.body }
+    )
+  } catch (e) { console.error(e) }
+  res.redirect(req.originalUrl)
+})
 
 server.post('/login',
   passport.authenticate('local', {
@@ -191,7 +228,7 @@ server.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 server.get('*', (req, res) => {
-  const body = renderToString(ServerApp(req.url));
+  const body = renderToString(ServerApp(req.url, {}));
   res.send(
     html(
       body,
@@ -208,7 +245,7 @@ server.get('*', (req, res) => {
   mongoose.connection.db.dropDatabase();
 
   await StudentModel.create({
-    userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
+    userName: 'asd', password: 'asd', department: 'CS', track: '', requirementVersion: '1', gradSemester: '123', coursePlan: '', graduated: false, comments: '', sbuId: 0,
   });
   await GPDModel.create({ userName: 'qwe', password: 'qwe' });
 

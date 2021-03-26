@@ -7,6 +7,7 @@ import Bar from './bar';
 
 export default function AddStudent() {
   // const s = StudentModel.schema.paths;
+  // TODO types
   const s = [
     'userName',
     'password',
@@ -31,6 +32,7 @@ export default function AddStudent() {
           {f}
         </Form.Label>
         <Col>
+          {/* TODO here */}
           <Form.Control type="text" placeholder={f} name={f} required />
         </Col>
       </Form.Group>,

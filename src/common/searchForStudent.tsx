@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Alert, Button, Col, Container, Dropdown, DropdownButton, Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Bar from './bar';
 
 export const cols = {
@@ -17,10 +18,10 @@ export const cols = {
 
 type cols_t = typeof cols;
 
-export default function SearchForStudent({ values }: { values?: any[][] }) {
+export default function SearchForStudent({ values }: { values?: any[] }) {
   const [modalShow, setModalShow] = React.useState(false);
   const [alertShow, setAlertShow] = React.useState(false);
-  const [data, setData] = React.useState(values ?? []);
+  const data = values ?? [];
 
   const onHide = (e) => {
     setModalShow(false);
@@ -58,14 +59,16 @@ export default function SearchForStudent({ values }: { values?: any[][] }) {
             </tr>
           </thead>
           <tbody>
-            { // TODO Fix idx
-              data.map((x, i) => (
-                <tr key={i}>
-                  {x.map((y, i) => (
-                    <td key={i}>{y}</td>
+            {
+              // TODO css hover
+              data.map((x, i) => {
+                const url = 'editStudentInformation/?userName=' + x.userName
+                return (<tr key={i} onClick={() => window.location.assign(url)}>
+                  {Object.keys(cols).map((k, j) => (
+                    <td key={j}><Link to={url}>{x[k]}</Link></td>
                   ))}
-                </tr>
-              ))
+                </tr>)
+              })
             }
           </tbody>
         </Table>
@@ -79,7 +82,7 @@ export default function SearchForStudent({ values }: { values?: any[][] }) {
   );
 }
 
-function NumberInput({ k, l }: { k: string, l:string}) {
+function NumberInput({ k }: { k: string }) {
   const [selected, setSelected] = React.useState('=');
   return (
     <InputGroup>
@@ -90,17 +93,21 @@ function NumberInput({ k, l }: { k: string, l:string}) {
         id={k}
       >
         {
+          // TODO != fix width
           ['=', '>', '<', '!='].map((v) => (
-            <Dropdown.Item onClick={() => setSelected(v)} key={v}>{v}</Dropdown.Item>
+            <Dropdown.Item onClick={() => setSelected(v)} key={v}>
+              {v}
+            </Dropdown.Item>
           ))
         }
       </DropdownButton>
       <Form.Control type="hidden" value={selected} name={`${k}c`} />
-      <Form.Control type="number" placeholder={l} name={k} />
+      <Form.Control type="number" name={k} />
     </InputGroup>
   );
 }
 
+// TODO loop before call
 function MakeGroup({ cols }: { cols: cols_t }) {
   return (
     <>
@@ -112,7 +119,7 @@ function MakeGroup({ cols }: { cols: cols_t }) {
           <Col>
             {
           (t === 'text')
-            ? <Form.Control type="text" placeholder={l} name={k} />
+            ? <Form.Control type="text" name={k} />
             : (Array.isArray(t))
               ? (
                 <Form.Control as="select" name={k}>
@@ -122,7 +129,7 @@ function MakeGroup({ cols }: { cols: cols_t }) {
                 }
                 </Form.Control>
               )
-              : <NumberInput k={k} l={l} />
+              : <NumberInput k={k} />
         }
           </Col>
         </Form.Group>
@@ -142,11 +149,11 @@ function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Filters
+          {/* TODO clear all */}
         </Modal.Title>
       </Modal.Header>
       <Form action="/searchForStudent" method="get">
         <Modal.Body>
-          <h4>Centered Modal</h4>
           <MakeGroup cols={cols} />
         </Modal.Body>
         <Modal.Footer>

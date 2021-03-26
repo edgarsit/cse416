@@ -10,9 +10,9 @@ declare global {
   }
 }
 
-const { values = undefined } = window._v ?? {};
+const v = window._v;
 ReactDOM.hydrate((
   <BrowserRouter>
-    <Routes values={values} />
+    <Routes {...v} />
   </BrowserRouter>
 ), document.getElementById('app'));

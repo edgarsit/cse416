@@ -17,23 +17,18 @@ import Login from './login';
 import Bar from './bar';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
+import EditStudentInformation from './editStudentInformation';
 
-export function ServerApp(url: string) {
+// TODO any
+export function ServerApp(url: string, { values, user }: { values?: any[], user?: any }) {
   return (
     <StaticRouter location={url}>
-      <Routes />
-    </StaticRouter>
-  );
-}
-export function ServerSearchForStudent(url: string, { values }: { values: any[][] }) {
-  return (
-    <StaticRouter location={url}>
-      <Routes values={values} />
+      <Routes values={values} user={user} />
     </StaticRouter>
   );
 }
 
-export function Routes({ values }: { values?: any[][] }) {
+export function Routes({ values, user}: { values?: any[] , user?:any}) {
   return (
     <Switch>
       <Route path="/about">
@@ -53,6 +48,9 @@ export function Routes({ values }: { values?: any[][] }) {
       </Route>
       <Route path="/searchForStudent">
         <SearchForStudent values={values} />
+      </Route>
+      <Route path="/editStudentInformation">
+        <EditStudentInformation user={user} />
       </Route>
       <Route path="/viewEnrollmentTrends">
         <ViewEnrollmentTrends />
