@@ -9,6 +9,7 @@ declare global {
   }
 }
 
+// TODO barrier to fix backs?
 const v = window._v;
 ReactDOM.hydrate((
   <BrowserRouter>

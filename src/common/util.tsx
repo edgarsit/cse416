@@ -39,10 +39,10 @@ interface FieldLeftProps {
   required?: boolean,
 };
 
-function FieldLeft({ name, type, cmp }: FieldLeftProps) {
+function FieldLeft({ name, type, cmp, required }: FieldLeftProps) {
   const ty = type === 'boolean' ? ['True', 'False'] : type;
   if (ty === 'string') {
-    return <Form.Control type="text" name={name} required />
+    return <Form.Control type="text" name={name} required={required} />
   } else if (ty === 'number') {
     if (cmp) {
       const [selected, setSelected] = React.useState('=');
@@ -68,13 +68,13 @@ function FieldLeft({ name, type, cmp }: FieldLeftProps) {
         </InputGroup>
       );
     } else {
-      return <Form.Control type="number" name={name} />
+      return <Form.Control type="number" name={name} required={required}/>
     }
   } else if (Array.isArray(ty)) {
     return (
       <Form.Control as="select" name={name}>
         {
-          ty.map((v) => <option>{v}</option>)
+          ty.map((v) => <option key={v}>{v}</option>)
         }
       </Form.Control>
     )

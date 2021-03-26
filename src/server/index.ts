@@ -182,7 +182,7 @@ server.post('/editStudentInformation', async (req, res) => {
       { ...req.body },
     );
   } catch (e) { console.error(e); }
-  res.redirect(req.originalUrl);
+  res.redirect(303, req.originalUrl);
 });
 
 server.post('/login', passport.authenticate('local', {
@@ -239,8 +239,8 @@ server.get('*', (req, res) => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     dbName: 'cse416',
+    useFindAndModify: false,
   });
-  mongoose.connection.db.dropDatabase();
 
   await GPDModel.create({ userName: 'ayoub.benchaita@stonybrook.edu', password: 'asd' });
   await StudentModel.create({

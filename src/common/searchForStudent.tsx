@@ -13,8 +13,8 @@ export const cols = {
   unsat: ['Unsat Reqs', 'Unatisfied Requirements'],
   gradSemester: ['Grad Sem', 'Graduation Semester'],
   nsem: ['# Sem', 'Number of Semesters in the Program'],
-  valid: ['P Valid', 'Course Plan Validity', ['Valid', 'Invalid', 'Ignore']],
-  compl: ['P Compl', 'Course Plan Completeness', ['Complete', 'Incomplete', 'Ignore']],
+  valid: ['P Valid', 'Course Plan Validity', ['Ignore', 'Valid', 'Invalid']],
+  compl: ['P Compl', 'Course Plan Completeness', ['Ignore', 'Complete', 'Incomplete']],
 } as const;
 
 type cols_t = typeof cols;
@@ -63,7 +63,7 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
             {
               // TODO css hover
               data.map((x, i) => {
-                const url = `editStudentInformation/?userName=${x.userName}`;
+                const url = `/editStudentInformation/?userName=${x.userName}`;
                 return (
                   <tr key={i} onClick={() => window.location.assign(url)}>
                     {Object.keys(cols).map((k, j) => (
