@@ -1,5 +1,5 @@
 import React from 'react';
-import Bar from './bar';
+import Bar from './util';
 
 export default function ViewEnrollmentTrends() {
   return (

@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Alert, Button, Col, Container, Dropdown, DropdownButton, Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip,
+  Alert, Button, Col, Container, Dropdown, DropdownButton,
+  Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Bar from './bar';
+import Bar from './util';
 
 export const cols = {
   userName: ['Name', 'Name', 'text'],
@@ -62,12 +63,14 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
             {
               // TODO css hover
               data.map((x, i) => {
-                const url = 'editStudentInformation/?userName=' + x.userName
-                return (<tr key={i} onClick={() => window.location.assign(url)}>
-                  {Object.keys(cols).map((k, j) => (
-                    <td key={j}><Link to={url}>{x[k]}</Link></td>
-                  ))}
-                </tr>)
+                const url = `editStudentInformation/?userName=${x.userName}`;
+                return (
+                  <tr key={i} onClick={() => window.location.assign(url)}>
+                    {Object.keys(cols).map((k, j) => (
+                      <td key={j}><Link to={url}>{x[k]}</Link></td>
+                    ))}
+                  </tr>
+                );
               })
             }
           </tbody>

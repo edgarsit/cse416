@@ -2,8 +2,7 @@ import React from 'react';
 import {
   Form, Row, Col, Container, Button,
 } from 'react-bootstrap';
-import { StudentModel } from '../server/models';
-import Bar from './bar';
+import Bar from './util';
 
 export default function AddStudent() {
   // const s = StudentModel.schema.paths;
@@ -20,24 +19,18 @@ export default function AddStudent() {
     'comments',
     'sbuId',
   ];
-  const a: JSX.Element[] = [];
+  const a = s.map((f) => (
+    <Form.Group as={Row} controlId={f} key={f} className="py-2">
+      <Form.Label column>
+        {f}
+      </Form.Label>
+      <Col>
+        {/* TODO here */}
+        <Form.Control type="text" placeholder={f} name={f} required />
+      </Col>
+    </Form.Group>
+  ));
 
-  for (const f of s) {
-    if (f.startsWith('_')) {
-      continue;
-    }
-    a.push(
-      <Form.Group as={Row} controlId={f} key={f} className="py-2">
-        <Form.Label column>
-          {f}
-        </Form.Label>
-        <Col>
-          {/* TODO here */}
-          <Form.Control type="text" placeholder={f} name={f} required />
-        </Col>
-      </Form.Group>,
-    );
-  }
   return (
     <div>
       <Bar />

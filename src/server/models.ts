@@ -4,11 +4,11 @@ import {
 import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
 import { BasePropOptions, Ref } from '@typegoose/typegoose/lib/types';
 
-const s = Symbol('fields')
-type IsFunction<T, R> = T extends (...args: any) => infer Return ? never : R
-type TypeName<T> = T extends string ? "string" :
-    T extends number ? "number" :
-    T extends boolean ? "boolean" :
+const s = Symbol('fields');
+type IsFunction<T, R> = T extends (...args: any[]) => infer Return ? never : R
+type TypeName<T> = T extends string ? 'string' :
+    T extends number ? 'number' :
+    T extends boolean ? 'boolean' :
     string
 type Fields<T> = {
     [P in keyof T as IsFunction<T[P], P>]-?: TypeName<NonNullable<T[P]>>
@@ -16,8 +16,8 @@ type Fields<T> = {
 type Ctor<T> = { new(...args: any[]): T }
 
 function fields<T extends Ctor<U> & { fields: Fields<U> }, U>(ctor: T) {
-    const f = ctor.prototype[s];
-    ctor.fields = f;
+  const f = ctor.prototype[s];
+  ctor.fields = f;
 }
 
 function rprop(options?: BasePropOptions, kind?: WhatIsIt): PropertyDecorator {
@@ -35,11 +35,11 @@ function rprop(options?: BasePropOptions, kind?: WhatIsIt): PropertyDecorator {
     } else if (v === Boolean) {
       k = 'boolean';
     } else {
-      k = 'object'
+      k = 'object';
     }
     (target[s] ??= {})[propertyKey] = k;
-    f(target, propertyKey)
-  }
+    f(target, propertyKey);
+  };
 }
 
 export class DegreeRequirements {

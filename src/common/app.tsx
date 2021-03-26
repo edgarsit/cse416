@@ -13,8 +13,7 @@ import {
 
 import AddStudent from './addStudent';
 import Imports from './imports';
-import Login from './login';
-import Bar from './bar';
+import Bar from './util';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
 import EditStudentInformation from './editStudentInformation';
@@ -35,15 +34,9 @@ export function ServerSearchForStudent(url: string, { values }: { values: any[][
   );
 }
 
-export function Routes({ values, user}: { values?: any[] , user?:any}) {
+export function Routes({ values, user }: { values?: any[], user?:any}) {
   return (
     <Switch>
-      <Route path="/about">
-        <About />
-      </Route>
-      <Route path="/topics">
-        <Topics />
-      </Route>
       <Route path="/imports">
         <Imports />
       </Route>
@@ -80,53 +73,5 @@ function Home() {
         <Button className="my-3" href="/viewEnrollmentTrends" block>View Enrollment Trends</Button>
       </Container>
     </div>
-  );
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Topics() {
-  const match = useRouteMatch();
-
-  return (
-    <div>
-      <h2>Topics</h2>
-
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>
-            Props v. State
-          </Link>
-        </li>
-      </ul>
-
-      {/* The Topics page has its own <Switch> with more routes
-          that build on the /topics URL path. You can think of the
-          2nd <Route> here as an "index" page for all topics, or
-          the page that is shown when no topic is selected */}
-      <Switch>
-        <Route path={`${match.path}/:topicId`}>
-          <Topic />
-        </Route>
-        <Route path={match.path}>
-          <h3>Please select a topic.</h3>
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-function Topic() {
-  const { topicId } = useParams<{ topicId: string }>();
-  return (
-    <h3>
-      Requested topic ID:
-      {topicId}
-    </h3>
   );
 }

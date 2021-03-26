@@ -1,4 +1,5 @@
-//@ts-nocheck
+// eslint
+
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
@@ -7,20 +8,15 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
 import { URL } from 'url';
-import { DocumentType } from '@typegoose/typegoose';
+import passport from 'passport';
+import bodyParser from 'body-parser';
+import flash from 'connect-flash';
+
 import {
   StudentModel, UserModel, GPDModel,
 } from './models';
 import { ServerApp } from '../common/app';
-import { fileURLToPath } from 'node:url';
-import { ServerApp, ServerSearchForStudent } from '../common/app';
 import { cols } from '../common/searchForStudent';
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var bodyParser = require('body-parser');
-var flash = require('connect-flash');
-const url = require('url');
-
 
 const html = (body: string, val?: any) => {
   const v = val != undefined ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -54,8 +50,7 @@ server.use(express.static('build'));
 server.use('/public', express.static('public'));
 
 server.set('query parser', 'simple');
-server.use(bodyParser.json()); // support json encoded bodies
-server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+server.use(express.json()); // support json encoded bodies
 
 server.use(session({
   secret: 'keyboard cat',
@@ -67,16 +62,17 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    UserModel.findOne({userName: username, password: password}, function(err, user) {
+  ((username, password, done) => {
+    UserModel.findOne({ userName: username, password }, (err, user) => {
       if (err) {
-        return done(err); }
-      if (!user||!password) {
-        return done(null, false, {message: "Try again incorrect credentials"});
+        return done(err);
+      }
+      if (!user || !password) {
+        return done(null, false, { message: 'Try again incorrect credentials' });
       }
       return done(null, user);
     });
-  },
+  }),
 ));
 
 passport.use(new GoogleStrategy({
@@ -85,33 +81,27 @@ passport.use(new GoogleStrategy({
   callbackURL: 'http://localhost:3000/auth/google/callback',
 },
 
-  function (accessToken, refreshToken, profile, done) {
-      UserModel.findOne({userName: profile.emails[0].value}, function(err, user) {
-      if (err) {
-        return done(err)
-      }
-      if(!user){
-        return done(null, false, {message: "The Google Account used is not associated with a MAST Account"});
-      }
-
-      return done(null, user);
-    });
-
-  }
-
-  )
-);
-
-
-server.get('/auth/google/callback',
-  passport.authenticate('google', {failureRedirect: '/login',failureFlash: true}),
-  (req, res) => {
-    if((req.user as any).__t === 'Student'){
-      res.redirect('/Student_Home');
-    }else{
-      res.redirect('/GPD_Home');
+((accessToken, refreshToken, profile, done) => {
+  UserModel.findOne({ userName: profile.emails?.[0].value }, (err, user) => {
+    if (err) {
+      return done(err);
+    }
+    if (!user) {
+      return done(null, false, { message: 'The Google Account used is not associated with a MAST Account' });
     }
 
+    return done(null, user);
+  });
+})));
+
+server.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login', failureFlash: true }),
+  (req, res) => {
+    if ((req.user as any).__t === 'Student') {
+      res.redirect('/Student_Home');
+    } else {
+      res.redirect('/GPD_Home');
+    }
   });
 
 server.get('/auth/google',
@@ -141,39 +131,38 @@ const getQS = (originalURL: string) => {
 };
 
 const pickFromQ = <T>(s: DocumentType<T> | null) => {
-  const r = {}
-  if (s == null) { return r }
+  const r = {};
+  if (s == null) { return r; }
   // TODO undoc, lean?
   for (const [k, v] of Object.entries((s as any)._doc)) {
     if (!k.startsWith('_')) {
-      r[k] = v
+      r[k] = v;
     }
   }
-  return r
-}
-server.post('/auth', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true} ),
-function(req, res) {
-  if((req.user as any).__t === 'Student'){
-    res.redirect('/Student_Home');
-  }else{
-    res.redirect('/GPD_Home');
-  }
-}
-);
+  return r;
+};
+server.post('/auth', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+  (req, res) => {
+    if ((req.user as any).__t === 'Student') {
+      res.redirect('/Student_Home');
+    } else {
+      res.redirect('/GPD_Home');
+    }
+  });
 
 server.get('/searchForStudent', async (req, res) => {
   // TODO sec forall tbh
   const s = await StudentModel.find(getQS(req.originalUrl));
   const values = s.map((x) => {
-    const a = {}
+    const a = {};
     // TODO undoc maybe lean
     for (const [k, v] of Object.entries((x as any)._doc)) {
       if (!k.startsWith('_')) {
-        a[k] = v
+        a[k] = v;
       }
     }
-    return a
-  })
+    return a;
+  });
   // TODO qs state modal
   const body = renderToString(ServerApp(req.url, { values }));
   res.send(html(body, { values }));
@@ -187,18 +176,18 @@ server.get('/editStudentInformation', async (req, res) => {
   const user = pickFromQ(await StudentModel.findOne({ userName }));
   const body = renderToString(ServerApp(req.url, { user }));
   res.send(html(body, { user }));
-})
+});
 
 server.post('/editStudentInformation', async (req, res) => {
   try {
     await StudentModel.findOneAndUpdate(
       { userName: req.body.userName },
       // TODO wtf
-      { ...req.body }
-    )
-  } catch (e) { console.error(e) }
-  res.redirect(req.originalUrl)
-})
+      { ...req.body },
+    );
+  } catch (e) { console.error(e); }
+  res.redirect(req.originalUrl);
+});
 
 server.post('/login',
   passport.authenticate('local', {
@@ -212,12 +201,10 @@ server.post('/addStudent', async (req, res) => {
   res.redirect('/');
 });
 
-server.get("/login", (req, res) => {
-res.render('login',  {messages : req.flash("error")});
-res.end()
-
+server.get('/login', (req, res) => {
+  res.render('login', { messages: req.flash('error') });
+  res.end();
 });
-
 
 server.post('/deleteAll', loggedIn, async (req, res, next) => {
   await StudentModel.deleteMany({});
@@ -225,17 +212,17 @@ server.post('/deleteAll', loggedIn, async (req, res, next) => {
 });
 
 server.get('/student_Home', loggedIn, async (req, res, next) => {
-  StudentModel.findOne({userName: (req.user.userName)}, function(err, user) {
+  StudentModel.findOne({ userName: (req.user as any).userName }, (err, user) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('student', {users : user})
+      res.render('student', { users: user });
     }
-});
+  });
 });
 
 server.get('/GPD_Home', loggedIn, (req, res, next) => {
-  const body = renderToString(ServerApp(req.url));
+  const body = renderToString(ServerApp(req.url, {}));
   res.send(
     html(
       body,
@@ -249,9 +236,8 @@ server.post('/addStudent', loggedIn, async (req, res) => {
   res.redirect('/GPD_Home');
 });
 
-
 server.get('/auth/google',
-  passport.authenticate('google', { scope: ['email'], failureFlash: true}));
+  passport.authenticate('google', { scope: ['email'], failureFlash: true }));
 
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url, {}));
@@ -270,15 +256,10 @@ server.get('*', (req, res) => {
   });
   mongoose.connection.db.dropDatabase();
 
-      const { _id: id } = await GPDModel.create({
-        userName: 'ayoub.benchaita@stonybrook.edu', password: 'asd'})
+  await GPDModel.create({ userName: 'ayoub.benchaita@stonybrook.edu', password: 'asd' });
   await StudentModel.create({
-          userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
-        });
-  const userName = 'ayoub.benchaita@stonybrook.edu';
-  const password = 'asd';
-  const r = await UserModel.findOne({ userName, password });
-  console.log(r);
+    userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
+  });
 
   server.listen(3000, () => console.log(`http://localhost:${port}/ !`));
 })();

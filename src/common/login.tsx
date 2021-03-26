@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 
 export default class Login extends React.Component<{}, { error: string, loading: boolean }> {
@@ -16,8 +16,8 @@ export default class Login extends React.Component<{}, { error: string, loading:
           <div>
             <a href="/auth/google" className="button">Sign in with Google</a>
           </div>
-              Login
-              <br />
+          Login
+          <br />
           <form action="login" method="post">
             <div>
               Username

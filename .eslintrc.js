@@ -46,6 +46,7 @@ module.exports = {
                 "ignoreTypeReferences": true
             }
         ],
+        "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }],
         "max-classes-per-file": [
             "error",
              8
