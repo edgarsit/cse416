@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@typegoose/typegoose": "^7.6.0",
-    "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
     "bootstrap": "^4.6.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
@@ -29,6 +27,8 @@
     "lint": "npx eslint src --ext .js,.jsx,.ts,.tsx"
   },
   "devDependencies": {
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
     "@types/express": "^4.17.11",
     "@types/express-session": "^1.17.3",
     "@types/mongoose": "^5.10.4",

@@ -3,7 +3,6 @@ const path = require('path');
 // https://github.com/webpack-contrib/mini-css-extract-plugin
 
 module.exports = function (env, argv) {
-  // default to the server configuration
   const base = {
     entry: './src/server/index.ts',
     output: {
@@ -22,24 +21,19 @@ module.exports = function (env, argv) {
       rules: [
         // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
         {
+          exclude: path.resolve(__dirname, "node_modules"),
           test: /\.tsx?$/,
           use: [
             {
               loader: 'ts-loader',
             },
           ],
-        },
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader']
         }
       ]
     },
   };
 
-  // server-specific configuration
   if (env.platform === 'web') {
-    // client-specific configurations
     base.entry = './src/client/clientEntry.tsx';
     base.output.filename = 'public/client.js';
   } else {

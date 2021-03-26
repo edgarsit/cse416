@@ -1,0 +1,19 @@
+name: CI
+on:
+  push:
+    branches:
+      - react
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install modules
+        run: npm ci
+      - name: Build Client
+        run: npm run build
+      - name: Build Server
+        run: npx tsc --noEmit

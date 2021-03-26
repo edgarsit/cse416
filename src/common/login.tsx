@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container } from 'react-bootstrap';
 
 export default class Login extends React.Component<{}, { error: string, loading: boolean }> {
   constructor(props: {}) {
@@ -8,36 +9,37 @@ export default class Login extends React.Component<{}, { error: string, loading:
 
   render() {
     const { error, loading } = this.state;
-
+    // TODO
     return (
-      <div className="login">
-        <div>
-          <a href="/auth/google" className="button">Sign in with Google</a>
-        </div>
-        Login
-        <br />
-        <br />
-        <form action="login" method="post">
+      <Container>
+        <div className="login">
           <div>
-            Username
-            <br />
-            <Input type="text" autoComplete="new-password" name="username" />
+            <a href="/auth/google" className="button">Sign in with Google</a>
           </div>
-          <div style={{ marginTop: 10 }}>
-            Password
-            <br />
-            <Input type="password" autoComplete="new-password" name="password" />
-          </div>
-          {error ?? (
-            <>
-              <small style={{ color: 'red' }}>{error}</small>
+              Login
               <br />
-            </>
-          )}
-          <br />
-          <input type="submit" value={loading ? 'Loading...' : 'Login'} />
-        </form>
-      </div>
+          <form action="login" method="post">
+            <div>
+              Username
+              <br />
+              <Input type="text" autoComplete="new-password" name="username" />
+            </div>
+            <div style={{ marginTop: 10 }}>
+              Password
+              <br />
+              <Input type="password" autoComplete="new-password" name="password" />
+            </div>
+            {error ?? (
+              <>
+                <small style={{ color: 'red' }}>{error}</small>
+                <br />
+              </>
+            )}
+            <br />
+            <input type="submit" value={loading ? 'Loading...' : 'Login'} />
+          </form>
+        </div>
+      </Container>
     );
   }
 }
