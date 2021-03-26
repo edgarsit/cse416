@@ -248,10 +248,10 @@ server.get('*', loggedIn, (req, res) => {
     useFindAndModify: false,
   });
 
-  await GPDModel.create({ userName: 'ayoub.benchaita@stonybrook.edu', password: 'asd' });
-  await StudentModel.create({
-    userName: 'asd', password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
-  });
+  await GPDModel.findOneAndUpdate({ userName: 'ayoub.benchaita@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
+  await StudentModel.findOneAndUpdate({ userName: 'asd' }, {
+    password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
+  }, { upsert: true });
 
   server.listen(3000, () => console.log(`http://localhost:${port}/ !`));
 })();

@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - react
+    paths-ignore:
+      - '**.md'
+      - '**.xlsx'
+
 jobs:
   build:
     runs-on: ubuntu-latest
