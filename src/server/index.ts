@@ -1,4 +1,4 @@
-// eslint-disable no-console
+/* eslint-disable no-console */
 
 import express from 'express';
 import { renderToString } from 'react-dom/server';
@@ -41,7 +41,10 @@ ${v}
 `;
 };
 
-const port = 3000;
+const port = {
+  http: 3000,
+  https: 3001,
+};
 const server = express();
 server.use(express.urlencoded({ extended: true }));
 server.use(express.text());
@@ -64,7 +67,7 @@ server.use(passport.session());
 
 passport.use(new LocalStrategy(
   ((username, password, done) => {
-    UserModel.findOne({ userName: username, password: password }, (err, user) => {
+    UserModel.findOne({ userName: username, password }, (err, user) => {
       if (err) {
         return done(err);
       }
@@ -102,7 +105,6 @@ server.get('/auth/google/callback',
     }
   });
 
-
 function loggedIn(req, res, next) {
   if (req.user == null) {
     res.redirect('/login');
@@ -118,7 +120,7 @@ const getQS = (originalURL: string) => {
   for (const k of Object.keys(cols)) {
     const v = params.get(k);
     // TODO Fix hack -> hasOwnProp
-    if (v != null && v !== '' && v != 'Ignore') {
+    if (v != null && v !== '' && v !== 'Ignore') {
       r[k] = v;
     }
   }
@@ -193,7 +195,7 @@ server.post('/addStudent', async (req, res) => {
   const s = req.body;
   try {
     await StudentModel.create(s);
-  } catch (e) { console.log(e) }
+  } catch (e) { console.log(e); }
   res.redirect('/');
 });
 
@@ -226,7 +228,6 @@ server.post('/addStudent', loggedIn, async (req, res) => {
 server.get('/auth/google',
   passport.authenticate('google', { scope: ['email'], failureFlash: true }));
 
-
 passport.serializeUser((user, done) => {
   done(null, user as any);
 });
@@ -252,12 +253,14 @@ server.get('*', loggedIn, (req, res) => {
   });
 
   await GPDModel.findOneAndUpdate({ userName: 'ayoub.benchaita@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ userName: 'qwe' }, { password: 'qwe' }, { upsert: true });
   await StudentModel.findOneAndUpdate({ userName: 'asd' }, {
     password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
   }, { upsert: true });
 
   https.createServer({
     key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-  }, server).listen(3000, () => console.log(`https://localhost:${port}/ !`));
+    cert: fs.readFileSync('cert.pem'),
+  }, server).listen(port.https, () => console.log(`https://localhost:${port.https}/ !`));
+  server.listen(port.http, () => console.log(`http://localhost:${port.http}/ !`));
 })();

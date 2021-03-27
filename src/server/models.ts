@@ -4,6 +4,7 @@ import {
 import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
 import { BasePropOptions, Ref } from '@typegoose/typegoose/lib/types';
 
+// $0.schema.paths.*.instance
 const s = Symbol('fields');
 type IsFunction<T, R> = T extends (...args: any[]) => infer Return ? never : R
 type TypeName<T> = T extends string ? 'string' :
@@ -17,7 +18,7 @@ type Ctor<T> = { new(...args: any[]): T }
 
 function fields<T extends Ctor<U> & { fields: Fields<U> }, U>(ctor: T) {
   const f = ctor.prototype[s];
-  ctor.fields = f;
+  ctor.fields = f; // eslint-disable-line no-param-reassign
 }
 
 function rprop(options?: BasePropOptions, kind?: WhatIsIt): PropertyDecorator {
@@ -37,7 +38,7 @@ function rprop(options?: BasePropOptions, kind?: WhatIsIt): PropertyDecorator {
     } else {
       k = 'object';
     }
-    (target[s] ??= {})[propertyKey] = k;
+    (target[s] ??= {})[propertyKey] = k; // eslint-disable-line no-param-reassign
     f(target, propertyKey);
   };
 }

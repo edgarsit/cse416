@@ -74,7 +74,7 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
           </tbody>
         </Table>
       </Container>
-      <VerticallyCenteredModal
+      <Filter
         show={modalShow}
         onHide={onHide}
         c={cols}
@@ -83,7 +83,12 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
   );
 }
 
-function VerticallyCenteredModal({ show, onHide, c }: { show: boolean, onHide: (e?: any) => void, c: typeof cols }) {
+interface FilterProps {
+  show: boolean,
+  onHide: (e?: any) => void,
+  c: typeof cols
+}
+function Filter({ show, onHide, c }: FilterProps) {
   return (
     <Modal
       {...{ show, onHide }}

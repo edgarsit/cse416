@@ -52,6 +52,7 @@ module.exports = {
              8
         ],
         "linebreak-style": ["error", (require("os").EOL === "\r\n" ? "windows" : "unix")],
+        "eqeqeq": ["error", "smart"],
         // TODO fix
         "no-underscore-dangle": "off",
         "@typescript-eslint/no-explicit-any": "off",

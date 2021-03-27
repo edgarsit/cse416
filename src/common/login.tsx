@@ -1,6 +1,24 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
+interface InputProps { type: string, autoComplete: string, name: string }
+class Input extends React.Component<InputProps, { value: string }> {
+  constructor(props: InputProps) {
+    super(props);
+    this.state = { value: '' };
+  }
+
+  render() {
+    return (
+      <input
+        {...this.props}
+        value={this.state.value}
+        onChange={(e) => this.setState({ value: e.target.value })}
+      />
+    );
+  }
+}
+
 export default class Login extends React.Component<{}, { error: string, loading: boolean }> {
   constructor(props: {}) {
     super(props);
@@ -40,24 +58,6 @@ export default class Login extends React.Component<{}, { error: string, loading:
           </form>
         </div>
       </Container>
-    );
-  }
-}
-
-interface InputProps { type: string, autoComplete: string, name: string }
-class Input extends React.Component<InputProps, { value: string }> {
-  constructor(props: InputProps) {
-    super(props);
-    this.state = { value: '' };
-  }
-
-  render() {
-    return (
-      <input
-        {...this.props}
-        value={this.state.value}
-        onChange={(e) => this.setState({ value: e.target.value })}
-      />
     );
   }
 }
