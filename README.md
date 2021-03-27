@@ -41,7 +41,7 @@ See [test-report.md](test-report.md)
 
 ## 6. Contributions
 
-- Ayoub Benchaita:
+- Ayoub Benchaita: Create the login page, wrote code for google authentication. authentication, redirects assited with the status report and test report.
 
 - Menachem Goldring:
 
