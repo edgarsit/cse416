@@ -51,9 +51,7 @@ User is on login page.
 
 3(a). The user is redirected back to the login page with the message `Try again incorrect credentials` is displayed
 
-3(b). The user is redirected back to the login page with the message `The Google Account used is not associated with a MAST Account
-
-` is displayed
+3(b). The user is redirected back to the login page with the message `The Google Account used is not associated with a MAST Account` is displayed
 
 ### Outcome
 
