@@ -5,6 +5,26 @@ import {
 import { Bar } from './util';
 import { cols } from './searchForStudent';
 
+function MakeRow({ x: [k, v] }: { x: [string, string] }) {
+  return (
+    <>
+      <Form.Group as={Row} controlId={k} key={k} className="p-2">
+        <Form.Label column>
+          {
+            // https://stackoverflow.com/a/4149393
+            (k in cols)
+              ? cols[k][0]
+              : k.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())
+          }
+        </Form.Label>
+        <Col>
+          <Form.Control type="text" name={k} defaultValue={v} />
+        </Col>
+      </Form.Group>
+    </>
+  );
+}
+
 export default function EditStudentInformation(
   { user, location }: { user?: any, location?: string },
 ) {
@@ -22,26 +42,6 @@ export default function EditStudentInformation(
           </Button>
         </Form>
       </Container>
-    </>
-  );
-}
-
-function MakeRow({ x: [k, v] }: { x: [string, string] }) {
-  return (
-    <>
-      <Form.Group as={Row} controlId={k} key={k} className="p-2">
-        <Form.Label column>
-          {
-            // https://stackoverflow.com/a/4149393
-            (k in cols)
-              ? cols[k][0]
-              : k.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())
-          }
-        </Form.Label>
-        <Col>
-          <Form.Control type="text" name={k} defaultValue={v} />
-        </Col>
-      </Form.Group>
     </>
   );
 }

@@ -47,7 +47,7 @@ See [test-report.md](test-report.md)
 
 - Nathaniel Kissoon: None
 
-- Edgar Sit:
+- Edgar Sit: Set up the base repo (npm package and scripts, webpack, Bootstrap, React, Typescript, and ESLint). Set up Github Actions to check build and ESLint compliance. Created DB models and set up Server Side Rendering for React. Wrote the frontend in src/common/ and src/client/. Wrote backend for editStudentInformation, addStudent, searchForStudent and deleteAll. Filled out implementation-grading-sheet.xlsx. Set up HTTPS. Wrote test for "Add Student is Persisted". Created video.
 
 - Kevin Zheng:
 

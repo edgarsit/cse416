@@ -26,8 +26,7 @@ User is logged in a GPD
 
 ### Outcome
 
-The system currently passes this test if there are no errors. 2.1 and 3.1 are not satisfied
-
+The system currently passes this test if there are no errors. 2.i and 3.i are not satisfied
 
 ## Not Valid Login Denied
 
@@ -42,8 +41,8 @@ User is on login page.
 ### Flow of Events
 
 1(a). The user enters incorrect an username and/or password.
- 
-1(b). The user selects sign in with google. 
+
+1(b). The user selects sign in with google.
 
 2(a). The user clicks `log in` button.
 
@@ -57,12 +56,11 @@ User is on login page.
 
 The system currently passes this test.
 
-
 ## Browse Students and Delete All Data
 
 ### Description
 
-This test ensures that the GPD can view students in the browse students page and delete all students from the system with the browse student page being updated accordingly. 
+This test ensures that the GPD can view students in the browse students page and delete all students from the system with the browse student page being updated accordingly.
 
 ### Preconditions
 
@@ -72,25 +70,26 @@ Logged in as GPD, students exists in the database.
 
 1. The user clicks on the `Browse/Search for Students` button.
 
-2. The user sees the students from the database listed in the table. 
+2. The user sees the students from the database listed in the table.
 
-3. The user clicks the back button. 
+3. The user clicks the back button.
 
 4. The user clicks on `Delete All Data`.
 
 5. The user clicks on the `Browse/Search for Students` button.
 
-6. The user should not see any students listed in the table. 
+6. The user should not see any students listed in the table.
+
 ### Outcome
 
 The system currently passes this test.
-
 
 ## Search for Students
 
 ### Description
 
-This test ensures that the GPD can view students in the browse students page and search for a specific student based on their chosen field. 
+This test ensures that the GPD can view students in the browse students page and search for a specific student based on their chosen field.
+
 ### Preconditions
 
 Logged in as GPD, students exists in the database.

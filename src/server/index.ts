@@ -113,15 +113,23 @@ function loggedIn(req, res, next) {
   }
 }
 
+
 const getQS = (originalURL: string) => {
+  const lt = { '=': '$eq', '>': '$gt', '<': '$lt', '!=': '$neq' };
   const params = new URL(originalURL, 'http://localhost').searchParams;
   const r = {};
   // TODO hoist
   for (const k of Object.keys(cols)) {
     const v = params.get(k);
-    // TODO Fix hack -> hasOwnProp
+    // TODO Fix hack -> hasOwnProp, schema
     if (v != null && v !== '' && v !== 'Ignore') {
-      r[k] = v;
+      if (k === 'userName') {
+        r[k] = { $regex: v };
+      } else if (k === 'gradSemester') {
+        r[k] = { [lt[params.get('gradSemester_cmp')!]]: v }
+      } else {
+        r[k] = v;
+      }
     }
   }
   return r;
@@ -204,6 +212,11 @@ server.get('/login', (req, res) => {
   res.end();
 });
 
+server.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 server.post('/deleteAll', loggedIn, async (req, res, next) => {
   await StudentModel.deleteMany({});
   res.redirect('/');
@@ -253,9 +266,13 @@ server.get('*', loggedIn, (req, res) => {
   });
 
   await GPDModel.findOneAndUpdate({ userName: 'ayoub.benchaita@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ userName: 'edgar.sit@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
   await GPDModel.findOneAndUpdate({ userName: 'qwe' }, { password: 'qwe' }, { upsert: true });
-  await StudentModel.findOneAndUpdate({ userName: 'asd' }, {
-    password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
+  await StudentModel.findOneAndUpdate({ userName: 'scott' }, {
+    password: 'asd', department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
+  }, { upsert: true });
+  await StudentModel.findOneAndUpdate({ userName: 'skiena' }, {
+    password: 'asd', department: 'CS', track: 'Thesis', requirementVersion: '123', gradSemester: '2040', coursePlan: '', graduated: false, comments: 'Hello', sbuId: 0,
   }, { upsert: true });
 
   https.createServer({

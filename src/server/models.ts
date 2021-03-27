@@ -23,7 +23,7 @@ function fields<T extends Ctor<U> & { fields: Fields<U> }, U>(ctor: T) {
 
 function rprop(options?: BasePropOptions, kind?: WhatIsIt): PropertyDecorator {
   if (options !== undefined) {
-    options.required = true; // eslint-disable-line no-param-reassign
+    options.required = true;
   }
   const f = prop(options, kind);
   return (target, propertyKey) => {

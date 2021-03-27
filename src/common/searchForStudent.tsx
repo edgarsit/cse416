@@ -15,6 +15,7 @@ export const cols = {
   nsem: ['# Sem', 'Number of Semesters in the Program'],
   valid: ['P Valid', 'Course Plan Validity', ['Ignore', 'Valid', 'Invalid']],
   compl: ['P Compl', 'Course Plan Completeness', ['Ignore', 'Complete', 'Incomplete']],
+  department: ['Dept', 'Department', 'string'],
 } as const;
 
 export default function SearchForStudent({ values }: { values?: any[] }) {
