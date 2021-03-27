@@ -86,4 +86,27 @@ Logged in as GPD, students exists in the database.
 The system currently passes this test.
 
 
+## Search for Students
 
+### Description
+
+This test ensures that the GPD can view students in the browse students page and search for a specific student based on their chosen field. 
+### Preconditions
+
+Logged in as GPD, students exists in the database.
+
+### Flow of Events
+
+1. The user clicks on the `Browse/Search for Students` button.
+
+2. The user clicks on the `Filter` button
+
+3. The user enters values for the fields they want to search by.
+
+4. The user clicks on `Apply`.
+
+5. The user sees the users that meet their search criteria.
+
+### Outcome
+
+The system currently passes this test.
