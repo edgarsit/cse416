@@ -67,3 +67,7 @@ System is vulnerable to specially crafted queries
 ### 7.7 Performance
 
 Yes
+
+## Delete All Data
+
+This was implemented by using a button from the GPD home page which links to a post method which runs an empty deleteMany monogoDB query on our student model, deleting all records.
