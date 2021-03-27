@@ -43,7 +43,7 @@ See [test-report.md](test-report.md)
 
 - Ayoub Benchaita: Create the login page, wrote code for google authentication, local authentication, redirects assited with the status report and test report.
 
-- Menachem Goldring:
+- Menachem Goldring: Helped with the reports, planning, and foundational code for some of the gpd functions.
 
 - Nathaniel Kissoon: None
 
