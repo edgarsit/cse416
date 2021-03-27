@@ -56,3 +56,34 @@ User is on login page.
 ### Outcome
 
 The system currently passes this test.
+
+
+## Browse Students and Delete All Data
+
+### Description
+
+This test ensures that the GPD can view students in the browse students page and delete all students from the system with the browse student page being updated accordingly. 
+
+### Preconditions
+
+Logged in as GPD, students exists in the database.
+
+### Flow of Events
+
+1. The user clicks on the `Browse/Search for Students` button.
+
+2. The user sees the students from the database listed in the table. 
+
+3. The user clicks the back button. 
+
+4. The user clicks on `Delete All Data`.
+
+5. The user clicks on the `Browse/Search for Students` button.
+
+6. The user should not see any students listed in the table. 
+### Outcome
+
+The system currently passes this test.
+
+
+
