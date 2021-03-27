@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Dropdown, DropdownButton, Form, InputGroup, Nav,
-  Navbar, NavDropdown, Row, Col
+  Navbar, NavDropdown, Row, Col,
 } from 'react-bootstrap';
 
 export function Bar({ title }: { title?: string }) {
@@ -34,16 +34,18 @@ export function Bar({ title }: { title?: string }) {
 
 interface FieldLeftProps {
   name: string,
-  type: "boolean" | "string" | "number" | readonly string[],
+  type: 'boolean' | 'string' | 'number' | readonly string[],
   cmp?: boolean,
   required?: boolean,
-};
+}
 
-function FieldLeft({ name, type, cmp, required }: FieldLeftProps) {
+function FieldLeft({
+  name, type, cmp, required,
+}: FieldLeftProps) {
   const ty = type === 'boolean' ? ['True', 'False'] : type;
   if (ty === 'string') {
-    return <Form.Control type="text" name={name} required={required} />
-  } else if (ty === 'number') {
+    return <Form.Control type="text" name={name} required={required} />;
+  } if (ty === 'number') {
     if (cmp) {
       const [selected, setSelected] = React.useState('=');
       return (
@@ -63,24 +65,22 @@ function FieldLeft({ name, type, cmp, required }: FieldLeftProps) {
               ))
             }
           </DropdownButton>
-          <Form.Control type="hidden" value={selected} name={name + '_cmp'} />
+          <Form.Control type="hidden" value={selected} name={`${name}_cmp`} />
           <Form.Control type="number" name={name} />
         </InputGroup>
       );
-    } else {
-      return <Form.Control type="number" name={name} required={required}/>
     }
-  } else if (Array.isArray(ty)) {
+    return <Form.Control type="number" name={name} required={required} />;
+  } if (Array.isArray(ty)) {
     return (
       <Form.Control as="select" name={name}>
         {
           ty.map((v) => <option key={v}>{v}</option>)
         }
       </Form.Control>
-    )
-  } else {
-    throw new Error('Invalid type')
+    );
   }
+  throw new Error('Invalid type');
 }
 
 export function Field(props: FieldLeftProps & { long: string }) {

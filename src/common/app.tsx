@@ -11,7 +11,6 @@ import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
 import EditStudentInformation from './editStudentInformation';
 
-// TODO any
 export function ServerApp(url: string, { values, user }: { values?: any[], user?: any }) {
   return (
     <StaticRouter location={url}>

@@ -33,11 +33,11 @@ See [implementation-grading-sheet-team5.xlsx](implementation-grading-sheet-team5
 
 ## 4. Installation Manual
 
-See <installation-manual.md>
+See [installation-manual.md](installation-manual.md)
 
 ## 5. Test Report
 
-See <test-report.md>
+See [test-report.md](test-report.md)
 
 ## 6. Contributions
 
@@ -57,7 +57,7 @@ This zip file was created from commit XXX from <https://github.com/edgarsit/cse4
 
 ## 8. Requirements and 9. Design
 
-See <requirements_and_design.pdf>
+See [requirements-and-design.pdf](requirements-and-design.pdf)
 
 ## 10. Video
 

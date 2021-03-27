@@ -1,5 +1,5 @@
-// eslint
-//@ts-nocheck
+// eslint-disable no-console
+
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
@@ -9,8 +9,9 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
 import { URL } from 'url';
 import passport from 'passport';
-import bodyParser from 'body-parser';
 import flash from 'connect-flash';
+import https from 'https';
+import fs from 'fs';
 
 import {
   StudentModel, UserModel, GPDModel,
@@ -19,7 +20,7 @@ import { ServerApp } from '../common/app';
 import { cols } from '../common/searchForStudent';
 
 const html = (body: string, val?: any) => {
-  const v = val != undefined ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
+  const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
   return `
   <!DOCTYPE html>
   <html>
@@ -80,7 +81,7 @@ passport.use(new GoogleStrategy({
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
   callbackURL: 'http://localhost:3000/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
-  UserModel.findOne({ userName: profile.emails[0].value }, (err, user) => {
+  UserModel.findOne({ userName: profile.emails?.[0].value }, (err, user) => {
     if (err) {
       return done(err);
     }
@@ -103,7 +104,7 @@ server.get('/auth/google/callback',
 
 
 function loggedIn(req, res, next) {
-  if (req.user == undefined) {
+  if (req.user == null) {
     res.redirect('/login');
   } else {
     next();
@@ -190,7 +191,9 @@ server.post('/login', passport.authenticate('local', {
 
 server.post('/addStudent', async (req, res) => {
   const s = req.body;
-  await StudentModel.create(s);
+  try {
+    await StudentModel.create(s);
+  } catch (e) { console.log(e) }
   res.redirect('/');
 });
 
@@ -225,12 +228,12 @@ server.get('/auth/google',
 
 
 passport.serializeUser((user, done) => {
-    done(null, user as any);
-  });
-  
+  done(null, user as any);
+});
+
 passport.deserializeUser((user, done) => {
-    done(null, user as any);
-  });
+  done(null, user as any);
+});
 server.get('*', loggedIn, (req, res) => {
   const body = renderToString(ServerApp(req.url, {}));
   res.send(
@@ -253,5 +256,8 @@ server.get('*', loggedIn, (req, res) => {
     password: 'asd', department: '', track: '', requirementVersion: '', gradSemester: '', coursePlan: '', graduated: false, comments: '', sbuId: 0,
   }, { upsert: true });
 
-  server.listen(3000, () => console.log(`http://localhost:${port}/ !`));
+  https.createServer({
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+  }, server).listen(3000, () => console.log(`https://localhost:${port}/ !`));
 })();

@@ -17,8 +17,6 @@ export const cols = {
   compl: ['P Compl', 'Course Plan Completeness', ['Ignore', 'Complete', 'Incomplete']],
 } as const;
 
-type cols_t = typeof cols;
-
 export default function SearchForStudent({ values }: { values?: any[] }) {
   const [modalShow, setModalShow] = React.useState(false);
   const [alertShow, setAlertShow] = React.useState(false);
@@ -79,13 +77,13 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
       <VerticallyCenteredModal
         show={modalShow}
         onHide={onHide}
-        cols={cols}
+        c={cols}
       />
     </>
   );
 }
 
-function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide: (e?: any) => void, cols: cols_t }) {
+function VerticallyCenteredModal({ show, onHide, c }: { show: boolean, onHide: (e?: any) => void, c: typeof cols }) {
   return (
     <Modal
       {...{ show, onHide }}
@@ -102,7 +100,7 @@ function VerticallyCenteredModal({ show, onHide, cols }: { show: boolean, onHide
       <Form action="/searchForStudent" method="get">
         <Modal.Body>
           {
-            Object.entries(cols).map(([k, [_, l, t]]) => (<Field key={k} long={l} name={k} type={t ?? 'number'} cmp={true} />))
+            Object.entries(c).map(([k, [_, l, t]]) => (<Field key={k} long={l} name={k} type={t ?? 'number'} cmp />))
           }
         </Modal.Body>
         <Modal.Footer>

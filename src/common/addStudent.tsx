@@ -5,9 +5,12 @@ import {
 import { Bar, Field } from './util';
 
 export default function AddStudent() {
-  // const s = StudentModel.schema.paths;
+  // TODO
   const s = [
     'userName',
+    'firstName',
+    'lastName',
+    'email',
     'password',
     'department',
     'track',
@@ -19,7 +22,7 @@ export default function AddStudent() {
     'sbuId',
   ];
   const a = s.map((f) => (
-    <Field key={f} type="string" name={f} long={f} required/>
+    <Field key={f} type="string" name={f} long={f} required />
   ));
 
   return (

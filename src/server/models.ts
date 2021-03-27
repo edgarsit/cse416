@@ -103,6 +103,15 @@ export class User {
   public userName!: string;
 
   @rprop()
+  public firstName!: string;
+
+  @rprop()
+  public lastName!: string;
+
+  @prop()
+  public email?: string;
+
+  @rprop()
   public password!: string;
 }
 

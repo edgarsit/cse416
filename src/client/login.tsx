@@ -3,5 +3,5 @@ import ReactDOM from 'react-dom';
 import Login from '../common/login';
 
 ReactDOM.hydrate((
-    <Login />
+  <Login />
 ), document.getElementById('app'));
