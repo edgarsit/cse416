@@ -27,7 +27,8 @@ function MakeRow({ x: [k, v] }: { x: [string, string] }) {
 
 export default function EditStudentInformation(
   { user, location }: { user?: any, location?: string },
-) {
+): JSX.Element {
+  // TODO AJAX?
   const data = user ?? '';
   return (
     <>

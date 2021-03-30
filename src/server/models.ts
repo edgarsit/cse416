@@ -1,177 +1,66 @@
 import {
-  getDiscriminatorModelForClass, getModelForClass, prop, DocumentType,
+  getDiscriminatorModelForClass, getModelForClass,
 } from '@typegoose/typegoose';
-import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
-import { BasePropOptions, Ref } from '@typegoose/typegoose/lib/types';
-
-// $0.schema.paths.*.instance
-const s = Symbol('fields');
-type IsFunction<T, R> = T extends (...args: any[]) => infer Return ? never : R
-type TypeName<T> = T extends string ? 'string' :
-    T extends number ? 'number' :
-    T extends boolean ? 'boolean' :
-    string
-type Fields<T> = {
-    [P in keyof T as IsFunction<T[P], P>]-?: TypeName<NonNullable<T[P]>>
-}
-type Ctor<T> = { new(...args: any[]): T }
-
-function fields<T extends Ctor<U> & { fields: Fields<U> }, U>(ctor: T) {
-  const f = ctor.prototype[s];
-  ctor.fields = f; // eslint-disable-line no-param-reassign
-}
-
-function rprop(options?: BasePropOptions, kind?: WhatIsIt): PropertyDecorator {
-  if (options !== undefined) {
-    options.required = true;
-  }
-  const f = prop(options, kind);
-  return (target, propertyKey) => {
-    const v = Reflect.getMetadata('design:type', target, propertyKey);
-    let k: string;
-    if (v === String) {
-      k = 'string';
-    } else if (v === Number) {
-      k = 'number';
-    } else if (v === Boolean) {
-      k = 'boolean';
-    } else {
-      k = 'object';
-    }
-    (target[s] ??= {})[propertyKey] = k; // eslint-disable-line no-param-reassign
-    f(target, propertyKey);
-  };
-}
-
-export class DegreeRequirements {
-    @rprop()
-    public department!: string
-
-    @rprop()
-    public track!: string
-
-    @rprop()
-    public requirementVersion!: string
-
-    @rprop()
-    public creditsNeededToGraduate!: number
-
-    @rprop({ type: () => [String] })
-    public requirements!: [string]
-}
-
-export class CoursePlanComment {
-    @rprop({ ref: () => Student })
-    public author!: Ref<Student>
-
-    @rprop()
-    public text!: string
-}
-
-export class Course {
-    @rprop()
-    public department!: string
-
-    @rprop()
-    public courseNum!: string
-
-    @rprop()
-    public section!: string
-
-    @rprop()
-    public year!: Date
-
-    @rprop()
-    public timeslot!: string
-
-    @rprop({ ref: () => Course })
-    public prerequisites!: Ref<Course>[]
-}
-
-export class CoursePlan {
-    @rprop({ type: () => [[String]] })
-    public comments!: [string][]
-
-    @rprop({ type: () => [Course] })
-    public courses!: Course[]
-}
-
-@fields
-export class User {
-  declare static fields: Fields<User>
-
-  @rprop({ unique: true })
-  public userName!: string;
-
-  @rprop()
-  public firstName!: string;
-
-  @rprop()
-  public lastName!: string;
-
-  @prop()
-  public email?: string;
-
-  @rprop()
-  public password!: string;
-}
+import {
+  User, GPD, Student, Description, Fields,
+} from '../common/model';
 
 export const UserModel = getModelForClass(User);
-
-export class GPD extends User {
-  public async importCourseOfferings(this: DocumentType<GPD>, file: any) {
-    // TODO
-  }
-}
-
 export const GPDModel = getDiscriminatorModelForClass(UserModel, GPD);
+export const StudentModel = getDiscriminatorModelForClass(UserModel, Student);
 
-@fields
-export class Student extends User {
-  declare static fields: Fields<Student>
+const cmp: { [k: string]: string | undefined } = {
+  '=': '$eq', '>': '$gt', '<': '$lt', '!=': '$neq',
+};
 
-  @rprop()
-  public department!: string
-
-  @rprop()
-  public track!: string
-
-  @rprop()
-  public requirementVersion!: string
-
-  @rprop()
-  public gradSemester!: string
-
-  @rprop()
-  public coursePlan!: string
-
-  @rprop()
-  public graduated!: boolean
-
-  @rprop()
-  public comments!: string
-
-  @rprop()
-  public sbuId!: number
-
-  // @rprop()
-  public degreeRequirements?: DegreeRequirements
-
-  public async editStudentInformation(this: DocumentType<Student>) {
-    // TODO
-  }
-
-  public async viewCoursePlanHistory(this: DocumentType<Student>) {
-    // TODO
-  }
-
-  public async suggestCoursePlan(this: DocumentType<Student>) {
-    // TODO
-  }
-
-  public async shareCoursePlan(this: DocumentType<Student>, c: CoursePlan) {
-    // TODO
-  }
+function entries<T extends { [key: string]: any }, K extends keyof T>(o: T): [keyof T, T[K]][] {
+  return Object.entries(o) as any;
 }
 
-export const StudentModel = getDiscriminatorModelForClass(UserModel, Student);
+export function getQS<T>(originalURL: string, d: Description<Fields<T>>): { [P in keyof T]?: any } {
+  const params = new URL(originalURL, 'http://localhost').searchParams;
+  const it = entries(d).map(
+    ([k, ve]) => {
+      const { ty } = ve;
+      const v = params.get(k);
+      if (v == null || v === '') {
+        return null;
+      }
+      if (ty === String) {
+        return [k, { $regex: v }];
+      } if (ty === Number) {
+        const c = cmp[`${params.get(`${k}_cmp`)}`];
+        if (!c) {
+          return null;
+        }
+        return [k, { [c]: v }];
+      } if (ty === Boolean) {
+        const i = ve.map!.findIndex((x) => x === v);
+        if (i === -1) {
+          return null;
+        }
+        return [k, i];
+      }
+      throw new Error();
+    },
+  ).filter(<U>(x: U): x is NonNullable<U> => x != null);
+  return Object.fromEntries(it);
+}
+
+export function copyStudentWithPermissions(body: any, user: User): { [P in keyof User]?: string } {
+  if (user.__t !== 'GPD') {
+    // TODO field by field check
+    throw Error('Permission denied');
+  }
+
+  const it = entries(Student.fields).map(
+    ([k, ve]) => {
+      if (body[k] != null) {
+        return [k, body[k]];
+      }
+      console.warn(`missing field ${k}`);
+      return null;
+    },
+  ).filter(<U>(x: U): x is NonNullable<U> => x != null);
+  return Object.fromEntries(it);
+}

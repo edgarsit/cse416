@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-  Form, Row, Col, Container, Button,
+  Form, Container, Button,
 } from 'react-bootstrap';
 import { Bar, Field } from './util';
 
-export default function AddStudent() {
+export default function AddStudent(): JSX.Element {
   // TODO
   const s = [
-    'userName',
+    'username',
     'firstName',
     'lastName',
     'email',
@@ -21,16 +21,16 @@ export default function AddStudent() {
     'comments',
     'sbuId',
   ];
-  const a = s.map((f) => (
-    <Field key={f} type="string" name={f} long={f} required />
-  ));
-
   return (
     <div>
       <Bar />
       <Container>
         <Form action="addStudent" method="post">
-          {a}
+          {
+            s.map((f) => (
+              <Field key={f} type="string" name={f} long={f} required />
+            ))
+          }
           <Button type="submit">
             Submit
           </Button>

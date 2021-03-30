@@ -7,17 +7,16 @@ import { DocumentType } from '@typegoose/typegoose';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
-import { URL } from 'url';
 import passport from 'passport';
 import flash from 'connect-flash';
 import https from 'https';
 import fs from 'fs';
 
 import {
-  StudentModel, UserModel, GPDModel,
+  StudentModel, UserModel, GPDModel, getQS, copyStudentWithPermissions,
 } from './models';
 import { ServerApp } from '../common/app';
-import { cols } from '../common/searchForStudent';
+import { Student, User as mUser } from '../common/model';
 
 const html = (body: string, val?: any) => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -40,6 +39,12 @@ ${v}
   </html>
 `;
 };
+
+declare global {
+  namespace Express {
+    interface User extends mUser {}
+  }
+}
 
 const port = {
   http: 3000,
@@ -67,7 +72,7 @@ server.use(passport.session());
 
 passport.use(new LocalStrategy(
   ((username, password, done) => {
-    UserModel.findOne({ userName: username, password }, (err, user) => {
+    UserModel.findOne({ username, password }, (err, user) => {
       if (err) {
         return done(err);
       }
@@ -84,7 +89,7 @@ passport.use(new GoogleStrategy({
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
   callbackURL: 'http://localhost:3000/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
-  UserModel.findOne({ userName: profile.emails?.[0].value }, (err, user) => {
+  UserModel.findOne({ username: profile.emails?.[0]?.value }, (err, user) => {
     if (err) {
       return done(err);
     }
@@ -113,39 +118,18 @@ function loggedIn(req, res, next) {
   }
 }
 
-
-const getQS = (originalURL: string) => {
-  const lt = { '=': '$eq', '>': '$gt', '<': '$lt', '!=': '$neq' };
-  const params = new URL(originalURL, 'http://localhost').searchParams;
-  const r = {};
-  // TODO hoist
-  for (const k of Object.keys(cols)) {
-    const v = params.get(k);
-    // TODO Fix hack -> hasOwnProp, schema
-    if (v != null && v !== '' && v !== 'Ignore') {
-      if (k === 'userName') {
-        r[k] = { $regex: v };
-      } else if (k === 'gradSemester') {
-        r[k] = { [lt[params.get('gradSemester_cmp')!]]: v }
-      } else {
-        r[k] = v;
-      }
-    }
-  }
-  return r;
-};
-
 const pickFromQ = <T>(s: DocumentType<T> | null) => {
   const r = {};
   if (s == null) { return r; }
-  // TODO undoc, lean?
-  for (const [k, v] of Object.entries((s as any)._doc)) {
+  // TODO lean?
+  for (const [k, v] of Object.entries(s.toJSON())) {
     if (!k.startsWith('_')) {
       r[k] = v;
     }
   }
   return r;
 };
+
 server.post('/auth', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   (req, res) => {
     if ((req.user as any).__t === 'Student') {
@@ -157,7 +141,7 @@ server.post('/auth', passport.authenticate('local', { failureRedirect: '/login',
 
 server.get('/searchForStudent', loggedIn, async (req, res) => {
   // TODO sec forall tbh
-  const s = await StudentModel.find(getQS(req.originalUrl));
+  const s = await StudentModel.find(getQS(req.originalUrl, Student.fields));
   const values = s.map((x) => {
     const a = {};
     // TODO undoc maybe lean
@@ -173,22 +157,20 @@ server.get('/searchForStudent', loggedIn, async (req, res) => {
   res.send(html(body, { values }));
 });
 
-server.get('/editStudentInformation', loggedIn, async (req, res) => {
-  const params = new URL(req.originalUrl, 'http://localhost').searchParams;
-  // TODO wtf
-  const userName = params.get('userName') as any;
+server.get('/editStudentInformation/:username', loggedIn, async (req, res) => {
+  const { username } = req.params;
   // TODO proper err
-  const user = pickFromQ(await StudentModel.findOne({ userName }));
+  const user_ = await StudentModel.findOne({ username });
+  const user = pickFromQ(user_);
   const body = renderToString(ServerApp(req.url, { user }));
   res.send(html(body, { user }));
 });
 
-server.post('/editStudentInformation', async (req, res) => {
+server.post('/editStudentInformation/:username', async (req, res) => {
   try {
     await StudentModel.findOneAndUpdate(
-      { userName: req.body.userName },
-      // TODO wtf
-      { ...req.body },
+      { username: req.params.username },
+      copyStudentWithPermissions(req.body, req.user!),
     );
   } catch (e) { console.error(e); }
   res.redirect(303, req.originalUrl);
@@ -212,7 +194,7 @@ server.get('/login', (req, res) => {
   res.end();
 });
 
-server.get('/logout', function(req, res){
+server.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
@@ -222,14 +204,11 @@ server.post('/deleteAll', loggedIn, async (req, res, next) => {
   res.redirect('/');
 });
 
-server.get('/student_Home', loggedIn, async (req, res, next) => {
-  StudentModel.findOne({ userName: (req.user as any).userName }, (err, user) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('student', { users: user });
-    }
-  });
+server.get('/student_Home', loggedIn, async (req, res) => {
+  try {
+    const user = await StudentModel.findOne({ username: (req.user as any).username });
+    res.render('student', { users: user });
+  } catch (e) { console.error(e); }
 });
 
 server.post('/addStudent', loggedIn, async (req, res) => {
@@ -248,6 +227,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user as any);
 });
+
 server.get('*', loggedIn, (req, res) => {
   const body = renderToString(ServerApp(req.url, {}));
   res.send(
@@ -265,13 +245,13 @@ server.get('*', loggedIn, (req, res) => {
     useFindAndModify: false,
   });
 
-  await GPDModel.findOneAndUpdate({ userName: 'ayoub.benchaita@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
-  await GPDModel.findOneAndUpdate({ userName: 'edgar.sit@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
-  await GPDModel.findOneAndUpdate({ userName: 'qwe' }, { password: 'qwe' }, { upsert: true });
-  await StudentModel.findOneAndUpdate({ userName: 'scott' }, {
+  await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: 'qwe' }, { upsert: true });
+  await StudentModel.findOneAndUpdate({ username: 'scott' }, {
     password: 'asd', department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
   }, { upsert: true });
-  await StudentModel.findOneAndUpdate({ userName: 'skiena' }, {
+  await StudentModel.findOneAndUpdate({ username: 'skiena' }, {
     password: 'asd', department: 'CS', track: 'Thesis', requirementVersion: '123', gradSemester: '2040', coursePlan: '', graduated: false, comments: 'Hello', sbuId: 0,
   }, { upsert: true });
 

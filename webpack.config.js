@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 // https://github.com/webpack-contrib/mini-css-extract-plugin
 
@@ -31,6 +32,7 @@ module.exports = function (env, argv) {
         }
       ]
     },
+    target: 'node',
   };
 
   if (env.platform === 'web') {
@@ -42,9 +44,13 @@ module.exports = function (env, argv) {
       filename: '[name].js',
       path: __dirname + '/build/public',
     };
-  } else {
-    base.target = 'node';
+    base.plugins = [
+      new webpack.NormalModuleReplacementPlugin(
+        /.\/RT-PROP/,
+        '../client.props'
+      ),
+    ];
+    base.target = 'web'
   }
-
   return base;
 };

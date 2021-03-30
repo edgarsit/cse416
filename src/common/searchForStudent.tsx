@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-  Alert, Button, Col, Container, Dropdown, DropdownButton,
-  Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip,
+  Alert, Button, Container, Form, Modal, OverlayTrigger, Table, Tooltip,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Bar, Field } from './util';
 
 export const cols = {
-  userName: ['Name', 'Name', 'string'],
+  username: ['Name', 'Name', 'string'],
   sat: ['Sat Reqs', 'Satisfied Requirements'],
   pend: ['Pend Reqs', 'Pending Requirements'],
   unsat: ['Unsat Reqs', 'Unatisfied Requirements'],
@@ -18,12 +17,12 @@ export const cols = {
   department: ['Dept', 'Department', 'string'],
 } as const;
 
-export default function SearchForStudent({ values }: { values?: any[] }) {
+export default function SearchForStudent({ values }: { values?: any[] }): JSX.Element {
   const [modalShow, setModalShow] = React.useState(false);
   const [alertShow, setAlertShow] = React.useState(false);
   const data = values ?? [];
 
-  const onHide = (e) => {
+  const onHide = (e: Event) => {
     setModalShow(false);
     setAlertShow(true);
     setTimeout(() => setAlertShow(false), 1000);
@@ -62,7 +61,7 @@ export default function SearchForStudent({ values }: { values?: any[] }) {
             {
               // TODO css hover
               data.map((x, i) => {
-                const url = `/editStudentInformation/?userName=${x.userName}`;
+                const url = `/editStudentInformation/${x.username}`;
                 return (
                   <tr key={i} onClick={() => window.location.assign(url)}>
                     {Object.keys(cols).map((k, j) => (
