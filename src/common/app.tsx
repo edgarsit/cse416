@@ -10,6 +10,7 @@ import { Bar } from './util';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
 import EditStudentInformation from './editStudentInformation';
+import Login from './login';
 
 function Home() {
   return (
@@ -18,7 +19,7 @@ function Home() {
       <Container fluid="sm">
         <Button className="my-3" href="/imports" block>Imports</Button>
         <Button className="my-3" href="/addStudent" block>Add Student</Button>
-        <Form action="deleteAll" method="post">
+        <Form action="/deleteAll" method="post">
           <Button className="my-3" name="del" value="del" type="submit" block>Delete All data</Button>
         </Form>
         <Button className="my-3" href="/searchForStudent" block>Browse/search for students</Button>
@@ -31,6 +32,9 @@ function Home() {
 export function Routes({ values, user }: { values?: any[], user?: any }) {
   return (
     <Switch>
+      <Route path="/login">
+        <Login />
+      </Route>
       <Route path="/imports">
         <Imports />
       </Route>
@@ -48,6 +52,9 @@ export function Routes({ values, user }: { values?: any[], user?: any }) {
       </Route>
       <Route path="/">
         <Home />
+      </Route>
+      <Route>
+        Missing
       </Route>
     </Switch>
   );

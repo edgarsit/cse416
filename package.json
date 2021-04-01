@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@typegoose/typegoose": "^8.0.0-beta.2",
+    "@typegoose/typegoose": "^8.0.0-beta.4",
     "@types/connect-flash": "0.0.36",
     "bootstrap": "^4.6.0",
     "connect-flash": "^0.1.1",
@@ -12,7 +12,7 @@
     "express-session": "^1.17.1",
     "formidable": "^1.2.2",
     "jquery": "^3.6.0",
-    "mongoose": "~5.11.20",
+    "mongoose": "^5.11.19",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
     "passport-local": "^1.0.0",

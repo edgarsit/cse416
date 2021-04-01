@@ -6,7 +6,7 @@ import {
 
 export function Bar({ title }: { title?: string }) {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="sm">
       <Navbar.Brand href="/login">MAST System</Navbar.Brand>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -54,7 +54,6 @@ function FieldLeft({
             as={InputGroup.Prepend}
             variant="outline-secondary"
             title={selected}
-            id={name}
           >
             {
               // TODO != fix width
@@ -66,7 +65,7 @@ function FieldLeft({
             }
           </DropdownButton>
           <Form.Control type="hidden" value={selected} name={`${name}_cmp`} />
-          <Form.Control type="number" name={name} />
+          <Form.Control type="number" name={name} id={name} />
         </InputGroup>
       );
     }
@@ -86,8 +85,8 @@ function FieldLeft({
 export function Field(props: FieldLeftProps & { long: string }) {
   const { long, name } = props;
   return (
-    <Form.Group as={Row} controlId={name} key={name} className="p-2">
-      <Form.Label column>{long}</Form.Label>
+    <Form.Group as={Row} key={name} className="p-2">
+      <Form.Label column htmlFor={name}>{long}</Form.Label>
       <Col>
         <FieldLeft {...props} />
       </Col>

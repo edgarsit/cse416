@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Bar, Field } from './util';
 
 export const cols = {
-  username: ['Name', 'Name', 'string'],
+  username: ['Username', 'Username', 'string'],
   sat: ['Sat Reqs', 'Satisfied Requirements'],
   pend: ['Pend Reqs', 'Pending Requirements'],
   unsat: ['Unsat Reqs', 'Unatisfied Requirements'],
@@ -26,7 +26,6 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
     setModalShow(false);
     setAlertShow(true);
     setTimeout(() => setAlertShow(false), 1000);
-    e.preventDefault();
   };
 
   return (

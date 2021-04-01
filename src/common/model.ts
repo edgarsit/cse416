@@ -1,6 +1,7 @@
 import { DocumentType } from '@typegoose/typegoose';
 import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
 import { BasePropOptions, Ref } from '@typegoose/typegoose/lib/types';
+import { Types } from 'mongoose';
 import prop_ from './RT-PROP';
 
 const s = Symbol('fields');
@@ -110,6 +111,7 @@ export class CoursePlan {
 export class User {
   declare static fields: Description<Fields<User>>
   declare public __t: string;
+  declare public _id: Types.ObjectId;
 
   @rprop({ unique: true })
   public username!: string;

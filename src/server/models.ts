@@ -17,6 +17,7 @@ function entries<T extends { [key: string]: any }, K extends keyof T>(o: T): [ke
   return Object.entries(o) as any;
 }
 
+/** get the fields from the discription from the query string */
 export function getQS<T>(originalURL: string, d: Description<Fields<T>>): { [P in keyof T]?: any } {
   const params = new URL(originalURL, 'http://localhost').searchParams;
   const it = entries(d).map(

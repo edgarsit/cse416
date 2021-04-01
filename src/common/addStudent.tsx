@@ -22,10 +22,10 @@ export default function AddStudent(): JSX.Element {
     'sbuId',
   ];
   return (
-    <div>
+    <>
       <Bar />
       <Container>
-        <Form action="addStudent" method="post">
+        <Form action="/addStudent" method="post">
           {
             s.map((f) => (
               <Field key={f} type="string" name={f} long={f} required />
@@ -36,6 +36,6 @@ export default function AddStudent(): JSX.Element {
           </Button>
         </Form>
       </Container>
-    </div>
+    </>
   );
 }
