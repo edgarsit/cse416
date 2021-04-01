@@ -110,7 +110,9 @@ export class CoursePlan {
 @fields
 export class User {
   declare static fields: Description<Fields<User>>
+
   declare public __t: string;
+
   declare public _id: Types.ObjectId;
 
   @rprop({ unique: true })

@@ -17,6 +17,40 @@ export const cols = {
   department: ['Dept', 'Department', 'string'],
 } as const;
 
+interface FilterProps {
+  show: boolean,
+  onHide: (e?: any) => void,
+  c: typeof cols
+}
+
+function Filter({ show, onHide, c }: FilterProps) {
+  return (
+    <Modal
+      {...{ show, onHide }}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Filters
+          {/* TODO clear all */}
+        </Modal.Title>
+      </Modal.Header>
+      <Form action="/searchForStudent" method="get">
+        <Modal.Body>
+          {
+            Object.entries(c).map(([k, [_, l, t]]) => (<Field key={k} long={l} name={k} type={t ?? 'number'} cmp />))
+          }
+        </Modal.Body>
+        <Modal.Footer>
+          <Button type="submit">Apply</Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
+  );
+}
+
 export default function SearchForStudent({ values }: { values?: any[] }): JSX.Element {
   const [modalShow, setModalShow] = React.useState(false);
   const [alertShow, setAlertShow] = React.useState(false);
@@ -79,38 +113,5 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
         c={cols}
       />
     </>
-  );
-}
-
-interface FilterProps {
-  show: boolean,
-  onHide: (e?: any) => void,
-  c: typeof cols
-}
-function Filter({ show, onHide, c }: FilterProps) {
-  return (
-    <Modal
-      {...{ show, onHide }}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Filters
-          {/* TODO clear all */}
-        </Modal.Title>
-      </Modal.Header>
-      <Form action="/searchForStudent" method="get">
-        <Modal.Body>
-          {
-            Object.entries(c).map(([k, [_, l, t]]) => (<Field key={k} long={l} name={k} type={t ?? 'number'} cmp />))
-          }
-        </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit">Apply</Button>
-        </Modal.Footer>
-      </Form>
-    </Modal>
   );
 }

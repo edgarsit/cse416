@@ -49,10 +49,11 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }],
         "max-classes-per-file": [
             "error",
-             8
+            8
         ],
         "linebreak-style": ["error", (require("os").EOL === "\r\n" ? "windows" : "unix")],
         "eqeqeq": ["error", "smart"],
+        "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
         // TODO fix
         "no-underscore-dangle": "off",
         "@typescript-eslint/no-explicit-any": "off",

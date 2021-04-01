@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
 import fs from 'fs';
+import { IncomingForm } from 'formidable';
 
 import {
   StudentModel, GPDModel, getQS, copyStudentWithPermissions,
@@ -13,8 +14,10 @@ import {
 import { ServerApp } from '../common/app';
 import { Student } from '../common/model';
 import { auth } from './auth';
+import Login from '../common/login';
+import { parsePdf } from './import';
 
-const html = (body: string, val?: any) => {
+const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
   return `
   <!DOCTYPE html>
@@ -32,7 +35,7 @@ const html = (body: string, val?: any) => {
       crossorigin="anonymous"
     />
 ${v}
-    <script src="/public/client.js" defer></script>
+    <script src="/public/${url}.js" defer></script>
     </head>
     <body style="margin:0;">
       <div id="app">${body}</div>
@@ -54,16 +57,17 @@ server.use('/public', express.static('build/public'), express.static('public'));
 server.set('query parser', 'simple');
 server.use(express.json()); // support json encoded bodies
 
-server.use(auth)
+server.use(auth);
 
 server.get('/login', (req, res) => {
-  const body = renderToString(ServerApp(req.url, {}));
+  const flash = req.flash('error');
+  const body = renderToString(Login({ flash }));
   res.send(
     html(
-      body,
+      body, { flash }, 'login',
     ),
   );
-})
+});
 
 server.use((req, res, next) => {
   if (req.user == null) {
@@ -71,7 +75,7 @@ server.use((req, res, next) => {
   } else {
     next();
   }
-})
+});
 
 const pickFromQ = <T>(s: DocumentType<T> | null) => {
   const r = {};
@@ -88,9 +92,7 @@ const pickFromQ = <T>(s: DocumentType<T> | null) => {
 server.get('/searchForStudent', async (req, res) => {
   // TODO sec forall tbh
   const s = await StudentModel.find(getQS(req.originalUrl, Student.fields));
-  const values = s.map((x) => {
-    return pickFromQ(x);
-  });
+  const values = s.map((x) => pickFromQ(x));
   // TODO qs state modal
   const body = renderToString(ServerApp(req.url, { values }));
   res.send(html(body, { values }));
@@ -140,6 +142,19 @@ server.post('/addStudent', async (req, res) => {
   const s = req.body;
   await StudentModel.create(s);
   res.redirect('/');
+});
+
+server.post('/import/scrape', (req, res, next) => {
+  const form = new IncomingForm({ multiples: true });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      next(err);
+      return;
+    }
+
+    res.json(await parsePdf((files.upload as any).path));
+  });
 });
 
 server.get('*', (req, res) => {

@@ -4,7 +4,7 @@ import {
   Navbar, NavDropdown, Row, Col,
 } from 'react-bootstrap';
 
-export function Bar({ title }: { title?: string }) {
+export function Bar({ title }: { title?: string }): JSX.Element {
   return (
     <Navbar bg="light" expand="sm">
       <Navbar.Brand href="/login">MAST System</Navbar.Brand>
@@ -12,7 +12,7 @@ export function Bar({ title }: { title?: string }) {
         <Nav className="mr-auto">
           <NavDropdown title="Quick Links" id="basic-nav-dropdown">
             <NavDropdown.Item href="/home">Home</NavDropdown.Item>
-            <NavDropdown.Item href="/imports">Imports</NavDropdown.Item>
+            <NavDropdown.Item href="/import">Import</NavDropdown.Item>
             <NavDropdown.Item href="/addStudent">Add Student</NavDropdown.Item>
             <NavDropdown.Item href="/searchForStudent">Browse/search for students</NavDropdown.Item>
             <NavDropdown.Item href="/viewEnrollmentTrends">View Enrollment Trends</NavDropdown.Item>
@@ -82,7 +82,7 @@ function FieldLeft({
   throw new Error('Invalid type');
 }
 
-export function Field(props: FieldLeftProps & { long: string }) {
+export function Field(props: FieldLeftProps & { long: string }): JSX.Element {
   const { long, name } = props;
   return (
     <Form.Group as={Row} key={name} className="p-2">

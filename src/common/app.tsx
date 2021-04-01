@@ -5,7 +5,7 @@ import {
 import { StaticRouter, Switch, Route } from 'react-router-dom';
 
 import AddStudent from './addStudent';
-import Imports from './imports';
+import Import from './import';
 import { Bar } from './util';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
@@ -17,7 +17,7 @@ function Home() {
     <>
       <Bar />
       <Container fluid="sm">
-        <Button className="my-3" href="/imports" block>Imports</Button>
+        <Button className="my-3" href="/import" block>Imports</Button>
         <Button className="my-3" href="/addStudent" block>Add Student</Button>
         <Form action="/deleteAll" method="post">
           <Button className="my-3" name="del" value="del" type="submit" block>Delete All data</Button>
@@ -29,14 +29,11 @@ function Home() {
   );
 }
 
-export function Routes({ values, user }: { values?: any[], user?: any }) {
+export function Routes({ values, user }: { values?: any[], user?: any }): JSX.Element {
   return (
     <Switch>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/imports">
-        <Imports />
+      <Route path="/import">
+        <Import />
       </Route>
       <Route path="/addStudent">
         <AddStudent />
@@ -60,7 +57,7 @@ export function Routes({ values, user }: { values?: any[], user?: any }) {
   );
 }
 
-export function ServerApp(url: string, { values, user }: { values?: any[], user?: any }) {
+export function ServerApp(url: string, { values, user }: { values?: any[], user?: any }): JSX.Element {
   return (
     <StaticRouter location={url}>
       <Routes values={values} user={user} />

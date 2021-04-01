@@ -3,14 +3,15 @@ import { Types } from 'mongoose';
 import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { UserModel } from './models';
 import session from 'express-session';
 import flash from 'connect-flash';
+import { UserModel } from './models';
 
-import { User as mUser } from '../common/model'
+import { User as mUser } from '../common/model';
 
 declare global {
   namespace Express {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface User extends mUser { }
   }
 }
@@ -23,8 +24,8 @@ router.use(session({
   resave: false,
   saveUninitialized: false,
 }));
-router.use(passport.initialize())
-router.use(passport.session())
+router.use(passport.initialize());
+router.use(passport.session());
 
 const authOptions = { failureRedirect: '/login', failureFlash: true, successRedirect: '/' };
 
@@ -35,16 +36,15 @@ passport.use(new LocalStrategy(
         return done(err);
       }
       if (!user || !password) {
-        return done(null, false, { message: 'Try again incorrect credentials' });
+        return done(null, false, { message: 'Incorrect credentials' });
       }
       return done(null, user);
     });
-  }
+  },
 ));
 
 router.post('/login',
-  passport.authenticate('local', authOptions)
-);
+  passport.authenticate('local', authOptions));
 
 passport.use(new GoogleStrategy({
   clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
@@ -57,7 +57,7 @@ passport.use(new GoogleStrategy({
     }
     if (!user) {
       return done(null, false, {
-        message: 'The Google Account used is not associated with a MAST Account'
+        message: 'The Google Account used is not associated with a MAST Account',
       });
     }
     return done(null, user);
@@ -65,19 +65,17 @@ passport.use(new GoogleStrategy({
 }));
 
 router.get('/auth/google/callback',
-  passport.authenticate('google', authOptions)
-);
+  passport.authenticate('google', authOptions));
 
 router.get('/auth/google',
-  passport.authenticate('google', { scope: ['email'], failureFlash: true })
-);
+  passport.authenticate('google', { scope: ['email'], failureFlash: true }));
 
 passport.serializeUser<Types.ObjectId>((user, done) => {
   done(null, user._id);
 });
 
 passport.deserializeUser<Types.ObjectId>((id, done) => {
-  UserModel.findById(id, done)
+  UserModel.findById(id, done);
 });
 
 router.get('/logout', (req, res) => {

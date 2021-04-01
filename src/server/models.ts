@@ -48,7 +48,9 @@ export function getQS<T>(originalURL: string, d: Description<Fields<T>>): { [P i
   return Object.fromEntries(it);
 }
 
-export function copyStudentWithPermissions(body: any, user: User): { [P in keyof User]?: string } {
+export function copyStudentWithPermissions(
+  body: { [k in keyof Student]: string }, user: User,
+): Partial<Student> {
   if (user.__t !== 'GPD') {
     // TODO field by field check
     throw Error('Permission denied');
