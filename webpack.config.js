@@ -27,6 +27,9 @@ module.exports = function (env, argv) {
           use: [
             {
               loader: 'ts-loader',
+              options: {
+                transpileOnly: true,
+              },
             },
           ],
         }
