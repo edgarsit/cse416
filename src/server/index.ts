@@ -7,6 +7,7 @@ import { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
 import fs from 'fs';
 import { IncomingForm } from 'formidable';
+import * as argon2 from 'argon2';
 
 import {
   StudentModel, GPDModel, getQS, copyStudentWithPermissions,
@@ -175,14 +176,14 @@ server.get('*', (req, res) => {
     dbName: 'cse416',
   });
 
-  await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
-  await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: 'asd' }, { upsert: true });
-  await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: 'qwe' }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
   await StudentModel.findOneAndUpdate({ username: 'scott' }, {
-    password: 'asd', department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
+    password: await argon2.hash('asd'), department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
   }, { upsert: true });
   await StudentModel.findOneAndUpdate({ username: 'skiena' }, {
-    password: 'asd', department: 'CS', track: 'Thesis', requirementVersion: '123', gradSemester: '2040', coursePlan: '', graduated: false, comments: 'Hello', sbuId: 0,
+    password: await argon2.hash('asd'), department: 'CS', track: 'Thesis', requirementVersion: '123', gradSemester: '2040', coursePlan: '', graduated: false, comments: 'Hello', sbuId: 0,
   }, { upsert: true });
 
   https.createServer({

@@ -5,8 +5,9 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as LocalStrategy } from 'passport-local';
 import session from 'express-session';
 import flash from 'connect-flash';
-import { UserModel } from './models';
+import * as argon2 from 'argon2';
 
+import { UserModel } from './models';
 import { User as mUser } from '../common/model';
 
 declare global {
@@ -30,21 +31,20 @@ router.use(passport.session());
 const authOptions = { failureRedirect: '/login', failureFlash: true, successRedirect: '/' };
 
 passport.use(new LocalStrategy(
-  (username, password, done) => {
-    UserModel.findOne({ username, password }, (err, user) => {
-      if (err) {
-        return done(err);
+  async (username, password, done) => {
+    try {
+      const user = await UserModel.findOne({ username });
+      if (user != null && await argon2.verify(user.password, password)) {
+        return done(null, user);
       }
-      if (!user || !password) {
-        return done(null, false, { message: 'Incorrect credentials' });
-      }
-      return done(null, user);
-    });
+      return done(null, false, { message: 'Incorrect credentials' });
+    } catch (err) {
+      return done(err);
+    }
   },
 ));
 
-router.post('/login',
-  passport.authenticate('local', authOptions));
+router.post('/login', passport.authenticate('local', authOptions));
 
 passport.use(new GoogleStrategy({
   clientID: '22365015952-9kp5umlqtu97p4q36cigscetnl7dn3be.apps.googleusercontent.com',
@@ -64,8 +64,7 @@ passport.use(new GoogleStrategy({
   });
 }));
 
-router.get('/auth/google/callback',
-  passport.authenticate('google', authOptions));
+router.get('/auth/google/callback', passport.authenticate('google', authOptions));
 
 router.get('/auth/google',
   passport.authenticate('google', { scope: ['email'], failureFlash: true }));
