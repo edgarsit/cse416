@@ -30,7 +30,7 @@ Unimplemented
 
 Unimplemented
 
-## 5 Functionality for M.S. Students
+## 6 Functionality for M.S. Students
 
 Unimplemented
 
