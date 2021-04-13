@@ -24,7 +24,7 @@ export default function Login({ flash }: { flash: string[] }): JSX.Element {
       <Row className="h-100">
         <Col md className="my-auto">
           <Alert variant="danger" show={flash.length > 0}>{flash}</Alert>
-          <Button variant="outline-dark" className="m-5">
+          <Button href = "auth/google" variant="outline-dark" className="m-5">
             <GoogleLogo size="36px" style={{ marginBottom: '3px', marginRight: '5px' }} />
             Login with Google
           </Button>
