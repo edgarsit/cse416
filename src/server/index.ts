@@ -6,14 +6,14 @@ import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
 import fs from 'fs';
-import { IncomingForm } from 'formidable';
+import Formidable, { IncomingForm } from 'formidable';
 import * as argon2 from 'argon2';
 
 import {
-  StudentModel, GPDModel, getQS, copyStudentWithPermissions,
+  StudentModel, GPDModel, getQS, copyStudentWithPermissions, ScrapedCourseSetModel, ScrapedCourseModel,
 } from './models';
 import { ServerApp } from '../common/app';
-import { Student } from '../common/model';
+import { ScrapedCourse, Student } from '../common/model';
 import { auth } from './auth';
 import Login from '../common/login';
 import { parsePdf } from './import';
@@ -150,11 +150,28 @@ server.post('/import/scrape', (req, res, next) => {
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      next(err);
-      return;
+      return next(err);
     }
-
-    res.json(await parsePdf((files.upload as any).path));
+    try {
+      const pdfCourses = await parsePdf((files.file as Formidable.File).path);
+      const { year, semester } = fields;
+      const courseSet = await ScrapedCourseSetModel.create({
+        year, semester
+      })
+      await ScrapedCourseModel.bulkWrite(
+        pdfCourses.map((c) => {
+          const filter = Object.fromEntries(Object.entries(c).map(([k, v]) => [k, { $eq: v }]));
+          return {
+            updateOne: {
+              filter,
+              update: { $push: { courseSet: courseSet._id } },
+              upsert: true
+            }
+          }
+        })
+      );
+    } catch (err) { return next(err) }
+    res.redirect('/')
   });
 });
 

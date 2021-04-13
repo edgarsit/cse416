@@ -79,6 +79,47 @@ export class CoursePlanComment {
   public text!: string
 }
 
+export enum Grading {
+  Letter = 'Letter graded \(A, A\-, B\+, etc.\)',
+  SU = 'S\/U grading'
+}
+
+export enum Semester {
+  Spring,
+  Summer,
+  Fall,
+  Winter
+}
+
+export class ScrapedCourseSet {
+  declare public _id: Types.ObjectId;
+
+  @rprop()
+  public year!: number
+  @rprop({ enum: Semester })
+  public semester!: Semester
+}
+
+// TODO index
+export class ScrapedCourse {
+  @rprop()
+  public department!: string
+
+  @rprop()
+  public number!: number
+
+  @rprop()
+  public fullName!: string
+
+  @rprop()
+  public minCredits!: number
+  @rprop()
+  public maxCredits!: number
+
+  @rprop({ ref: () => ScrapedCourseSet })
+  public courseSet!: Ref<ScrapedCourseSet>[]
+}
+
 export class Course {
   @rprop()
   public department!: string
