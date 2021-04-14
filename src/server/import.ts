@@ -34,7 +34,7 @@ interface Acc {
   acc: Omit<ScrapedCourse, "courseSet">[],
 }
 
-const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A\-, B\+, etc\.\))|(?:S\/U grading))?( May be repeated for credit\.?)?$/;
+const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A\-, B\+, etc\.\))|(?:S\/U grading))?( May be repeated for credit\.?)?$/i;
 function parse(desc: string): {
   minCredits: number, maxCredits: number
 } | null {
@@ -44,8 +44,8 @@ function parse(desc: string): {
   }
   const [_, minS, maxS, grading, repeatS] = m;
   return {
-    minCredits: +minS! | 0,
-    maxCredits: +maxS! | 0,
+    minCredits: +(minS ?? maxS ?? 3) | 0,
+    maxCredits: +(maxS ?? 3) | 0,
   }
 }
 
