@@ -153,13 +153,18 @@ server.post('/import/scrape', (req, res, next) => {
       return next(err);
     }
     try {
+      // TODO parallelize
       const pdfCourses = await parsePdf((files.file as Formidable.File).path);
-      const { year, semester } = fields;
+      const { year, semester, department } = fields;
+      const departments = (department as string).split(',').map((x)=>x.trim());
       const courseSet = await ScrapedCourseSetModel.create({
         year, semester
       })
       await ScrapedCourseModel.bulkWrite(
         pdfCourses.map((c) => {
+          if (!departments.includes(c.department)) {
+            return null
+          }
           const filter = Object.fromEntries(Object.entries(c).map(([k, v]) => [k, { $eq: v }]));
           return {
             updateOne: {
@@ -168,7 +173,7 @@ server.post('/import/scrape', (req, res, next) => {
               upsert: true
             }
           }
-        })
+        }).filter(<U>(x: U): x is NonNullable<U> => x != null)
       );
     } catch (err) { return next(err) }
     res.redirect('/')

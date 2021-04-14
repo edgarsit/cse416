@@ -2,6 +2,17 @@ import React from 'react';
 import { Container, Button, Form, Row, Col } from 'react-bootstrap';
 import { Bar } from './util';
 
+function Field({ s, pl, l }: { s: string, pl: string, l?: string }): JSX.Element {
+  return (
+    <Form.Group as={Row} controlId={s}>
+      <Form.Label column>{l ?? s[0]?.toUpperCase() + s.slice(1)}</Form.Label>
+      <Col>
+        <Form.Control type="text" placeholder={pl} name={s} />
+      </Col>
+    </Form.Group>
+  )
+}
+
 export default function Import(): JSX.Element {
   return (
     <>
@@ -18,18 +29,9 @@ export default function Import(): JSX.Element {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="semester">
-            <Form.Label column>Semester</Form.Label>
-            <Col>
-              <Form.Control type="text" placeholder="Spring" name="semester" />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="year">
-            <Form.Label column>Year</Form.Label>
-            <Col>
-              <Form.Control type="text" placeholder="2021" name="year" />
-            </Col>
-          </Form.Group>
+          <Field s="semester" pl="Spring" />
+          <Field s="year" pl="2021" />
+          <Field s="department" pl="AMS, CSE" l="Departments (comma separated)"/>
           <Button type="submit">5.1 Scrape Course Information</Button>
         </Form>
         <Button block>5.2 Import Degree Requirements</Button>
