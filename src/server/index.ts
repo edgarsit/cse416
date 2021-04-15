@@ -216,6 +216,7 @@ server.get('*', (req, res) => {
 
   await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
   await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+  await GPDModel.findOneAndUpdate({ username: 'menachem.goldring@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
   await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
   await StudentModel.findOneAndUpdate({ username: 'scott' }, {
     password: await argon2.hash('asd'), department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
