@@ -138,11 +138,11 @@ export enum Semester {
 
 export class xCreditsGradeY{
   @rprop()
-  public credits!: number 
+  public credits!: number
 
   @rprop()
   public grade!: string
-  
+
 }
 
 export class ScrapedCourseSet {
@@ -174,6 +174,47 @@ export class ScrapedCourse {
   public courseSet!: Ref<ScrapedCourseSet>[]
 }
 
+enum Day {
+  Mo = 1 << 0,
+  Tu = 1 << 1,
+  We = 1 << 2,
+  Th = 1 << 3,
+  Fr = 1 << 4,
+  Sa = 1 << 5,
+  Su = 1 << 6,
+}
+
+export class TimeSlot {
+  @rprop()
+  public day!: Day
+
+  @rprop()
+  public startTime!: number
+
+  @rprop()
+  public endTime!: number
+}
+
+export class CourseOffering {
+  @rprop()
+  public department!: string
+
+  @rprop()
+  public number!: number
+
+  @prop()
+  public section?: string
+
+  @rprop()
+  public semester!: string
+
+  @rprop()
+  public year!: number
+
+  @rprop()
+  public timeslot!: string
+}
+
 export class Course {
   @rprop()
   public department!: string
@@ -198,8 +239,8 @@ export class CoursePlan {
   @rprop({ type: () => [[String]] })
   public comments!: [string][]
 
-  @rprop({ type: () => [Course] })
-  public courses!: Course[]
+  @rprop({ type: () => [CourseOffering] })
+  public courses!: CourseOffering[]
 }
 
 @fields

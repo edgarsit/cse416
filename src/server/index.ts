@@ -6,12 +6,13 @@ import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
 import fs from 'fs';
-import * as fsp from 'fs/promises';
+import fsp from 'fs/promises';
 import Formidable, { IncomingForm } from 'formidable';
-import * as argon2 from 'argon2';
+import argon2 from 'argon2';
+import parseCsv from 'csv-parse';
 
 import {
-  StudentModel, GPDModel, getQS, copyStudentWithPermissions, ScrapedCourseSetModel, ScrapedCourseModel,
+  StudentModel, GPDModel, getQS, copyStudentWithPermissions, ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
 } from './models';
 import { ServerApp } from '../common/app';
 import { Semester, Student } from '../common/model';
@@ -193,6 +194,49 @@ server.post('/import/degreeRequirements', (req, res, next) => {
       console.log(test);
     } catch (err) { return next(err) }
     res.redirect('/')
+  });
+});
+
+server.post('/import/courseOffering', (req, res, next) => {
+  const form = new IncomingForm({ multiples: true });
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      return next(err);
+    }
+    try {
+      const csv = fs.createReadStream((files.file as Formidable.File).path)
+        .pipe(parseCsv({ columns: true }));
+      const acc: any[] = [];
+      for await (const r of csv) {
+        acc.push(r)
+      }
+      await CourseOfferingModel.bulkWrite(
+        acc.map((c) => {
+          const filter = Object.fromEntries(Object.entries(c)
+            .map(([k, v]) => [k, { $eq: v }] as const)
+            .filter(([k, _]) => ['year', 'semester'].includes(k))
+          );
+          return {
+            deleteMany: {
+              filter
+            }
+          }
+        })
+      );
+      await CourseOfferingModel.bulkWrite(
+        acc.map((c) => {
+          const filter = Object.fromEntries(Object.entries(c).map(([k, v]) => [k === 'course_num' ? 'number' : k, { $eq: v }]));
+          return {
+            updateOne: {
+              filter,
+              update: { $setOnInsert: c },
+              upsert: true,
+            },
+          }
+        })
+      )
+    } catch (err) { return next(err); }
+    res.redirect('/');
   });
 });
 

@@ -55,7 +55,19 @@ export default function Import(): JSX.Element {
           </Form.Group>
           <Button type="submit">5.2 Import Degree Requirements</Button>
         </Form>
-        <Button block>5.3 Import Course Offerings</Button>
+        <Form action="/import/courseOffering" method="post" encType="multipart/form-data">
+          <Form.Group as={Row} controlId="file">
+            <Form.Label column>CSV File</Form.Label>
+            <Col>
+              <Form.File
+                multiple
+                name="file"
+                accept="application/csv"
+              />
+            </Col>
+          </Form.Group>
+          <Button type="submit">5.3 Import Course Offerings</Button>
+        </Form>
       </Container>
     </>
   );
