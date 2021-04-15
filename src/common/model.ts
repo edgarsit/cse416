@@ -1,6 +1,7 @@
 import { DocumentType } from '@typegoose/typegoose';
 import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
 import { BasePropOptions, Ref } from '@typegoose/typegoose/lib/types';
+import e from 'express';
 import { Types } from 'mongoose';
 import prop_ from './RT-PROP';
 
@@ -56,19 +57,35 @@ function rprop(options?: Omit<OptionsI, 'required'>, kind?: WhatIsIt): PropertyD
 
 export class DegreeRequirements {
   @rprop()
-  public department!: string
-
-  @rprop()
-  public track!: string
+  public degreeName!: string
 
   @rprop()
   public requirementVersion!: string
 
   @rprop()
+  public track!: string
+
+  @rprop()
+  public minimumCumulativeGPA!: string
+
+  @rprop()
+  public timelimit!: string
+
+  @rprop({map: ['Required', 'Not-Required']})
+  public finalRecomendation!: boolean
+
+  @rprop()
   public creditsNeededToGraduate!: number
 
-  @rprop({ type: () => [String] })
-  public requirements!: string[]
+  @rprop({ ref: () => xCreditsGradeY })
+  public prerequisites!: xCreditsGradeY
+
+  @rprop({ type: () => [Course] })
+  public coreCourses!: Course[]
+
+  @rprop({ type: () => [Tracks] })
+  public tracks!: Tracks[]
+
 }
 
 export class CoursePlanComment {
@@ -78,6 +95,34 @@ export class CoursePlanComment {
   @rprop()
   public text!: string
 }
+
+export class Elective {
+  @rprop()
+  public numCourses!: number
+
+  @rprop()
+  public totalCredits!: number
+
+  @rprop()
+  public range!: string
+
+  @rprop({ type: () => [[String]] })
+  public substitutions!: [string][]
+
+}
+
+export class Tracks{
+  @rprop()
+  public totalCredits!: number
+
+  @rprop({ type: () => [Course] })
+  public coreCourses!: Course[]
+
+  @rprop({ type: () => Elective })
+  public electives!: Elective
+
+}
+
 
 export enum Grading {
   Letter = 'Letter graded \(A, A\-, B\+, etc.\)',
@@ -89,6 +134,15 @@ export enum Semester {
   Summer,
   Fall,
   Winter
+}
+
+export class xCreditsGradeY{
+  @rprop()
+  public credits!: number 
+
+  @rprop()
+  public grade!: string
+  
 }
 
 export class ScrapedCourseSet {
