@@ -6,14 +6,15 @@ import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
 import fs from 'fs';
-import { IncomingForm } from 'formidable';
+import * as fsp from 'fs/promises';
+import Formidable, { IncomingForm } from 'formidable';
 import * as argon2 from 'argon2';
 
 import {
-  StudentModel, GPDModel, getQS, copyStudentWithPermissions,
+  StudentModel, GPDModel, getQS, copyStudentWithPermissions, ScrapedCourseSetModel, ScrapedCourseModel,
 } from './models';
 import { ServerApp } from '../common/app';
-import { Student } from '../common/model';
+import { ScrapedCourse, Student } from '../common/model';
 import { auth } from './auth';
 import Login from '../common/login';
 import { parsePdf } from './import';
@@ -150,11 +151,48 @@ server.post('/import/scrape', (req, res, next) => {
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      next(err);
-      return;
+      return next(err);
     }
+    try {
+      // TODO parallelize
+      const pdfCourses = await parsePdf((files.file as Formidable.File).path);
+      const { year, semester, department } = fields;
+      const departments = (department as string).split(',').map((x)=>x.trim());
+      const courseSet = await ScrapedCourseSetModel.create({
+        year, semester
+      })
+      await ScrapedCourseModel.bulkWrite(
+        pdfCourses.map((c) => {
+          if (!departments.includes(c.department)) {
+            return null
+          }
+          const filter = Object.fromEntries(Object.entries(c).map(([k, v]) => [k, { $eq: v }]));
+          return {
+            updateOne: {
+              filter,
+              update: { $push: { courseSet: courseSet._id } },
+              upsert: true
+            }
+          }
+        }).filter(<U>(x: U): x is NonNullable<U> => x != null)
+      );
+    } catch (err) { return next(err) }
+    res.redirect('/')
+  });
+});
 
-    res.json(await parsePdf((files.upload as any).path));
+server.post('/import/degreeRequirements', (req, res, next) => {
+  const form = new IncomingForm({ multiples: true });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      return next(err);
+    }
+    try {
+      const test = JSON.parse(await fsp.readFile((files.file as Formidable.File).path, {encoding:'utf8'}))
+      console.log(test);
+    } catch (err) { return next(err) }
+    res.redirect('/')
   });
 });
 

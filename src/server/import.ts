@@ -1,6 +1,8 @@
 import * as pdf from 'pdfjs-dist/es5/build/pdf';
+import { TextItem } from 'pdfjs-dist/types/display/api';
 
 import { performance } from 'perf_hooks';
+import { ScrapedCourse } from '../common/model';
 
 function assertArrayEq<T, U>(head: T[], s: U[], tail: T[], map: (arg: U) => T): U[] {
   if (s.length < head.length + tail.length) {
@@ -23,42 +25,64 @@ function assertArrayEq<T, U>(head: T[], s: U[], tail: T[], map: (arg: U) => T): 
   return s.slice(head.length, -tail.length);
 }
 
+
 interface Acc {
   short: string,
   long: string,
   title: string,
   desc: string,
-  acc: {
-    [k: string]: {
-      title: string,
-      desc: string,
-    }[]
+  acc: Omit<ScrapedCourse, "courseSet">[],
+}
+
+const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A\-, B\+, etc\.\))|(?:S\/U grading))?( May be repeated for credit\.?)?$/i;
+function parse(desc: string): {
+  minCredits: number, maxCredits: number
+} | null {
+  const m = desc.match(re);
+  if (m == null) {
+    return null
+  }
+  const [_, minS, maxS, grading, repeatS] = m;
+  return {
+    minCredits: +(minS ?? maxS ?? 3) | 0,
+    maxCredits: +(maxS ?? 3) | 0,
   }
 }
 
-export async function parsePdf(fileName: string) {
-  const start = performance.now();
+export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, "courseSet">[]> {
   const loadingTask = pdf.getDocument(fileName);
   const doc = await loadingTask.promise;
-  console.log('1', performance.now() - start);
   const { numPages } = doc;
-  console.log(`Number of Pages: ${numPages}`);
 
   const loadPage = async (pageNum: number) => {
     const page = await doc.getPage(pageNum);
     const content = await page.getTextContent();
-    const v = assertArrayEq([null, null, 'GRADUATE  COURSE  DESCRIPTIONS', null], content.items, ['Stony Brook University Graduate Bulletin: www.stonybrook.edu/gradbulletin', `${pageNum}`], (item: any) => item.str);
+    const v = assertArrayEq([null, null, 'GRADUATE  COURSE  DESCRIPTIONS', null], content.items, ['Stony Brook University Graduate Bulletin: www.stonybrook.edu/gradbulletin', `${pageNum}`], (item) => item.str);
     return v;
   };
 
   const push = (acc: Acc) => {
     const { title, desc } = acc;
-    acc.acc[acc.short]!.push({ title, desc });
+    const m = title.match(/^\s*(\S+)\s+(\S*)\s*:\s*(.*)$/);
+    if (m == null) {
+      throw Error('Unable to split course title');
+    }
+    const [_, department, number, fullName] = m;
+    const pd = parse(desc);
+    if (pd == null) {
+      throw Error('Unable to parse course description');
+    }
+    const sc = {
+      department: department!, number: +number! | 0, fullName: fullName!,
+      ...pd
+    }
+    acc.acc.push(sc);
     acc.title = '';
     acc.desc = '';
   };
 
-  const processPage = (acc: Acc, ps) => {
+  // TODO fix run on parsing
+  const processPage = (ps: TextItem[]) => {
     for (const p of ps) {
       switch (p.fontName) {
         case 'Helvetica':
@@ -76,7 +100,7 @@ export async function parsePdf(fileName: string) {
               if (acc.desc !== '') {
                 push(acc);
               }
-              acc.title += p.str;
+              acc.title = `${acc.title} ${p.str}`;
               break;
             default:
               throw new Error();
@@ -89,7 +113,6 @@ export async function parsePdf(fileName: string) {
                 push(acc);
               }
               acc.short = p.str;
-              acc.acc[acc.short] = [];
               acc.long = '';
               break;
             case 9:
@@ -109,20 +132,17 @@ export async function parsePdf(fileName: string) {
   };
 
   const arr = new Array(numPages).fill(undefined).map((_, i) => loadPage(i + 1));
-  console.log('2', performance.now() - start);
 
   const acc: Acc = {
     short: '',
     long: '',
     title: '',
     desc: '',
-    acc: {},
+    acc: [],
   };
   for (const ps of arr) {
-    processPage(acc, await ps);
+    processPage(await ps);
   }
   push(acc);
-
-  console.log(`Total Time: ${(performance.now() - start) / 1000} s`);
-  return acc;
+  return acc.acc
 }

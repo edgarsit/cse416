@@ -2,13 +2,15 @@ import {
   getDiscriminatorModelForClass, getModelForClass,
 } from '@typegoose/typegoose';
 import {
-  User, GPD, Student, Description, Fields,
+  User, GPD, Student, Description, Fields, ScrapedCourse, ScrapedCourseSet,
 } from '../common/model';
 
 export const UserModel = getModelForClass(User);
 export const GPDModel = getDiscriminatorModelForClass(UserModel, GPD);
 export const StudentModel = getDiscriminatorModelForClass(UserModel, Student);
 
+export const ScrapedCourseSetModel = getModelForClass(ScrapedCourseSet);
+export const ScrapedCourseModel = getModelForClass(ScrapedCourse);
 const cmp: { [k: string]: string | undefined } = {
   '=': '$eq', '>': '$gt', '<': '$lt', '!=': '$neq',
 };
