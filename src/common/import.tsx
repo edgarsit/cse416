@@ -34,7 +34,19 @@ export default function Import(): JSX.Element {
           <Field s="department" pl="AMS, CSE" l="Departments (comma separated)"/>
           <Button type="submit">5.1 Scrape Course Information</Button>
         </Form>
-        <Button block>5.2 Import Degree Requirements</Button>
+        <Form action="/import/degreeRequirements" method="post" encType="multipart/form-data">
+          <Form.Group as={Row} controlId="file">
+            <Form.Label column>JSON File</Form.Label>
+            <Col>
+              <Form.File
+                multiple
+                name="file"
+                accept="application/json"
+              />
+            </Col>
+          </Form.Group>
+          <Button type="submit">5.2 Import Degree Requirements</Button>
+        </Form>
         <Button block>5.3 Import Course Offerings</Button>
       </Container>
     </>

@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
 import fs from 'fs';
+import * as fsp from 'fs/promises';
 import Formidable, { IncomingForm } from 'formidable';
 import * as argon2 from 'argon2';
 
@@ -175,6 +176,21 @@ server.post('/import/scrape', (req, res, next) => {
           }
         }).filter(<U>(x: U): x is NonNullable<U> => x != null)
       );
+    } catch (err) { return next(err) }
+    res.redirect('/')
+  });
+});
+
+server.post('/import/degreeRequirements', (req, res, next) => {
+  const form = new IncomingForm({ multiples: true });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      return next(err);
+    }
+    try {
+      const test = JSON.parse(await fsp.readFile((files.file as Formidable.File).path, {encoding:'utf8'}))
+      console.log(test);
     } catch (err) { return next(err) }
     res.redirect('/')
   });
