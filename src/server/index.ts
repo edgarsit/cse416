@@ -233,7 +233,7 @@ server.post('/import/courseOffering', (req, res, next) => {
         }),
       );
     } catch (e) { return next(e); }
-    res.redirect('/');
+    return res.redirect('/');
   });
 });
 

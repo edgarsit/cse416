@@ -65,7 +65,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'react/require-default-props': 'off',
     'no-shadow': 'off',
-    'consistent-return': 'off',
     'no-bitwise': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'no-console': 'off',
@@ -100,9 +99,8 @@ module.exports = {
     },
     // TODO fix quality
     {
-      files: ['src/common/createCourseSchedule.tsx'],
+      files: ['src/common/createCourseSchedule.ts'],
       rules: {
-        'react/jsx-filename-extension': 'off',
         'no-restricted-syntax': 'off',
         'no-useless-constructor': 'off',
         '@typescript-eslint/no-empty-function': 'off',
@@ -118,9 +116,8 @@ module.exports = {
       },
     },
     {
-      files: ['src/common/degreeRequirementImport.tsx'],
+      files: ['src/common/degreeRequirementImport.ts'],
       rules: {
-        'react/jsx-filename-extension': 'off',
         'max-len': 'off',
       },
     },
