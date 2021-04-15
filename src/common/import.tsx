@@ -29,9 +29,17 @@ export default function Import(): JSX.Element {
               />
             </Col>
           </Form.Group>
-          <Field s="semester" pl="Spring" />
+          <Form.Control as="select" name="semester">
+            {
+              // TODO fix
+              ['Spring',
+                'Summer',
+                'Fall',
+                'Winter'].map((v) => <option key={v}>{v}</option>)
+            }
+          </Form.Control>
           <Field s="year" pl="2021" />
-          <Field s="department" pl="AMS, CSE" l="Departments (comma separated)"/>
+          <Field s="department" pl="AMS, CSE" l="Departments (comma separated)" />
           <Button type="submit">5.1 Scrape Course Information</Button>
         </Form>
         <Form action="/import/degreeRequirements" method="post" encType="multipart/form-data">

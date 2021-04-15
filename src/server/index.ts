@@ -14,7 +14,7 @@ import {
   StudentModel, GPDModel, getQS, copyStudentWithPermissions, ScrapedCourseSetModel, ScrapedCourseModel,
 } from './models';
 import { ServerApp } from '../common/app';
-import { ScrapedCourse, Student } from '../common/model';
+import { Semester, Student } from '../common/model';
 import { auth } from './auth';
 import Login from '../common/login';
 import { parsePdf } from './import';
@@ -159,7 +159,7 @@ server.post('/import/scrape', (req, res, next) => {
       const { year, semester, department } = fields;
       const departments = (department as string).split(',').map((x)=>x.trim());
       const courseSet = await ScrapedCourseSetModel.create({
-        year, semester
+        year, semester: Semester[semester as any]
       })
       await ScrapedCourseModel.bulkWrite(
         pdfCourses.map((c) => {

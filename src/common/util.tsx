@@ -42,10 +42,10 @@ interface FieldLeftProps {
 function FieldLeft({
   name, type, cmp, required,
 }: FieldLeftProps) {
-  const ty = type === 'boolean' ? ['True', 'False'] : type;
-  if (ty === 'string') {
+  const ty = type === Boolean.name.toLowerCase() ? ['True', 'False'] : type;
+  if (ty === String.name.toLowerCase()) {
     return <Form.Control type="text" name={name} required={required} />;
-  } if (ty === 'number') {
+  } if (ty === Number.name.toLowerCase()) {
     if (cmp) {
       const [selected, setSelected] = React.useState('=');
       return (
