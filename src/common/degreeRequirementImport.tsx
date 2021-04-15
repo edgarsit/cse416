@@ -1,8 +1,8 @@
-//f is the text file uploaded by the client
-//department is the department of the GPD that is uploading the file
-//the department for the degree must match the department of the GPD, otherwise throw an error
+// f is the text file uploaded by the client
+// department is the department of the GPD that is uploading the file
+// the department for the degree must match the department of the GPD, otherwise throw an error
 
-//will be written in pseudocodish until it can be changed to react format
+// will be written in pseudocodish until it can be changed to react format
 
 /*
 atm only 2 degrees will be implemented
@@ -22,7 +22,7 @@ AMSDegreeParser(f)
 
         // There might have to be checks for the valeus exctracted in each row
         //ex: Minimum Cumulative GPA: E      should be invalid
-        //also maybe check length of 
+        //also maybe check length of
         var line=0
         var r=readline(f)
         line=line+1
@@ -47,7 +47,7 @@ AMSDegreeParser(f)
             throw err("Invalid file format on line "+line)
         }
         var temp=r.split(" ")
-        var min_cumulative_gpa=temp[3]//minimum cumulative gpa 
+        var min_cumulative_gpa=temp[3]//minimum cumulative gpa
 
         r=readline(f)
         line=line+1
@@ -56,7 +56,7 @@ AMSDegreeParser(f)
             throw err("Invalid file format on line "+line)
         }
         var temp=r.split(" ")
-        var min_cumulative_gpa=temp[3]//minimum cumulative gpa 
+        var min_cumulative_gpa=temp[3]//minimum cumulative gpa
 
         r=readline(f)
         line=line+1
@@ -88,7 +88,7 @@ AMSDegreeParser(f)
         {
             final_recommendation=true
         }
-        
+
         r=readline(f)
         line=line+1
         if(r.indexOf("Time Limit: ")==-1)

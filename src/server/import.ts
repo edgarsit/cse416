@@ -1,7 +1,6 @@
 import * as pdf from 'pdfjs-dist/es5/build/pdf';
 import { TextItem } from 'pdfjs-dist/types/display/api';
 
-import { performance } from 'perf_hooks';
 import { ScrapedCourse } from '../common/model';
 
 function assertArrayEq<T, U>(head: T[], s: U[], tail: T[], map: (arg: U) => T): U[] {
@@ -25,31 +24,30 @@ function assertArrayEq<T, U>(head: T[], s: U[], tail: T[], map: (arg: U) => T): 
   return s.slice(head.length, -tail.length);
 }
 
-
 interface Acc {
   short: string,
   long: string,
   title: string,
   desc: string,
-  acc: Omit<ScrapedCourse, "courseSet">[],
+  acc: Omit<ScrapedCourse, 'courseSet'>[],
 }
 
-const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A\-, B\+, etc\.\))|(?:S\/U grading))?( May be repeated for credit\.?)?$/i;
+const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A-, B\+, etc\.\))|(?:S\/U grading))?( May be repeated for credit\.?)?$/i;
 function parse(desc: string): {
   minCredits: number, maxCredits: number
 } | null {
   const m = desc.match(re);
   if (m == null) {
-    return null
+    return null;
   }
-  const [_, minS, maxS, grading, repeatS] = m;
+  const [_, minS, maxS, _grading, _repeatS] = m;
   return {
     minCredits: +(minS ?? maxS ?? 3) | 0,
     maxCredits: +(maxS ?? 3) | 0,
-  }
+  };
 }
 
-export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, "courseSet">[]> {
+export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'courseSet'>[]> {
   const loadingTask = pdf.getDocument(fileName);
   const doc = await loadingTask.promise;
   const { numPages } = doc;
@@ -73,16 +71,18 @@ export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, "c
       throw Error('Unable to parse course description');
     }
     const sc = {
-      department: department!, number: +number! | 0, fullName: fullName!,
-      ...pd
-    }
+      department: department!,
+      number: +number! | 0,
+      fullName: fullName!,
+      ...pd,
+    };
     acc.acc.push(sc);
     acc.title = '';
     acc.desc = '';
   };
 
   // TODO fix run on parsing
-  const processPage = (ps: TextItem[]) => {
+  const processPage = (acc: Acc, ps: TextItem[]) => {
     for (const p of ps) {
       switch (p.fontName) {
         case 'Helvetica':
@@ -141,8 +141,8 @@ export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, "c
     acc: [],
   };
   for (const ps of arr) {
-    processPage(await ps);
+    processPage(acc, await ps); // eslint-disable-line no-await-in-loop
   }
   push(acc);
-  return acc.acc
+  return acc.acc;
 }

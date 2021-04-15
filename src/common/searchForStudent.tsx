@@ -19,7 +19,7 @@ export const cols = {
 
 interface FilterProps {
   show: boolean,
-  onHide: (e?: any) => void,
+  onHide: () => void,
   c: typeof cols
 }
 
@@ -56,7 +56,7 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
   const [alertShow, setAlertShow] = React.useState(false);
   const data = values ?? [];
 
-  const onHide = (e: Event) => {
+  const onHide = () => {
     setModalShow(false);
     setAlertShow(true);
     setTimeout(() => setAlertShow(false), 1000);
@@ -93,12 +93,12 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
           <tbody>
             {
               // TODO css hover
-              data.map((x, i) => {
+              data.map((x) => {
                 const url = `/editStudentInformation/${x.username}`;
                 return (
-                  <tr key={i} onClick={() => window.location.assign(url)}>
-                    {Object.keys(cols).map((k, j) => (
-                      <td key={j}><Link to={url}>{x[k]}</Link></td>
+                  <tr key={x.username} onClick={() => window.location.assign(url)}>
+                    {Object.keys(cols).map((k) => (
+                      <td key={k}><Link to={url}>{x[k]}</Link></td>
                     ))}
                   </tr>
                 );

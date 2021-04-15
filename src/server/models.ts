@@ -61,8 +61,9 @@ export function copyStudentWithPermissions(
     throw Error('Permission denied');
   }
 
+  // TODO fix unused
   const it = entries(Student.fields).map(
-    ([k, ve]) => {
+    ([k, _ve]) => {
       if (body[k] != null) {
         return [k, body[k]];
       }

@@ -10,7 +10,6 @@ import { Bar } from './util';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
 import EditStudentInformation from './editStudentInformation';
-import Login from './login';
 
 function Home() {
   return (
@@ -57,7 +56,9 @@ export function Routes({ values, user }: { values?: any[], user?: any }): JSX.El
   );
 }
 
-export function ServerApp(url: string, { values, user }: { values?: any[], user?: any }): JSX.Element {
+export function ServerApp(
+  url: string, { values, user }: { values?: any[], user?: any },
+): JSX.Element {
   return (
     <StaticRouter location={url}>
       <Routes values={values} user={user} />

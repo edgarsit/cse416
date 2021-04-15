@@ -1,9 +1,9 @@
-import { DocumentType } from '@typegoose/typegoose';
 import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
 import { BasePropOptions, Ref } from '@typegoose/typegoose/lib/types';
-import e from 'express';
 import { Types } from 'mongoose';
 import prop_ from './RT-PROP';
+
+// TODO split classes
 
 const s = Symbol('fields');
 type IsString<T> = T extends string ? T : never
@@ -71,7 +71,7 @@ export class DegreeRequirements {
   @rprop()
   public timelimit!: string
 
-  @rprop({map: ['Required', 'Not-Required']})
+  @rprop({ map: ['Required', 'Not-Required'] })
   public finalRecomendation!: boolean
 
   @rprop()
@@ -85,7 +85,6 @@ export class DegreeRequirements {
 
   @rprop({ type: () => [Tracks] })
   public tracks!: Tracks[]
-
 }
 
 export class CoursePlanComment {
@@ -108,10 +107,9 @@ export class Elective {
 
   @rprop({ type: () => [[String]] })
   public substitutions!: [string][]
-
 }
 
-export class Tracks{
+export class Tracks {
   @rprop()
   public totalCredits!: number
 
@@ -120,13 +118,11 @@ export class Tracks{
 
   @rprop({ type: () => Elective })
   public electives!: Elective
-
 }
 
-
 export enum Grading {
-  Letter = 'Letter graded \(A, A\-, B\+, etc.\)',
-  SU = 'S\/U grading'
+  Letter = 'Letter graded (A, A-, B+, etc.)',
+  SU = 'S/U grading'
 }
 
 export enum Semester {
@@ -136,13 +132,12 @@ export enum Semester {
   Winter
 }
 
-export class xCreditsGradeY{
+export class xCreditsGradeY {
   @rprop()
   public credits!: number
 
   @rprop()
   public grade!: string
-
 }
 
 export class ScrapedCourseSet {
@@ -150,6 +145,7 @@ export class ScrapedCourseSet {
 
   @rprop()
   public year!: number
+
   @rprop({ enum: Semester })
   public semester!: Semester
 }
@@ -167,6 +163,7 @@ export class ScrapedCourse {
 
   @rprop()
   public minCredits!: number
+
   @rprop()
   public maxCredits!: number
 
@@ -267,11 +264,7 @@ export class User {
   public password!: string;
 }
 
-export class GPD extends User {
-  public async importCourseOfferings(this: DocumentType<GPD>, file: any) {
-    // TODO
-  }
-}
+export class GPD extends User { }
 
 @fields
 export class Student extends User {
@@ -303,20 +296,4 @@ export class Student extends User {
 
   // @rprop()
   public degreeRequirements?: DegreeRequirements
-
-  public async editStudentInformation(this: DocumentType<Student>) {
-    // TODO
-  }
-
-  public async viewCoursePlanHistory(this: DocumentType<Student>) {
-    // TODO
-  }
-
-  public async suggestCoursePlan(this: DocumentType<Student>) {
-    // TODO
-  }
-
-  public async shareCoursePlan(this: DocumentType<Student>, c: CoursePlan) {
-    // TODO
-  }
 }

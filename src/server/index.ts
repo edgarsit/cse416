@@ -1,18 +1,16 @@
-/* eslint-disable no-console */
-
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
-import fs from 'fs';
-import fsp from 'fs/promises';
+import fs, { promises as fsp } from 'fs';
 import Formidable, { IncomingForm } from 'formidable';
 import argon2 from 'argon2';
 import parseCsv from 'csv-parse';
 
 import {
-  StudentModel, GPDModel, getQS, copyStudentWithPermissions, ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
+  StudentModel, GPDModel, getQS, copyStudentWithPermissions,
+  ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
 } from './models';
 import { ServerApp } from '../common/app';
 import { Semester, Student } from '../common/model';
@@ -158,27 +156,27 @@ server.post('/import/scrape', (req, res, next) => {
       // TODO parallelize
       const pdfCourses = await parsePdf((files.file as Formidable.File).path);
       const { year, semester, department } = fields;
-      const departments = (department as string).split(',').map((x)=>x.trim());
+      const departments = (department as string).split(',').map((x) => x.trim());
       const courseSet = await ScrapedCourseSetModel.create({
-        year, semester: Semester[semester as any]
-      })
+        year, semester: Semester[semester as any],
+      });
       await ScrapedCourseModel.bulkWrite(
         pdfCourses.map((c) => {
           if (!departments.includes(c.department)) {
-            return null
+            return null;
           }
           const filter = Object.fromEntries(Object.entries(c).map(([k, v]) => [k, { $eq: v }]));
           return {
             updateOne: {
               filter,
               update: { $push: { courseSet: courseSet._id } },
-              upsert: true
-            }
-          }
-        }).filter(<U>(x: U): x is NonNullable<U> => x != null)
+              upsert: true,
+            },
+          };
+        }).filter(<U>(x: U): x is NonNullable<U> => x != null),
       );
-    } catch (err) { return next(err) }
-    res.redirect('/')
+    } catch (e) { return next(e); }
+    return res.redirect('/');
   });
 });
 
@@ -190,10 +188,10 @@ server.post('/import/degreeRequirements', (req, res, next) => {
       return next(err);
     }
     try {
-      const test = JSON.parse(await fsp.readFile((files.file as Formidable.File).path, {encoding:'utf8'}))
+      const test = JSON.parse(await fsp.readFile((files.file as Formidable.File).path, { encoding: 'utf8' }));
       console.log(test);
-    } catch (err) { return next(err) }
-    res.redirect('/')
+    } catch (err) { return next(err); }
+    return res.redirect('/');
   });
 });
 
@@ -208,20 +206,19 @@ server.post('/import/courseOffering', (req, res, next) => {
         .pipe(parseCsv({ columns: true }));
       const acc: any[] = [];
       for await (const r of csv) {
-        acc.push(r)
+        acc.push(r);
       }
       await CourseOfferingModel.bulkWrite(
         acc.map((c) => {
           const filter = Object.fromEntries(Object.entries(c)
             .map(([k, v]) => [k, { $eq: v }] as const)
-            .filter(([k, _]) => ['year', 'semester'].includes(k))
-          );
+            .filter(([k, _]) => ['year', 'semester'].includes(k)));
           return {
             deleteMany: {
-              filter
-            }
-          }
-        })
+              filter,
+            },
+          };
+        }),
       );
       await CourseOfferingModel.bulkWrite(
         acc.map((c) => {
@@ -232,10 +229,10 @@ server.post('/import/courseOffering', (req, res, next) => {
               update: { $setOnInsert: c },
               upsert: true,
             },
-          }
-        })
-      )
-    } catch (err) { return next(err); }
+          };
+        }),
+      );
+    } catch (e) { return next(e); }
     res.redirect('/');
   });
 });

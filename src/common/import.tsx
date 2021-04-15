@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, Button, Form, Row, Col } from 'react-bootstrap';
+import {
+  Container, Button, Form, Row, Col,
+} from 'react-bootstrap';
 import { Bar } from './util';
 
 function Field({ s, pl, l }: { s: string, pl: string, l?: string }): JSX.Element {
@@ -10,7 +12,7 @@ function Field({ s, pl, l }: { s: string, pl: string, l?: string }): JSX.Element
         <Form.Control type="text" placeholder={pl} name={s} />
       </Col>
     </Form.Group>
-  )
+  );
 }
 
 export default function Import(): JSX.Element {

@@ -5,7 +5,7 @@ import { Routes } from '../common/app';
 
 declare global {
   interface Window {
-    _v?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    _v?: any;
   }
 }
 

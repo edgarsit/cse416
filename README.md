@@ -25,7 +25,7 @@ Filtering is implemented by sending a GET request with the filter parameters to 
 
 ## 2. Code Conventions
 
-We use the [Airbnb style](https://github.com/airbnb/javascript), enforced with ESLint and checked with GitHub Actions. There are currently some violations, but they should eventually be fixed.
+We use the [Airbnb style](https://github.com/airbnb/javascript), enforced with ESLint and checked with GitHub Actions. There are exceptions defined for [createCourseSchedule.tsx](src/common/createCourseSchedule.tsx) and [degreeRequirementImport.tsx](src/common/degreeRequirementImport.tsx) due to issues in those files.
 
 ## 3. Implementation Status Report
 
