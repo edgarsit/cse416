@@ -55,6 +55,14 @@ function rprop(options?: Omit<OptionsI, 'required'>, kind?: WhatIsIt): PropertyD
   }, kind);
 }
 
+export class xCreditsGradeY {
+  @rprop()
+  public credits!: number
+
+  @rprop()
+  public grade!: string
+}
+
 export class DegreeRequirements {
   @rprop()
   public degreeName!: string
@@ -130,14 +138,6 @@ export enum Semester {
   Summer,
   Fall,
   Winter
-}
-
-export class xCreditsGradeY {
-  @rprop()
-  public credits!: number
-
-  @rprop()
-  public grade!: string
 }
 
 export class ScrapedCourseSet {

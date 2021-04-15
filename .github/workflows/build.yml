@@ -19,8 +19,8 @@ jobs:
         run: npm ci
       - name: Build Client
         run: npm run build
-      - name: Build Server
-        run: npx tsc --noEmit
+      - name: Build Server and Quick smoke test
+        run: npx ts-node src/server/index.ts --test
   lint:
     runs-on: ubuntu-latest
     steps:

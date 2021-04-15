@@ -246,29 +246,32 @@ server.get('*', (req, res) => {
   );
 });
 
-(async () => {
-  await mongoose.connect('mongodb://localhost:27017/', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-    dbName: 'cse416',
-  });
+// TODO actual testing
+if (process.argv[2] !== '--test') {
+  (async () => {
+    await mongoose.connect('mongodb://localhost:27017/', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+      dbName: 'cse416',
+    });
 
-  await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
-  await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
-  await GPDModel.findOneAndUpdate({ username: 'menachem.goldring@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
-  await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
-  await StudentModel.findOneAndUpdate({ username: 'scott' }, {
-    password: await argon2.hash('asd'), department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
-  }, { upsert: true });
-  await StudentModel.findOneAndUpdate({ username: 'skiena' }, {
-    password: await argon2.hash('asd'), department: 'CS', track: 'Thesis', requirementVersion: '123', gradSemester: '2040', coursePlan: '', graduated: false, comments: 'Hello', sbuId: 0,
-  }, { upsert: true });
+    await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+    await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+    await GPDModel.findOneAndUpdate({ username: 'menachem.goldring@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+    await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
+    await StudentModel.findOneAndUpdate({ username: 'scott' }, {
+      password: await argon2.hash('asd'), department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
+    }, { upsert: true });
+    await StudentModel.findOneAndUpdate({ username: 'skiena' }, {
+      password: await argon2.hash('asd'), department: 'CS', track: 'Thesis', requirementVersion: '123', gradSemester: '2040', coursePlan: '', graduated: false, comments: 'Hello', sbuId: 0,
+    }, { upsert: true });
 
-  https.createServer({
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem'),
-  }, server).listen(port.https, () => console.log(`https://localhost:${port.https}/ !`));
-  server.listen(port.http, () => console.log(`http://localhost:${port.http}/ !`));
-})();
+    https.createServer({
+      key: fs.readFileSync('key.pem'),
+      cert: fs.readFileSync('cert.pem'),
+    }, server).listen(port.https, () => console.log(`https://localhost:${port.https}/ !`));
+    server.listen(port.http, () => console.log(`http://localhost:${port.http}/ !`));
+  })();
+}
