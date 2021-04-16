@@ -13,6 +13,7 @@ import {
   ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
   CoursePlanModel, DegreeRequirementsModel,
 } from './models';
+import * as modelHack from './models';
 import { ServerApp } from '../common/app';
 import { auth } from './auth';
 import Login from '../common/login';
@@ -70,6 +71,12 @@ server.get('/login', (req, res) => {
       body, { flash }, 'login',
     ),
   );
+});
+
+// hack for video
+server.get('/dump/:model', async (req, res) => {
+  // eslint-disable-next-line import/namespace
+  res.json(await modelHack[req.params.model!].find({}));
 });
 
 server.use((req, res, next) => {
@@ -315,7 +322,7 @@ server.post('/import/grades', (req, res, next) => {
       return next(err);
     }
     try {
-      const csv = fs.createReadStream((files.files as Formidable.File).path)
+      const csv = fs.createReadStream((files.file as Formidable.File).path)
         .pipe(parseCsv({ columns: true }));
       const acc: any[] = [];
       for await (const r of csv) {
@@ -390,7 +397,7 @@ if (process.argv[2] !== '--test') {
       coursePlan: '',
       graduated: false,
       comments: 'Hello',
-      sbuId: 123,
+      sbuId: 456,
     }, { upsert: true });
 
     https.createServer({

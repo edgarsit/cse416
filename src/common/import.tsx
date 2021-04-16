@@ -58,11 +58,11 @@ export default function Import(): JSX.Element {
         </Form>
         <Form action="/import/courseOffering" method="post" encType="multipart/form-data">
           <Form.Group as={Row} controlId="file">
-            <Form.Label column>CSV File</Form.Label>
+            <Form.Label column>Offerings File (CSV)</Form.Label>
             <Col>
               <Form.File
                 name="file"
-                accept="application/csv"
+                accept="application/csv,text/csv"
               />
             </Col>
           </Form.Group>
@@ -74,7 +74,7 @@ export default function Import(): JSX.Element {
             <Col>
               <Form.File
                 name="profile"
-                accept="application/csv"
+                accept="application/csv,text/csv"
               />
             </Col>
           </Form.Group>
@@ -83,7 +83,7 @@ export default function Import(): JSX.Element {
             <Col>
               <Form.File
                 name="plan"
-                accept="application/csv"
+                accept="application/csv,text/csv"
               />
             </Col>
           </Form.Group>
@@ -95,7 +95,7 @@ export default function Import(): JSX.Element {
             <Col>
               <Form.File
                 name="file"
-                accept="application/csv"
+                accept="application/csv,text/csv"
               />
             </Col>
           </Form.Group>

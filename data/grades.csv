@@ -1,0 +1,6 @@
+sbu_id,department,course_num,section,semester,year,grade
+222333444,CSE,537,01,Fall,2020,A-
+111222333,AMS,501,01,Fall,2020,B+
+222333444,CSE,504,,Spring,2021,A
+111222333,CSE,526,,Spring,2021,B
+222333444,CSE,527,,Spring,2021,C
