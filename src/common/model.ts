@@ -237,12 +237,28 @@ export class Course {
   public prerequisites!: Ref<Course>[]
 }
 
+// TODO fix up schema
 export class CoursePlan {
-  @rprop({ type: () => [[String]] })
-  public comments!: [string][]
+  @rprop()
+  sbuId!: string
 
-  @rprop({ type: () => [CourseOffering] })
-  public courses!: CourseOffering[]
+  @rprop()
+  department!: string
+
+  @rprop()
+  courseNum!: string
+
+  @rprop()
+  section!: string
+
+  @rprop()
+  semester!: string
+
+  @rprop()
+  year!: string
+
+  @prop()
+  grade?: string
 }
 
 @fields
@@ -253,7 +269,7 @@ export class User {
 
   declare public _id: Types.ObjectId;
 
-  @rprop({ unique: true })
+  @rprop()
   public username!: string;
 
   @rprop()
@@ -265,6 +281,7 @@ export class User {
   @prop()
   public email?: string;
 
+  // TODO setter
   @rprop()
   public password!: string;
 }
@@ -286,13 +303,22 @@ export class Student extends User {
   public track!: string
 
   @rprop()
-  public requirementVersion!: string
+  public entrySemester!: string
 
   @rprop()
-  public gradSemester!: string
+  public entryYear!: string
 
   @rprop()
-  public coursePlan!: string
+  public requirementVersionSemester!: string
+
+  @rprop()
+  public requirementVersionYear!: string
+
+  @rprop()
+  public graduationSemester!: string
+
+  @rprop()
+  public graduationYear!: string
 
   @rprop({ map: ['False', 'True'] })
   public graduated!: boolean

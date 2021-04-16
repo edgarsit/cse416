@@ -16,6 +16,7 @@ function Field({ s, pl, l }: { s: string, pl: string, l?: string }): JSX.Element
 }
 
 export default function Import(): JSX.Element {
+  // TODO dedup
   return (
     <>
       <Bar />
@@ -25,7 +26,6 @@ export default function Import(): JSX.Element {
             <Form.Label column>PDF File</Form.Label>
             <Col>
               <Form.File
-                multiple
                 name="file"
                 accept="application/pdf"
               />
@@ -49,7 +49,6 @@ export default function Import(): JSX.Element {
             <Form.Label column>JSON File</Form.Label>
             <Col>
               <Form.File
-                multiple
                 name="file"
                 accept="application/json"
               />
@@ -62,13 +61,45 @@ export default function Import(): JSX.Element {
             <Form.Label column>CSV File</Form.Label>
             <Col>
               <Form.File
-                multiple
                 name="file"
                 accept="application/csv"
               />
             </Col>
           </Form.Group>
           <Button type="submit">5.3 Import Course Offerings</Button>
+        </Form>
+        <Form action="/import/studentData" method="post" encType="multipart/form-data">
+          <Form.Group as={Row} controlId="profile">
+            <Form.Label column>Student profile file (CSV)</Form.Label>
+            <Col>
+              <Form.File
+                name="profile"
+                accept="application/csv"
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId="plan">
+            <Form.Label column>Student course plan file (CSV)</Form.Label>
+            <Col>
+              <Form.File
+                name="plan"
+                accept="application/csv"
+              />
+            </Col>
+          </Form.Group>
+          <Button type="submit">5.5 Import student data</Button>
+        </Form>
+        <Form action="/import/grades" method="post" encType="multipart/form-data">
+          <Form.Group as={Row} controlId="profile">
+            <Form.Label column>Import grades (CSV)</Form.Label>
+            <Col>
+              <Form.File
+                name="profile"
+                accept="application/csv"
+              />
+            </Col>
+          </Form.Group>
+          <Button type="submit">5.6 Import student data</Button>
         </Form>
       </Container>
     </>

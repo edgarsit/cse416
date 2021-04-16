@@ -9,8 +9,9 @@ import argon2 from 'argon2';
 import parseCsv from 'csv-parse';
 
 import {
+  UserModel,
   StudentModel, GPDModel, getQS, copyStudentWithPermissions,
-  ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
+  ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel, CoursePlanModel,
 } from './models';
 import { ServerApp } from '../common/app';
 import { Semester, Student } from '../common/model';
@@ -237,6 +238,65 @@ server.post('/import/courseOffering', (req, res, next) => {
   });
 });
 
+const sc2cc = (s: string) => {
+  const a = s.split('_');
+  return a[0] + a.slice(1).map((x) => x[0]?.toUpperCase() + x.slice(1)).join('');
+};
+
+server.post('/import/studentData', (req, res, next) => {
+  const form = new IncomingForm({ multiples: true });
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      return next(err);
+    }
+    try {
+      const csv = fs.createReadStream((files.profile as Formidable.File).path)
+        .pipe(parseCsv({ columns: true }));
+      const acc: any[] = [];
+      for await (const r of csv) {
+        acc.push(r);
+      }
+      await StudentModel.bulkWrite(
+        acc.map((c) => {
+          const filter = { sbuId: { $eq: c.sbu_id } };
+          const up = Object.fromEntries(Object.entries(c).map(([k, v]) => [sc2cc(k), v]));
+          return {
+            updateOne: {
+              filter,
+              update: { $setOnInsert: up },
+              upsert: true,
+            },
+          };
+        }),
+      );
+      // TODO parallelize
+      const csv1 = fs.createReadStream((files.plan as Formidable.File).path)
+        .pipe(parseCsv({ columns: true }));
+      // TODO extract out loop
+      const acc1: any[] = [];
+      for await (const r of csv1) {
+        acc1.push(r);
+      }
+      console.log(acc1);
+      await CoursePlanModel.bulkWrite(
+        acc1.map((c) => {
+          const filter = Object.fromEntries(Object.entries(c).map(
+            ([k, v]) => [sc2cc(k), { $eq: v }],
+          ));
+          return {
+            updateOne: {
+              filter,
+              update: { $setOnInsert: c },
+              upsert: true,
+            },
+          };
+        }),
+      );
+    } catch (e) { return next(e); }
+    return res.redirect('/');
+  });
+});
+
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url, {}));
   res.send(
@@ -257,15 +317,37 @@ if (process.argv[2] !== '--test') {
       dbName: 'cse416',
     });
 
+    await UserModel.findOneAndUpdate({ username: 'asd@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+
     await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
     await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
     await GPDModel.findOneAndUpdate({ username: 'menachem.goldring@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
     await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
     await StudentModel.findOneAndUpdate({ username: 'scott' }, {
-      password: await argon2.hash('asd'), department: 'CS', track: 'Advanced Project Option', requirementVersion: '456', gradSemester: '2020', coursePlan: '', graduated: false, comments: 'Hi!', sbuId: 0,
+      password: await argon2.hash('asd'),
+      department: 'CS',
+      track: 'Thesis',
+      requirementVersionSemester: '123',
+      requirementVersionYear: '123',
+      graduationSemester: 'Spring',
+      graduationYear: '2020',
+      coursePlan: '',
+      graduated: false,
+      comments: 'Hello',
+      sbuId: 123,
     }, { upsert: true });
     await StudentModel.findOneAndUpdate({ username: 'skiena' }, {
-      password: await argon2.hash('asd'), department: 'CS', track: 'Thesis', requirementVersion: '123', gradSemester: '2040', coursePlan: '', graduated: false, comments: 'Hello', sbuId: 0,
+      password: await argon2.hash('asd'),
+      department: 'CS',
+      track: 'Thesis',
+      requirementVersionSemester: '123',
+      requirementVersionYear: '123',
+      graduationSemester: 'Spring',
+      graduationYear: '2020',
+      coursePlan: '',
+      graduated: false,
+      comments: 'Hello',
+      sbuId: 123,
     }, { upsert: true });
 
     https.createServer({
