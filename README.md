@@ -43,7 +43,7 @@ See [test-report.md](test-report.md)
 
 - Ayoub Benchaita: Create the login page, wrote code for google authentication, local authentication, redirects assited with the status report and test report.
 
-- Menachem Goldring: Helped with the reports, planning, and foundational code for some of the gpd functions. Developed the structure for Data Requirements and created the JSON files for the Degree Requirements for AMS and ECE, as well as the file schema for those Degree Requirements.
+- Menachem Goldring: Helped with the reports, planning, and foundational code for some of the gpd functions. Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for AMS and ECE, as well as the file schema for those Degree Requirements.
 
 - Nathaniel Kissoon: None
 
