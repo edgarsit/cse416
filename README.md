@@ -59,7 +59,7 @@ See [test-report.md](test-report.md)
 
 - Menachem Goldring: Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for AMS and ECE, as well as the file schema for those Degree Requirements.
 
-- Edgar Sit: Wrote frontend and backend for 5.1, 5.3, 5.5, 5.6. Wrote frontend for 5.2. Updated authentication to use hash and salt, 5.9 to share the schema between the frontend and backend. Wrote concurrency.md; updated test-report for 5.1, 5.3, 5.5, 5.6 and implementation-status for HW7. Set up CI for smoke tests and linting. Updated implementation-grading-sheet-team5.xlsx .
+- Edgar Sit: Wrote frontend and backend for 5.1, 5.2, 5.3, 5.5, 5.6. Updated authentication to use hash and salt, 5.9 to share the schema between the frontend and backend. Wrote concurrency.md; updated test-report for 5.1, 5.3, 5.5, 5.6 and implementation-status for HW7. Set up CI for smoke tests and linting. Updated implementation-grading-sheet-team5.xlsx . Created video
 
 - Kevin Zheng:
 

@@ -23,7 +23,7 @@ export function fields<T extends Ctor<U> & { fields: Fields<U> }, U>(ctor: T): v
   ctor.fields = ctor.prototype[s]; // eslint-disable-line no-param-reassign
 }
 
-type OptionsI = BasePropOptions & { short: string, long: string, map?: [string, string] };
+type OptionsI = BasePropOptions & { short?: string, long?: string, map?: [string, string] };
 
 export function prop(options?: OptionsI, kind?: WhatIsIt): PropertyDecorator {
   const f = prop_(options, kind);

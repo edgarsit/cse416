@@ -98,18 +98,6 @@ export class Course {
 
   @rprop()
   public courseNum!: string
-
-  @rprop()
-  public section!: string
-
-  @rprop()
-  public year!: Date
-
-  @rprop()
-  public timeslot!: string
-
-  @rprop({ ref: () => Course })
-  public prerequisites!: Ref<Course>[]
 }
 
 // TODO fix up schema, index on all except grade

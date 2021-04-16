@@ -9,9 +9,9 @@ import argon2 from 'argon2';
 import parseCsv from 'csv-parse';
 
 import {
-  UserModel,
-  StudentModel, GPDModel, getQS, copyStudentWithPermissions,
-  ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel, CoursePlanModel,
+  UserModel, StudentModel, GPDModel, getQS, copyStudentWithPermissions,
+  ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
+  CoursePlanModel, DegreeRequirementsModel,
 } from './models';
 import { ServerApp } from '../common/app';
 import { auth } from './auth';
@@ -190,8 +190,9 @@ server.post('/import/degreeRequirements', (req, res, next) => {
       return next(err);
     }
     try {
-      const test = JSON.parse(await fsp.readFile((files.file as Formidable.File).path, { encoding: 'utf8' }));
-      console.log(test);
+      const dr = JSON.parse(await fsp.readFile((files.file as Formidable.File).path, { encoding: 'utf8' }));
+      console.log(dr);
+      await DegreeRequirementsModel.create(dr);
     } catch (err) { return next(err); }
     return res.redirect('/');
   });

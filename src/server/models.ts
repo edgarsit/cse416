@@ -5,6 +5,7 @@ import {
 import {
   ScrapedCourseSet, ScrapedCourse, CourseOffering, CoursePlan,
 } from '../model/course';
+import { DegreeRequirements } from '../model/degreeRequirements';
 import { User, GPD, Student } from '../model/user';
 import { Description, Fields } from '../model/util';
 
@@ -17,6 +18,8 @@ export const ScrapedCourseModel = getModelForClass(ScrapedCourse);
 
 export const CourseOfferingModel = getModelForClass(CourseOffering);
 export const CoursePlanModel = getModelForClass(CoursePlan);
+
+export const DegreeRequirementsModel = getModelForClass(DegreeRequirements);
 
 const cmp: { [k: string]: string | undefined } = {
   '=': '$eq', '>': '$gt', '<': '$lt', '!=': '$neq',
