@@ -112,7 +112,7 @@ export class Course {
   public prerequisites!: Ref<Course>[]
 }
 
-// TODO fix up schema
+// TODO fix up schema, index on all except grade
 export class CoursePlan {
   @rprop()
   sbuId!: string

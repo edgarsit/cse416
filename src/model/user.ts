@@ -18,7 +18,7 @@ export class User {
   @rprop()
   public lastName!: string;
 
-  @rprop()
+  @rprop({ unique: true })
   public email!: string;
 
   // TODO setter
@@ -66,7 +66,7 @@ export class Student extends User {
   @rprop()
   public comments!: string
 
-  @rprop()
+  @rprop({ unique: true })
   public sbuId!: number
 
   // @rprop()
