@@ -193,7 +193,7 @@ export class Tracks {
   @rprop()
   public totalCredits!: number
 
-  @rprop()
+  @rprop({ map: ['False', 'True'] })
   public thesisRequired!: boolean
 
   @rprop({ type: () => XCreditsForCourseY })
