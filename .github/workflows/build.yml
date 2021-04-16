@@ -6,6 +6,8 @@ on:
     paths-ignore:
       - '**.md'
       - '**.xlsx'
+      - '**.json'
+      - '**.csv'
 
 jobs:
   build:

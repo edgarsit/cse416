@@ -2,11 +2,11 @@
 
 ## Synchronization for database accesses
 
-The database accesses are structured in such a that we can avoid needing transactions or locks in the program. Multiple copies of the server connected to the same database should be able to run concurrently if necessary.
+The database accesses are structured in such a that we can avoid needing transactions in the database or locks in the program. Multiple copies of the server connected to the same database should be able to run concurrently if necessary.
 
 ## Synchronization for any server-side in-memory data structures shared by sessions of concurrent users
 
-Javascript is single threaded (except for WebWorkers which we don't use) so we cannot experience data races. Therefore we do not need to perform any synchronization of in-memory data structures. At worse, an outdated view of the database would be returned.
+Javascript is single threaded (except for WebWorkers and FFI which we don't use) so we cannot experience data races. Therefore we do not need to perform any synchronization of in-memory data structures. At worse, an outdated view of the database would be returned.
 
 ## Examples
 

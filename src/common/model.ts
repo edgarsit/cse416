@@ -246,14 +246,16 @@ export class ScrapedCourseSet {
   public semester!: Semester
 }
 
-// TODO index
-export class ScrapedCourse {
+export class CourseBase {
   @rprop()
   public department!: string
 
   @rprop()
   public number!: number
+}
 
+// TODO index
+export class ScrapedCourse extends CourseBase {
   @rprop()
   public fullName!: string
 
@@ -262,6 +264,9 @@ export class ScrapedCourse {
 
   @rprop()
   public maxCredits!: number
+
+  @rprop({ type: () => [CourseBase] })
+  public prerequisites!: CourseBase[]
 
   @rprop({ ref: () => ScrapedCourseSet })
   public courseSet!: Ref<ScrapedCourseSet>[]
@@ -328,23 +333,39 @@ export class Course {
   public prerequisites!: Ref<Course>[]
 }
 
+// TODO fix up schema
 export class CoursePlan {
-  @rprop({ type: () => [[String]] })
-  public comments!: [string][]
+  @rprop()
+  sbuId!: string
 
-  @rprop({ type: () => [CourseOffering] })
-  public courses!: CourseOffering[]
+  @rprop()
+  department!: string
+
+  @rprop()
+  courseNum!: string
+
+  @rprop()
+  section!: string
+
+  @rprop()
+  semester!: string
+
+  @rprop()
+  year!: string
+
+  @prop()
+  grade?: string
 }
 
 @fields
 export class User {
   declare static fields: Description<Fields<User>>
 
-  declare public __t: string;
+  declare public __t: 'GPD' | 'Student';
 
   declare public _id: Types.ObjectId;
 
-  @rprop({ unique: true })
+  @rprop()
   public username!: string;
 
   @rprop()
@@ -356,15 +377,20 @@ export class User {
   @prop()
   public email?: string;
 
+  // TODO setter
   @rprop()
   public password!: string;
 }
 
-export class GPD extends User { }
+export class GPD extends User {
+  declare public __t: 'GPD';
+}
 
 @fields
 export class Student extends User {
   declare static fields: Description<Fields<Student>>
+
+  declare public __t: 'Student';
 
   @rprop()
   public department!: string
@@ -373,13 +399,22 @@ export class Student extends User {
   public track!: string
 
   @rprop()
-  public requirementVersion!: string
+  public entrySemester!: string
 
   @rprop()
-  public gradSemester!: string
+  public entryYear!: string
 
   @rprop()
-  public coursePlan!: string
+  public requirementVersionSemester!: string
+
+  @rprop()
+  public requirementVersionYear!: string
+
+  @rprop()
+  public graduationSemester!: string
+
+  @rprop()
+  public graduationYear!: string
 
   @rprop({ map: ['False', 'True'] })
   public graduated!: boolean

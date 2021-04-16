@@ -1,7 +1,7 @@
 import * as pdf from 'pdfjs-dist/es5/build/pdf';
 import { TextItem } from 'pdfjs-dist/types/display/api';
 
-import { ScrapedCourse } from '../common/model';
+import { CourseBase, ScrapedCourse } from '../common/model';
 
 function assertArrayEq<T, U>(head: T[], s: U[], tail: T[], map: (arg: U) => T): U[] {
   if (s.length < head.length + tail.length) {
@@ -29,25 +29,44 @@ interface Acc {
   long: string,
   title: string,
   desc: string,
-  acc: Omit<ScrapedCourse, 'courseSet'>[],
+  acc: Omit<ScrapedCourse, 'courseSet' | '__t' | 'prerequisites'>[],
 }
 
-const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A-, B\+, etc\.\))|(?:S\/U grading))?( May be repeated for credit\.?)?$/i;
+// Hoisted to give more room to read and debug
+const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A-, B\+, etc\.\))|(?:S\/U grading))?( (?:May be repeated for credit|May be repeated \d+ times FOR credit)\.?)?$/i;
+const re1 = /.*Prerequisite.*:(.*)/i;
+const re2 = /([a-z]{3})(\/[a-z]{3})?\s*(\d{3})/ig;
 function parse(desc: string): {
-  minCredits: number, maxCredits: number
+  minCredits: number, maxCredits: number, prerequisites: CourseBase[]
 } | null {
   const m = desc.match(re);
   if (m == null) {
     return null;
   }
-  const [_, minS, maxS, _grading, _repeatS] = m;
+  const [_, minS, maxS] = m;
+  // TODO remove cring
+  const prerequisites: CourseBase[] = [];
+  const n = desc.slice(0, m.index).match(re1);
+  if (n != null) {
+    const [_, pq] = n;
+    if (pq) {
+      for (const p of pq.matchAll(re2)) {
+        const [_, d0, d1, number] = p;
+        prerequisites.push({ department: d0!, number: +number! });
+        if (d1 != null) {
+          prerequisites.push({ department: d1, number: +number! });
+        }
+      }
+    }
+  }
   return {
     minCredits: +(minS ?? maxS ?? 3) | 0,
     maxCredits: +(maxS ?? 3) | 0,
+    prerequisites,
   };
 }
 
-export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'courseSet'>[]> {
+export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'courseSet' | '__t' | 'prerequisites'>[]> {
   const loadingTask = pdf.getDocument(fileName);
   const doc = await loadingTask.promise;
   const { numPages } = doc;
