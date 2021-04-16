@@ -65,7 +65,7 @@ See [test-report.md](test-report.md)
 
 ## 7. Code and Data
 
-This zip file was created from commit XXX from <https://github.com/edgarsit/cse416/tree/react>
+This zip file was created from commit 96bbbf6a3d44beb921fd9c5549339e538f9f0752 from <https://github.com/edgarsit/cse416/tree/react>
 
 ## 8. Requirements and 9. Design
 
