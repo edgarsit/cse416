@@ -90,16 +90,16 @@ export default function Import(): JSX.Element {
           <Button type="submit">5.5 Import student data</Button>
         </Form>
         <Form action="/import/grades" method="post" encType="multipart/form-data">
-          <Form.Group as={Row} controlId="profile">
+          <Form.Group as={Row} controlId="file">
             <Form.Label column>Import grades (CSV)</Form.Label>
             <Col>
               <Form.File
-                name="profile"
+                name="file"
                 accept="application/csv"
               />
             </Col>
           </Form.Group>
-          <Button type="submit">5.6 Import student data</Button>
+          <Button type="submit">5.6 Import grades</Button>
         </Form>
       </Container>
     </>

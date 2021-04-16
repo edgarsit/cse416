@@ -242,7 +242,7 @@ const sc2cc = (s: string) => {
   const a = s.split('_');
   return a[0] + a.slice(1).map((x) => x[0]?.toUpperCase() + x.slice(1)).join('');
 };
-
+// TODO extract common functionality
 server.post('/import/studentData', (req, res, next) => {
   const form = new IncomingForm({ multiples: true });
   form.parse(req, async (err, fields, files) => {
@@ -256,6 +256,16 @@ server.post('/import/studentData', (req, res, next) => {
       for await (const r of csv) {
         acc.push(r);
       }
+      await CoursePlanModel.bulkWrite(
+        acc.map((c) => {
+          const filter = { sbuId: { $eq: c.sbu_id } };
+          return {
+            deleteMany: {
+              filter,
+            },
+          };
+        }),
+      );
       await StudentModel.bulkWrite(
         acc.map((c) => {
           const filter = { sbuId: { $eq: c.sbu_id } };
@@ -277,9 +287,40 @@ server.post('/import/studentData', (req, res, next) => {
       for await (const r of csv1) {
         acc1.push(r);
       }
-      console.log(acc1);
       await CoursePlanModel.bulkWrite(
         acc1.map((c) => {
+          const filter = Object.fromEntries(Object.entries(c).map(
+            ([k, v]) => [sc2cc(k), { $eq: v }],
+          ));
+          return {
+            updateOne: {
+              filter,
+              update: { $setOnInsert: c },
+              upsert: true,
+            },
+          };
+        }),
+      );
+    } catch (e) { return next(e); }
+    return res.redirect('/');
+  });
+});
+
+server.post('/import/grades', (req, res, next) => {
+  const form = new IncomingForm({ multiples: true });
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      return next(err);
+    }
+    try {
+      const csv = fs.createReadStream((files.files as Formidable.File).path)
+        .pipe(parseCsv({ columns: true }));
+      const acc: any[] = [];
+      for await (const r of csv) {
+        acc.push(r);
+      }
+      await CoursePlanModel.bulkWrite(
+        acc.map((c) => {
           const filter = Object.fromEntries(Object.entries(c).map(
             ([k, v]) => [sc2cc(k), { $eq: v }],
           ));
