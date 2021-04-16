@@ -22,7 +22,8 @@ jobs:
       - name: Build Client
         run: npm run build
       - name: Build Server and Quick smoke test
-        run: npx ts-node src/server/index.ts --test
+        # https://github.com/npm/npx/issues/36#issuecomment-659944817
+        run: npx --shell sh ts-node src/server/index.ts --test
   lint:
     runs-on: ubuntu-latest
     steps:
