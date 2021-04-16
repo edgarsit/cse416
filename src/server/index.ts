@@ -14,10 +14,11 @@ import {
   ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel, CoursePlanModel,
 } from './models';
 import { ServerApp } from '../common/app';
-import { Semester, Student } from '../common/model';
 import { auth } from './auth';
 import Login from '../common/login';
 import { parsePdf } from './import';
+import { Semester } from '../model/course';
+import { Student } from '../model/user';
 
 const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';

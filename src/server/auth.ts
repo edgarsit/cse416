@@ -8,7 +8,7 @@ import flash from 'connect-flash';
 import * as argon2 from 'argon2';
 
 import { UserModel } from './models';
-import { User as mUser } from '../common/model';
+import { User as mUser } from '../model/user';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

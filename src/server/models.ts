@@ -1,10 +1,12 @@
 import {
   getDiscriminatorModelForClass, getModelForClass,
 } from '@typegoose/typegoose';
+
 import {
-  User, GPD, Student, Description, Fields,
-  ScrapedCourse, ScrapedCourseSet, CourseOffering, CoursePlan,
-} from '../common/model';
+  ScrapedCourseSet, ScrapedCourse, CourseOffering, CoursePlan,
+} from '../model/course';
+import { User, GPD, Student } from '../model/user';
+import { Description, Fields } from '../model/util';
 
 export const UserModel = getModelForClass(User);
 export const GPDModel = getDiscriminatorModelForClass(UserModel, GPD);
