@@ -1,0 +1,50 @@
+{
+    "degreeName": "Computer Science",
+    "requirementVersion": "Spring 2021",
+    "minimumCumulativeGPA": "B",
+    "registrationRequired": "True",
+    "foreignLanguageRequired": "False",
+
+    "tracks": [
+      {
+        "name": "With Thesis",
+        "thesisRequired": "True",
+        "totalCredits": 31,
+        "coreCourses": [
+            "AMS 501 Differential Equations and Boundary Value Problems",
+      "AMS 503 Applications of Complex Analysis",
+      "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+      "AMS 526 Numerical Analysis I",
+      "AMS 527 Numerical Analysis II",
+      "AMS 528 Numerical Analysis III",
+      "AMS 595 Fundamentals of Computing (1 credit)"
+            ],
+         "elective": {
+      "numCourses": 4,
+      "totalCredits": 12,
+      "range": "",
+      "substitutions": []
+      }
+      },
+
+
+
+  Requirements for the M.S. Degree in Computer Science
+  Students in the M.S. degree program may choose between three options, M.S. with thesis, M.S. with advanced project, and the M.S. with special project
+
+
+  C. Course Requirements
+  Students are required to complete x graduate credits in the Computer Science Department.
+  Students should complete at least one course in  3 of 4 breadth areas, each of which comprise of 5-6 graduate courses. Courses can be found https://www.cs.stonybrook.edu/students/Graduate-Studies/courses
+  Students can take up to 4 credits of CSE 587 (at most two courses) to fill in any missing CS proficiency identified at the time of admission to the program
+
+  Concentration in Data Science and Engineering requirements:
+
+  https://www.cs.stonybrook.edu/students/Graduate-Studies/Specializations to structure it
+
+  F. Advanced Project Option
+  Students choosing the advanced project option are required to take the courses CSE 523/CSE 524, Laboratory in Computer Science. The two courses may not be taken in the same semester. These courses provide students with the experience of dealing with large-scale, computer-oriented problems such as those encountered in commercial, industrial, or research environments. Students taking CSE 523/CSE 524 may not use any CSE 599 (M.S. Thesis Research) credits toward their M.S. degree.
+  G. Special Project Option
+  Students choosing the special project option are required to take the courses CSE 522, Basic Project in Computer Science and one credit in research, teaching, or industrial experience that may be satisfied with CSE 698, CSE 596, Computer Science seminars (excluding CSE 600), Special Topics courses, or regular 3 credit technical Computer Science graduate courses. Students choosing this option may not use credits from CSE 523, CSE 524, or CSE 599 credits toward their M.S. degree.  Moreover, at most 6 credits from CSE Special Topics (CSE 590/591/592/593/594/595) and CSE 6XX-level courses may be used toward their M.S. degree.
+  I. Thesis Option
+  A student choosing the thesis option must select a project (or thesis) advisor by the end of the second semester in the program. The role of the advisor is to guide the student through the M.S. studies, formulate a project or thesis topic, and supervise the student towards completion of the assigned task. The thesis must be approved by a departmental faculty committee of no less than three members appointed by the graduate program director. At the discretion of the committee, the student may be required to present a seminar on the topic of his or her thesis. A student registers for CSE 599 when writing a thesis. No more than nine credits of this course can be applied towards the 31 credits required for the M.S. degree.

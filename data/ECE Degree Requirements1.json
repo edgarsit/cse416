@@ -1,0 +1,192 @@
+{
+  "degreeName": "Computer Engineering",
+  "requirementVersion": "Spring 2021",
+  "maxTransferCredits": 12,
+  "minimumCumulativeGPA": "B",
+  "tracks": [
+    {
+      "name": "Non-Thesis Option",
+      "totalCredits": 30,
+      "thesisRequired": "False",
+      "maxCreditsInCombinationY": {
+        "credits": 6,
+        "courses": [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698"
+        ]
+      },
+      "xCreditsForCourseY": {
+        "credits": 3,
+        "course": "ESE 698"
+      },
+      "maxCreditsForCourseY": {
+        "credits": 3,
+        "course": "ESE 597"
+      },
+      "minOneCourseInEachSubArea": [
+        {
+          "subArea": "Hardware",
+          "courses": [
+            "ESE/CSE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning"
+          ]
+        },
+        {
+          "subArea": "Networking",
+          "courses": [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks"
+          ]
+        },
+        {
+          "subArea": "CAD and VLSI",
+          "courses": [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture"
+          ]
+        }
+      ],
+      "minTwoCoursesInEachSubArea": [
+        {
+          "subArea": "Theory and Software",
+          "courses": [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548/AMS 542 Analysis of Algorithms"
+          ]
+        }
+      ],
+      "minRegularLectureBasedCourses": {
+        "numCourses": 3,
+        "notCountedCourses": [
+          "ESE 597",
+          "ESE 599",
+          "ECE 697",
+          "ECE 698",
+          "ECE 699"
+        ],
+        "coursesCountedOnlyOnceAsRegularCourse": [
+          "ESE 670"
+        ]
+      },
+      "requiredCreditsOfCourseX": {
+        "minCredits": 1,
+        "maxCredits": 3,
+        "substitutionsWithApproval": [
+          "ECE 597",
+          "ECE 698",
+          "ECE 699"
+        ]
+      }
+    },
+    {
+      "name": "Thesis Option",
+      "totalCredits": 30,
+      "thesisRequired": "True",
+      "maxCreditsInCombinationY": {
+        "credits": 6,
+        "courses": [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698"
+        ]
+      },
+      "xCreditsForCourseY": {
+        "credits": 3,
+        "course": "ESE 698"
+      },
+      "maxCreditsForCourseY": {
+        "credits": 3,
+        "course": "ESE 597"
+      },
+      "minOneCourseInEachSubArea": [
+        {
+          "subArea": "Hardware",
+          "courses": [
+            "ESE/CSE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning"
+          ]
+        },
+        {
+          "subArea": "Networking",
+          "courses": [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks"
+          ]
+        },
+        {
+          "subArea": "CAD and VLSI",
+          "courses": [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture"
+          ]
+        }
+      ],
+      "minTwoCoursesInEachSubArea": [
+        {
+          "subArea": "Theory and Software",
+          "courses": [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548/AMS 542 Analysis of Algorithms"
+          ]
+        }
+      ],
+      "minRegularLectureBasedCourses": {
+        "numCourses": 1,
+        "notCountedCourses": [
+          "ESE 597",
+          "ESE 599",
+          "ECE 697",
+          "ECE 698",
+          "ECE 699"
+        ],
+        "coursesCountedOnlyOnceAsRegularCourse": [
+          "ESE 670"
+        ]
+      },
+      "requiredCreditsOfCourseX": {
+        "minCredits": 1,
+        "maxCredits": 3,
+        "substitutionsWithApproval": [
+          "ECE 597",
+          "ECE 698",
+          "ECE 699"
+        ]
+      }
+    }
+  ]
+}
