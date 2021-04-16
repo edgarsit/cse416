@@ -2,7 +2,11 @@
 
 ## 5 Functionality For Graduate Program Director
 
-### 5.1, 5.2, 5.3, 5.5 Scraping and Imports
+### 5.1, 5.3, 5.5, 5.6 Scraping and Imports
+
+Implemented, but the portions for easy viewing of this information (5.9 and 5.10) are not implemented.
+
+### 5.2 import degree requirements
 
 Unimplemented, currently we are manually entering data into the database
 
@@ -12,7 +16,7 @@ This was implemented by using a button from the GPD home page which links to a p
 
 ### 5.7 Add Student
 
-Implemented
+Implemented, now uses a common schema with the backend
 
 ### 5.8 Browse/Search for Students
 
@@ -42,7 +46,7 @@ In order to implement login with both google and local authentication we used th
 
 ### 7.2 Concurrency
 
-Yes
+Yes, see [concurrency.md](concurrency.md)
 
 ### 7.3 Ease of use
 

@@ -109,3 +109,133 @@ Logged in as GPD, students exists in the database.
 ### Outcome
 
 The system currently passes this test.
+
+## Scrape Course Information
+
+### Description
+
+This test ensures that scrape course information works
+
+### Preconditions
+
+Logged in as GPD
+
+### Flow of Events
+
+1. User clicks Imports
+
+2. User selects a PDF file, semester and year
+
+3. User selects which departments they want to select
+
+4. User presses "5.1 Scrape Course Information"
+
+5. System scrapes the pdf and adds it to the database
+
+6. User is redirected to the home screen
+
+7. User check in console that the database has been updated
+
+### Outcome
+
+The system currently passes this test. The error case doesn't show an exact error (page and context); the system does not optimistically parse the PDF on the client side
+
+## Import Course Offerings
+
+### Description
+
+This test ensures that import course offerings works
+
+### Preconditions
+
+Logged in as GPD
+
+### Flow of Events
+
+1. User clicks Imports
+
+2. User selects a CSV file
+
+3. User presses "5.3 Import Course Offerings"
+
+4. System scrapes the CSV
+
+5. System removes existing course offerings
+
+6. System adds scraped offerings to the database
+
+7. System invalidates course plans that become invalid
+
+8. User is redirected to the home screen
+
+9. User check in console that the database has been updated
+
+### Outcome
+
+The system currently passes this test except step 7. The course plan data model is not yet complete.
+
+## Import Student Data
+
+### Description
+
+This test ensures that import student data works
+
+### Preconditions
+
+Logged in as GPD
+
+### Flow of Events
+
+1. User clicks Imports
+
+2. User selects 2 CSV files
+
+3. User presses "5.5 Import student data"
+
+4. System scrapes the CSVs
+
+5. System upserts the student data
+
+6. System removes the course plan information for the scraped students
+
+7. System adds the course plan file data
+
+8. User is redirected to the home screen
+
+9. User verifies on "Browse/search for students" that the students has been added
+
+10. User check in console that the database has been updated with the new course plans
+
+### Outcome
+
+The system currently passes this test.
+
+## Import Grades
+
+### Description
+
+This test ensures that import grades works
+
+### Preconditions
+
+Logged in as GPD
+
+### Flow of Events
+
+1. User clicks Imports
+
+2. User selects a CSV file
+
+3. User presses "5.6 Import grades"
+
+4. System scrapes the CSV
+
+5. System adds the grades
+
+6. User is redirected to the home screen
+
+7. User check in console that the database has been updated with the new grades
+
+### Outcome
+
+The system currently passes this test.
