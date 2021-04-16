@@ -55,7 +55,7 @@ See [test-report.md](test-report.md)
 
 ### HW7
 
-- Ayoub Benchaita:
+- Ayoub Benchaita: Created Degree Requirments class for storage of parsed degree requirment data.
 
 - Menachem Goldring: Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for AMS and ECE, as well as the file schema for those Degree Requirements.
 
