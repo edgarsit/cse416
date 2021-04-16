@@ -150,14 +150,16 @@ export class ScrapedCourseSet {
   public semester!: Semester
 }
 
-// TODO index
-export class ScrapedCourse {
+export class CourseBase {
   @rprop()
   public department!: string
 
   @rprop()
   public number!: number
+}
 
+// TODO index
+export class ScrapedCourse extends CourseBase {
   @rprop()
   public fullName!: string
 
@@ -166,6 +168,9 @@ export class ScrapedCourse {
 
   @rprop()
   public maxCredits!: number
+
+  @rprop({ type: () => [CourseBase] })
+  public prerequisites!: CourseBase[]
 
   @rprop({ ref: () => ScrapedCourseSet })
   public courseSet!: Ref<ScrapedCourseSet>[]
@@ -244,7 +249,7 @@ export class CoursePlan {
 export class User {
   declare static fields: Description<Fields<User>>
 
-  declare public __t: string;
+  declare public __t: 'GPD' | 'Student';
 
   declare public _id: Types.ObjectId;
 
@@ -264,11 +269,15 @@ export class User {
   public password!: string;
 }
 
-export class GPD extends User { }
+export class GPD extends User {
+  declare public __t: 'GPD';
+}
 
 @fields
 export class Student extends User {
   declare static fields: Description<Fields<Student>>
+
+  declare public __t: 'Student';
 
   @rprop()
   public department!: string
