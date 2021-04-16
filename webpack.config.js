@@ -50,7 +50,7 @@ module.exports = function (env, argv) {
     base.plugins = [
       new webpack.NormalModuleReplacementPlugin(
         /.\/RT-PROP/,
-        '../client.props'
+        './prop'
       ),
     ];
     base.target = 'web'

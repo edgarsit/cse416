@@ -17,7 +17,7 @@ npm start
 
 ### 1.1 Data Model
 
-We used a persistence framework, [Typegoose](https://typegoose.github.io/typegoose/), which is based upon [Mongoose](https://mongoosejs.com/) and [MongoDB](https://www.mongodb.com/). The data for this is stored in `src/server/models.ts`.
+We used a persistence framework, [Typegoose](https://typegoose.github.io/typegoose/), which is based upon [Mongoose](https://mongoosejs.com/) and [MongoDB](https://www.mongodb.com/). The data for this is stored in `src/common/models.ts`.
 
 ### 1.2 Queries
 
@@ -25,7 +25,7 @@ Filtering is implemented by sending a GET request with the filter parameters to 
 
 ## 2. Code Conventions
 
-We use the [Airbnb style](https://github.com/airbnb/javascript), enforced with ESLint and checked with GitHub Actions. There are exceptions defined for [createCourseSchedule.tsx](src/common/createCourseSchedule.tsx) and [degreeRequirementImport.tsx](src/common/degreeRequirementImport.tsx) due to issues in those files.
+We a modified [Airbnb style](https://github.com/airbnb/javascript), enforced with ESLint and checked with GitHub Actions. There are exceptions defined for [createCourseSchedule.tsx](src/common/createCourseSchedule.tsx) and [degreeRequirementImport.tsx](src/common/degreeRequirementImport.tsx) due to issues in those files.
 
 ## 3. Implementation Status Report
 
@@ -41,9 +41,11 @@ See [test-report.md](test-report.md)
 
 ## 6. Contributions
 
+### HW6
+
 - Ayoub Benchaita: Create the login page, wrote code for google authentication, local authentication, redirects assited with the status report and test report.
 
-- Menachem Goldring: Helped with the reports, planning, and foundational code for some of the gpd functions. Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for AMS and ECE, as well as the file schema for those Degree Requirements.
+- Menachem Goldring: Helped with the reports, planning, and foundational code for some of the gpd functions.
 
 - Nathaniel Kissoon: None
 
@@ -51,9 +53,19 @@ See [test-report.md](test-report.md)
 
 - Kevin Zheng:
 
+### HW7
+
+- Ayoub Benchaita:
+
+- Menachem Goldring: Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for AMS and ECE, as well as the file schema for those Degree Requirements.
+
+- Edgar Sit:
+
+- Kevin Zheng:
+
 ## 7. Code and Data
 
-This zip file was created from commit 6d3603633e7accf6bc33b8a82f2a4a85542fdbc2 from <https://github.com/edgarsit/cse416/tree/react>
+This zip file was created from commit XXX from <https://github.com/edgarsit/cse416/tree/react>
 
 ## 8. Requirements and 9. Design
 

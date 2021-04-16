@@ -101,20 +101,20 @@ server.get('/searchForStudent', async (req, res) => {
   res.send(html(body, { values }));
 });
 
-server.get('/editStudentInformation/:username', async (req, res) => {
-  const { username } = req.params;
+server.get('/editStudentInformation/:email', async (req, res) => {
+  const { email } = req.params;
   // TODO proper err
-  const user_ = await StudentModel.findOne({ username });
+  const user_ = await StudentModel.findOne({ email });
   const user = pickFromQ(user_);
   const body = renderToString(ServerApp(req.url, { user }));
   res.send(html(body, { user }));
 });
 
-server.post('/editStudentInformation/:username', async (req, res) => {
+server.post('/editStudentInformation/:email', async (req, res) => {
   // TODO permissions
   try {
     await StudentModel.findOneAndUpdate(
-      { username: req.params.username },
+      { email: req.params.email },
       copyStudentWithPermissions(req.body, req.user!),
     );
   } catch (e) { console.error(e); }
@@ -136,7 +136,7 @@ server.post('/deleteAll', async (req, res) => {
 
 server.get('/student_Home', async (req, res) => {
   try {
-    const user = await StudentModel.findOne({ username: req.user?.username });
+    const user = await StudentModel.findOne({ email: req.user?.email });
     res.render('student', { users: user });
   } catch (e) { console.error(e); }
 });
@@ -359,13 +359,13 @@ if (process.argv[2] !== '--test') {
       dbName: 'cse416',
     });
 
-    await UserModel.findOneAndUpdate({ username: 'asd@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+    await UserModel.findOneAndUpdate({ email: 'asd@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
 
-    await GPDModel.findOneAndUpdate({ username: 'ayoub.benchaita@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
-    await GPDModel.findOneAndUpdate({ username: 'edgar.sit@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
-    await GPDModel.findOneAndUpdate({ username: 'menachem.goldring@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
-    await GPDModel.findOneAndUpdate({ username: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
-    await StudentModel.findOneAndUpdate({ username: 'scott' }, {
+    await GPDModel.findOneAndUpdate({ email: 'ayoub.benchaita@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+    await GPDModel.findOneAndUpdate({ email: 'edgar.sit@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+    await GPDModel.findOneAndUpdate({ email: 'menachem.goldring@stonybrook.edu' }, { password: await argon2.hash('') }, { upsert: true });
+    await GPDModel.findOneAndUpdate({ email: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
+    await StudentModel.findOneAndUpdate({ email: 'scott' }, {
       password: await argon2.hash('asd'),
       department: 'CS',
       track: 'Thesis',
@@ -378,7 +378,7 @@ if (process.argv[2] !== '--test') {
       comments: 'Hello',
       sbuId: 123,
     }, { upsert: true });
-    await StudentModel.findOneAndUpdate({ username: 'skiena' }, {
+    await StudentModel.findOneAndUpdate({ email: 'skiena' }, {
       password: await argon2.hash('asd'),
       department: 'CS',
       track: 'Thesis',

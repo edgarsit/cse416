@@ -34,7 +34,7 @@ const authOptions = { failureRedirect: '/login', failureFlash: true, successRedi
 passport.use(new LocalStrategy(
   async (username, password, done) => {
     try {
-      const user = await UserModel.findOne({ username });
+      const user = await UserModel.findOne({ email: username });
       if (user != null && await argon2.verify(user.password, password)) {
         return done(null, user);
       }
@@ -52,7 +52,7 @@ passport.use(new GoogleStrategy({
   clientSecret: 'xa-6Hj_veI1YnjYhuEIEkdAz',
   callbackURL: 'http://localhost:3000/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
-  UserModel.findOne({ username: profile.emails?.[0]?.value }, (err, user) => {
+  UserModel.findOne({ email: profile.emails?.[0]?.value }, (err, user) => {
     if (err) {
       return done(err);
     }

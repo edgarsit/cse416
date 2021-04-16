@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import { DegreeRequirements } from './degreeRequirements';
 import {
-  Description, rprop, prop, Fields, fields,
+  Description, rprop, Fields, fields,
 } from './util';
 
 @fields
@@ -13,16 +13,13 @@ export class User {
   declare public _id: Types.ObjectId;
 
   @rprop()
-  public username!: string;
-
-  @rprop()
   public firstName!: string;
 
   @rprop()
   public lastName!: string;
 
-  @prop()
-  public email?: string;
+  @rprop()
+  public email!: string;
 
   // TODO setter
   @rprop()

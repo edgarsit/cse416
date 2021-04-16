@@ -5,12 +5,16 @@ import {
 import { Link } from 'react-router-dom';
 import { Bar, Field } from './util';
 
+// TODO this should just be User.fields, but we're still missing some fields on User
 export const cols = {
-  username: ['Username', 'Username', 'string'],
+  email: ['Email', 'Email', 'string'],
+  firstName: ['First Name', 'First Name', 'string'],
+  lastName: ['Last Name', 'Last Name', 'string'],
   sat: ['Sat Reqs', 'Satisfied Requirements'],
   pend: ['Pend Reqs', 'Pending Requirements'],
   unsat: ['Unsat Reqs', 'Unatisfied Requirements'],
-  gradSemester: ['Grad Sem', 'Graduation Semester'],
+  graduationSemester: ['Grad Sem', 'Graduation Semester'],
+  graduationYear: ['Grad Year', 'Graduation Year'],
   nsem: ['# Sem', 'Number of Semesters in the Program'],
   valid: ['P Valid', 'Course Plan Validity', ['Ignore', 'Valid', 'Invalid']],
   compl: ['P Compl', 'Course Plan Completeness', ['Ignore', 'Complete', 'Incomplete']],
@@ -93,10 +97,11 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
           <tbody>
             {
               // TODO css hover
-              data.map((x) => {
-                const url = `/editStudentInformation/${x.username}`;
+              data.map((x, i) => {
+                const url = `/editStudentInformation/${x.email}`;
                 return (
-                  <tr key={x.username} onClick={() => window.location.assign(url)}>
+                  // eslint-disable-next-line react/no-array-index-key
+                  <tr key={i} onClick={() => window.location.assign(url)}>
                     {Object.keys(cols).map((k) => (
                       <td key={k}><Link to={url}>{x[k]}</Link></td>
                     ))}

@@ -29,10 +29,10 @@ export default function Login({ flash }: { flash: string[] }): JSX.Element {
             Login with Google
           </Button>
           <Form action="/login" method="post">
-            <Form.Group as={Row} controlId="username">
-              <Form.Label column xs={2}>Username</Form.Label>
+            <Form.Group as={Row} controlId="email">
+              <Form.Label column xs={2}>Email</Form.Label>
               <Col>
-                <Form.Control type="text" name="username" autoComplete="username" />
+                <Form.Control type="text" name="email" autoComplete="username" />
               </Col>
             </Form.Group>
             <Form.Group as={Row} controlId="password">
