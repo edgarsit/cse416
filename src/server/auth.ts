@@ -87,7 +87,7 @@ router.get('/', (req, res) => {
   if (req.user == null) {
     res.redirect('/login');
   } else if (req.user.__t === 'Student') {
-    res.redirect('/Student_Home');
+    res.redirect(`/Student_Home/${req.user.email}`);
   } else {
     res.redirect('/GPD_Home');
   }

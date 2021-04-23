@@ -10,6 +10,8 @@ import { Bar } from './util';
 import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
 import EditStudentInformation from './editStudentInformation';
+import EditStudentInfo from './editStudentInfo';
+import StudentHome from './studentHome';
 
 function Home() {
   return (
@@ -46,8 +48,14 @@ export function Routes({ values, user }: { values?: any[], user?: any }): JSX.El
       <Route path="/viewEnrollmentTrends">
         <ViewEnrollmentTrends />
       </Route>
-      <Route path="/">
+      <Route path="/GPD_Home">
         <Home />
+      </Route>
+      <Route path="/Student_Home">
+        <StudentHome user={user} />
+      </Route>
+      <Route path="/editStudentInfo">
+        <EditStudentInfo user={user} />
       </Route>
       <Route>
         Missing

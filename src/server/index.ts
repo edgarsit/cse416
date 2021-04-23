@@ -117,6 +117,35 @@ server.get('/editStudentInformation/:email', async (req, res) => {
   res.send(html(body, { user }));
 });
 
+server.get('/editStudentInfo/:email', async (req, res) => {
+  const { email } = req.params;
+  // TODO proper err
+  const user_ = await StudentModel.findOne({ email });
+  const user = pickFromQ(user_);
+  const body = renderToString(ServerApp(req.url, { user }));
+  res.send(html(body, { user }));
+});
+
+server.post('/editStudentInfor/:email', async (req, res) => {
+  // TODO permissions
+  try {
+    await StudentModel.findOneAndUpdate(
+      { email: req.params.email },
+      copyStudentWithPermissions(req.body, req.user!),
+    );
+  } catch (e) { console.error(e); }
+  res.redirect(303, req.originalUrl);
+});
+
+server.get('/Student_Home/:email', async (req, res) => {
+  const { email } = req.params;
+  // TODO proper err
+  const user_ = await StudentModel.findOne({ email });
+  const user = pickFromQ(user_);
+  const body = renderToString(ServerApp(req.url, { user }));
+  res.send(html(body, { user }));
+});
+
 server.post('/editStudentInformation/:email', async (req, res) => {
   // TODO permissions
   try {
@@ -139,13 +168,6 @@ server.post('/addStudent', async (req, res) => {
 server.post('/deleteAll', async (req, res) => {
   await StudentModel.deleteMany({});
   res.redirect('/');
-});
-
-server.get('/student_Home', async (req, res) => {
-  try {
-    const user = await StudentModel.findOne({ email: req.user?.email });
-    res.render('student', { users: user });
-  } catch (e) { console.error(e); }
 });
 
 server.post('/addStudent', async (req, res) => {
