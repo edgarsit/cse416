@@ -1,8 +1,12 @@
 import { Types } from 'mongoose';
-import { DegreeRequirements } from './degreeRequirements';
+import { hash } from './RT-PROP';
+
 import {
-  Description, rprop, Fields, fields,
+  Description, Fields, fields, ruprop,
 } from './util';
+
+// TODO dedup?
+const id = <T>(x: T): T => x;
 
 @fields
 export class User {
@@ -12,17 +16,16 @@ export class User {
 
   declare public _id: Types.ObjectId;
 
-  @rprop()
+  @ruprop()
   public firstName!: string;
 
-  @rprop()
+  @ruprop()
   public lastName!: string;
 
-  @rprop({ unique: true })
+  @ruprop({ unique: true })
   public email!: string;
 
-  // TODO setter
-  @rprop()
+  @ruprop({ get: id, set: async (x: string) => hash(x) })
   public password!: string;
 }
 
@@ -36,39 +39,36 @@ export class Student extends User {
 
   declare public __t: 'Student';
 
-  @rprop()
+  @ruprop({ short: 'Dept' })
   public department!: string
 
-  @rprop()
+  @ruprop()
   public track!: string
 
-  @rprop()
+  @ruprop()
   public entrySemester!: string
 
-  @rprop()
+  @ruprop()
   public entryYear!: string
 
-  @rprop()
+  @ruprop()
   public requirementVersionSemester!: string
 
-  @rprop()
+  @ruprop()
   public requirementVersionYear!: string
 
-  @rprop()
+  @ruprop({ short: 'Grad Sem' })
   public graduationSemester!: string
 
-  @rprop()
+  @ruprop({ short: 'Grad Year' })
   public graduationYear!: string
 
-  @rprop({ map: ['False', 'True'] })
+  @ruprop()
   public graduated!: boolean
 
-  @rprop()
+  @ruprop()
   public comments!: string
 
-  @rprop({ unique: true })
+  @ruprop({ unique: true })
   public sbuId!: number
-
-  // @rprop()
-  public degreeRequirements?: DegreeRequirements
 }
