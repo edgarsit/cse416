@@ -1,14 +1,17 @@
-import { Types } from 'mongoose';
-import { hash } from './RT-PROP';
+import type { Types } from 'mongoose';
+import { hash, pre } from './RT-PROP';
 
 import {
   Description, Fields, fields, ruprop,
 } from './util';
 
-// TODO dedup?
-const id = <T>(x: T): T => x;
-
 @fields
+// TODO updates do not use this handler
+@pre<User>('save', async function userPreSave() {
+  if (this.isModified('password')) {
+    this.password = await hash(this.password);
+  }
+})
 export class User {
   declare static fields: Description<Fields<User>>
 
@@ -25,7 +28,7 @@ export class User {
   @ruprop({ unique: true })
   public email!: string;
 
-  @ruprop({ get: id, set: async (x: string) => hash(x) })
+  @ruprop()
   public password!: string;
 }
 
