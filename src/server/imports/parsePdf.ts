@@ -1,7 +1,7 @@
 import * as pdf from 'pdfjs-dist/es5/build/pdf';
-import { TextItem } from 'pdfjs-dist/types/display/api';
+import type { TextItem } from 'pdfjs-dist/types/display/api';
 
-import { CourseBase, ScrapedCourse } from '../model/course';
+import type { CourseBase, ScrapedCourse } from '../../model/course';
 
 function assertArrayEq<T, U>(head: T[], s: U[], tail: T[], map: (arg: U) => T): U[] {
   if (s.length < head.length + tail.length) {

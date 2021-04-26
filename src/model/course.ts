@@ -1,6 +1,6 @@
 import { prop } from '@typegoose/typegoose';
-import { Types } from 'mongoose';
-import { Ref } from 'react';
+import type { Types } from 'mongoose';
+import type { Ref } from 'react';
 import { rprop } from './util';
 
 export enum Grading {

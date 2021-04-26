@@ -61,6 +61,7 @@ module.exports = {
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+    '@typescript-eslint/consistent-type-imports': 'error',
     // TODO fix + grep eslint
     'no-underscore-dangle': 'off',
     'react/require-default-props': 'off',
@@ -78,7 +79,7 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ['src/server/*.ts'],
+      files: ['src/server/**/*.ts'],
       rules: {
         'no-restricted-syntax': [
           'error',

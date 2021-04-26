@@ -7,7 +7,7 @@ import {
 } from '../model/course';
 import { DegreeRequirements } from '../model/degreeRequirements';
 import { User, GPD, Student } from '../model/user';
-import { Description, Fields } from '../model/util';
+import type { Description, Fields } from '../model/util';
 
 export const UserModel = getModelForClass(User);
 export const GPDModel = getDiscriminatorModelForClass(UserModel, GPD);

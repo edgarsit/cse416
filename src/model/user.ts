@@ -1,9 +1,8 @@
 import type { Types } from 'mongoose';
 import { hash, pre } from './RT-PROP';
 
-import {
-  Description, Fields, fields, ruprop,
-} from './util';
+import type { Description, Fields } from './util';
+import { fields, ruprop } from './util';
 
 @fields
 // TODO updates do not use this handler

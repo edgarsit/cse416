@@ -1,25 +1,22 @@
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 import mongoose from 'mongoose';
-import { DocumentType } from '@typegoose/typegoose';
+import type { DocumentType } from '@typegoose/typegoose';
 import https from 'https';
-import fs, { promises as fsp } from 'fs';
-import Formidable, { IncomingForm } from 'formidable';
+import fs from 'fs';
 import argon2 from 'argon2';
-import parseCsv from 'csv-parse';
 
 import {
-  UserModel, StudentModel, GPDModel, getQS, copyStudentWithPermissions,
-  ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
-  CoursePlanModel, DegreeRequirementsModel,
+  copyStudentWithPermissions,
+  getQS, GPDModel,
+  StudentModel, UserModel,
 } from './models';
 import * as modelHack from './models';
 import { ServerApp } from '../common/app';
 import { auth } from './auth';
 import Login from '../common/login';
-import { parsePdf } from './import';
-import { Semester } from '../model/course';
 import { Student } from '../model/user';
+import { imports } from './imports';
 
 const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -176,198 +173,7 @@ server.post('/addStudent', async (req, res) => {
   res.redirect('/');
 });
 
-server.post('/import/scrape', (req, res, next) => {
-  const form = new IncomingForm({ multiples: true });
-
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      return next(err);
-    }
-    try {
-      // TODO parallelize
-      const pdfCourses = await parsePdf((files.file as Formidable.File).path);
-      const { year, semester, department } = fields;
-      const departments = (department as string).split(',').map((x) => x.trim());
-      const courseSet = await ScrapedCourseSetModel.create({
-        year, semester: Semester[semester as any],
-      });
-      await ScrapedCourseModel.bulkWrite(
-        pdfCourses.map((c) => {
-          if (!departments.includes(c.department)) {
-            return null;
-          }
-          const filter = Object.fromEntries(Object.entries(c).map(([k, v]) => [k, { $eq: v }]));
-          return {
-            updateOne: {
-              filter,
-              update: { $push: { courseSet: courseSet._id } },
-              upsert: true,
-            },
-          };
-        }).filter(<U>(x: U): x is NonNullable<U> => x != null),
-      );
-    } catch (e) { return next(e); }
-    return res.redirect('/');
-  });
-});
-
-server.post('/import/degreeRequirements', (req, res, next) => {
-  const form = new IncomingForm({ multiples: true });
-
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      return next(err);
-    }
-    try {
-      const dr = JSON.parse(await fsp.readFile((files.file as Formidable.File).path, { encoding: 'utf8' }));
-      console.log(dr);
-      await DegreeRequirementsModel.create(dr);
-    } catch (err) { return next(err); }
-    return res.redirect('/');
-  });
-});
-
-server.post('/import/courseOffering', (req, res, next) => {
-  const form = new IncomingForm({ multiples: true });
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      return next(err);
-    }
-    try {
-      const csv = fs.createReadStream((files.file as Formidable.File).path)
-        .pipe(parseCsv({ columns: true }));
-      const acc: any[] = [];
-      for await (const r of csv) {
-        acc.push(r);
-      }
-      await CourseOfferingModel.bulkWrite(
-        acc.map((c) => {
-          const filter = Object.fromEntries(Object.entries(c)
-            .map(([k, v]) => [k, { $eq: v }] as const)
-            .filter(([k, _]) => ['year', 'semester'].includes(k)));
-          return {
-            deleteMany: {
-              filter,
-            },
-          };
-        }),
-      );
-      await CourseOfferingModel.bulkWrite(
-        acc.map((c) => {
-          const filter = Object.fromEntries(Object.entries(c).map(([k, v]) => [k === 'course_num' ? 'number' : k, { $eq: v }]));
-          return {
-            updateOne: {
-              filter,
-              update: { $setOnInsert: c },
-              upsert: true,
-            },
-          };
-        }),
-      );
-    } catch (e) { return next(e); }
-    return res.redirect('/');
-  });
-});
-
-const sc2cc = (s: string) => {
-  const a = s.split('_');
-  return a[0] + a.slice(1).map((x) => x[0]?.toUpperCase() + x.slice(1)).join('');
-};
-// TODO extract common functionality
-server.post('/import/studentData', (req, res, next) => {
-  const form = new IncomingForm({ multiples: true });
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      return next(err);
-    }
-    try {
-      const csv = fs.createReadStream((files.profile as Formidable.File).path)
-        .pipe(parseCsv({ columns: true }));
-      const acc: any[] = [];
-      for await (const r of csv) {
-        acc.push(r);
-      }
-      await CoursePlanModel.bulkWrite(
-        acc.map((c) => {
-          const filter = { sbuId: { $eq: c.sbu_id } };
-          return {
-            deleteMany: {
-              filter,
-            },
-          };
-        }),
-      );
-      await StudentModel.bulkWrite(
-        acc.map((c) => {
-          const filter = { sbuId: { $eq: c.sbu_id } };
-          const up = Object.fromEntries(Object.entries(c).map(([k, v]) => [sc2cc(k), v]));
-          return {
-            updateOne: {
-              filter,
-              update: { $setOnInsert: up },
-              upsert: true,
-            },
-          };
-        }),
-      );
-      // TODO parallelize
-      const csv1 = fs.createReadStream((files.plan as Formidable.File).path)
-        .pipe(parseCsv({ columns: true }));
-      // TODO extract out loop
-      const acc1: any[] = [];
-      for await (const r of csv1) {
-        acc1.push(r);
-      }
-      await CoursePlanModel.bulkWrite(
-        acc1.map((c) => {
-          const filter = Object.fromEntries(Object.entries(c).map(
-            ([k, v]) => [sc2cc(k), { $eq: v }],
-          ));
-          return {
-            updateOne: {
-              filter,
-              update: { $setOnInsert: c },
-              upsert: true,
-            },
-          };
-        }),
-      );
-    } catch (e) { return next(e); }
-    return res.redirect('/');
-  });
-});
-
-server.post('/import/grades', (req, res, next) => {
-  const form = new IncomingForm({ multiples: true });
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      return next(err);
-    }
-    try {
-      const csv = fs.createReadStream((files.file as Formidable.File).path)
-        .pipe(parseCsv({ columns: true }));
-      const acc: any[] = [];
-      for await (const r of csv) {
-        acc.push(r);
-      }
-      await CoursePlanModel.bulkWrite(
-        acc.map((c) => {
-          const filter = Object.fromEntries(Object.entries(c).map(
-            ([k, v]) => [sc2cc(k), { $eq: v }],
-          ));
-          return {
-            updateOne: {
-              filter,
-              update: { $setOnInsert: c },
-              upsert: true,
-            },
-          };
-        }),
-      );
-    } catch (e) { return next(e); }
-    return res.redirect('/');
-  });
-});
+server.use('/import', imports);
 
 server.get('*', (req, res) => {
   const body = renderToString(ServerApp(req.url, {}));
