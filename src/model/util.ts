@@ -1,5 +1,5 @@
-import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
-import { BasePropOptions } from '@typegoose/typegoose/lib/types';
+import type { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
+import type { BasePropOptions } from '@typegoose/typegoose/lib/types';
 import { toView } from '../common/utils';
 import { prop_ } from './RT-PROP';
 

@@ -18,13 +18,13 @@ function Home() {
     <>
       <Bar />
       <Container fluid="sm">
-        <Button className="my-3" href="/import" block>Imports</Button>
-        <Button className="my-3" href="/addStudent" block>Add Student</Button>
+        <Button href="/import" block>Imports</Button>
+        <Button href="/addStudent" block>Add Student</Button>
         <Form action="/deleteAll" method="post">
-          <Button className="my-3" name="del" value="del" type="submit" block>Delete All data</Button>
+          <Button name="del" value="del" type="submit" block>Delete All data</Button>
         </Form>
-        <Button className="my-3" href="/searchForStudent" block>Browse/search for students</Button>
-        <Button className="my-3" href="/viewEnrollmentTrends" block>View Enrollment Trends</Button>
+        <Button href="/searchForStudent" block>Browse/search for students</Button>
+        <Button href="/viewEnrollmentTrends" block>View Enrollment Trends</Button>
       </Container>
     </>
   );

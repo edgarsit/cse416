@@ -6,27 +6,31 @@ import {
 
 export function Bar({ title }: { title?: string }): JSX.Element {
   return (
-    <Navbar bg="light" expand="sm">
-      <Navbar.Brand href="/login">MAST System</Navbar.Brand>
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <NavDropdown title="Quick Links" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/GPD_Home">Home</NavDropdown.Item>
-            <NavDropdown.Item href="/import">Import</NavDropdown.Item>
-            <NavDropdown.Item href="/addStudent">Add Student</NavDropdown.Item>
-            <NavDropdown.Item href="/searchForStudent">Browse/search for students</NavDropdown.Item>
-            <NavDropdown.Item href="/viewEnrollmentTrends">View Enrollment Trends</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-      </Navbar.Collapse>
+    <Navbar bg="light" expand="md">
+      <div style={{ flex: '1' }}>
+        <Navbar.Brand href="/login">MAST System</Navbar.Brand>
+        <Navbar.Collapse id="basic-navbar-nav" style={{ display: 'inline-block!important' }}>
+          <Nav className="mr-auto">
+            <NavDropdown title="Quick Links" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/home">Home</NavDropdown.Item>
+              <NavDropdown.Item href="/import">Import</NavDropdown.Item>
+              <NavDropdown.Item href="/addStudent">Add Student</NavDropdown.Item>
+              <NavDropdown.Item href="/searchForStudent">Browse/search for students</NavDropdown.Item>
+              <NavDropdown.Item href="/viewEnrollmentTrends">View Enrollment Trends</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </div>
       <div style={{
         marginLeft: 'auto',
         marginRight: 'auto',
+        flex: '1',
+        textAlign: 'center',
       }}
       >
         {title}
       </div>
-      <a href="/logout">Logout</a>
+      <a style={{ flex: '1', textAlign: 'right' }} href="/logout">Logout</a>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
     </Navbar>
   );
