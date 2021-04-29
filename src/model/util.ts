@@ -53,7 +53,8 @@ export function uprop(options?: OptionsI<BasePropOptions>, kind?: WhatIsIt): Pro
 
     const ts: { [x: string]: typeof v } = hasOwnPropery(target, s)
       ? target[s]
-      : Object.create(target[s] ?? null);
+      // eslint-disable-next-line no-param-reassign
+      : target[s] = Object.create(target[s] ?? null);
     ts[propertyKey] = v;
     f(target, propertyKey);
   };
