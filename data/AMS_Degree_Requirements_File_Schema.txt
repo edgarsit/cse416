@@ -1,4 +1,4 @@
-{
+﻿{
   "degreeName": "Applied Mathematics and Statistics",
   "requirementVersion": "(Semester Year)",
   "xCreditsGradeY": {
@@ -7,7 +7,7 @@
 },
   "coreCourseGPA": (Value from range 1.0-4.0),
   "finalRecommendation": "(Required / Not Required)",
-  "timeLimit": "(positive whole number) years",
+ "timeLimit": "(positive whole number) years",
 
   "minimumCumulativeGPA": "(letter grade)",
   "tracks": [
@@ -15,44 +15,50 @@
       "name": "(trackName1)",
       "totalCredits": (positive whole number, must be sum of all core and elective credits),
       "coreCourses": [
-	"(course1)",
-	"(course2)",
-	...
-	"(courseN)"
-      	],
+        "(course1)",
+        "(course2)",
+        ...
+        "(courseN)"
+              ],
+       "additionalCoreCourseRequirements": [
+          "(positive whole number) in (positive whole number) in (Department CourseNum1-CourseNum2)"
+        ],
        "elective": {
-	"numCourses": (positive whole number),
-	"totalCredits": (positive whole number),
-	"range": "(Department CourseNum1-CourseNum2)",
-	"substitutions": [
+        "numCourses": (positive whole number),
+        "totalCredits": (positive whole number),
+        "range": "(Department CourseNum1-CourseNum2)",
+        "substitutions": [
      "(positive whole number) in (Department CourseNum1-CourseNum2)",
      "(positive whole number) in (Department CourseNum1-CourseNum2)",
       …
       "(positive whole number) in (Department CourseNum1-CourseNum2)"
    ]
-	}
+        }
     },
    {
       "name": "(trackName2)",
       "totalCredits": (positive whole number, must be sum of all core and elective credits),
       "coreCourses": [
           "",
-	"(course1)",
-	"(course2)",
-	...
-	"(courseN)"
-      	],
+        "(course1)",
+        "(course2)",
+        ...
+        "(courseN)"
+              ],
+       "additionalCoreCourseRequirements": [
+          "(positive whole number) in (positive whole number) in (Department CourseNum1-CourseNum2)"
+        ],
        "elective": {
-	"numCourses": (positive whole number),
-	"totalCredits": (positive whole number),
-	"range": "(Department CourseNum1-CourseNum2)",
-	"substitutions": [
+        "numCourses": (positive whole number),
+        "totalCredits": (positive whole number),
+        "range": "(Department CourseNum1-CourseNum2)",
+        "substitutions": [
      "(positive whole number) in (Department CourseNum1-CourseNum2)",
      "(positive whole number) in (Department CourseNum1-CourseNum2)",
       …
       "(positive whole number) in (Department CourseNum1-CourseNum2)"
    ]
-	}
+        }
     },
     ...
     {
@@ -60,29 +66,33 @@
       "totalCredits": (positive whole number, must be sum of all core and elective credits),
       "coreCourses": [
           "",
-	"(course1)",
-	"(course2)",
-	...
-	"(courseN)"
-      	],
+        "(course1)",
+        "(course2)",
+        ...
+        "(courseN)"
+              ],
+       "additionalCoreCourseRequirements": [
+          "(positive whole number) in (positive whole number) in (Department CourseNum1-CourseNum2)"
+        ],
        "elective": {
-	"numCourses": (positive whole number),
-	"totalCredits": (positive whole number),
-	"range": "(Department CourseNum1-CourseNum2)",
-	"substitutions": [
+        "numCourses": (positive whole number),
+        "totalCredits": (positive whole number),
+        "range": "(Department CourseNum1-CourseNum2)",
+        "substitutions": [
      "(positive whole number) in (Department CourseNum1-CourseNum2)",
      "(positive whole number) in (Department CourseNum1-CourseNum2)",
       …
       "(positive whole number) in (Department CourseNum1-CourseNum2)"
    ]
-	}
+        }
     }
   ]
 }
 
-Notes regarding file format:
+
+Notes regarding file format: 
 -() indicate where input values should go. Format and desired values are described by the description inside the parenthesis. () must be removed once an input is given.
-   -Example: "(Semester Year)" would become "Spring 2021"
+  -Example: "(Semester Year)" would become "Spring 2021"
 -Every course will have the following format (Department CourseNumber CourseName)
 -If there is no range of electives to specify from, set range to ""
--If there are no substitutions of electives, set substitutions to []
+-If there are no substitutions of electives, set substitutions to []. Same applies for additionalCoreCourseRequirements

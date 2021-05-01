@@ -1,336 +1,338 @@
+﻿{
+  "degreeName": "Computer Engineering",
+  "requirementVersion": "(Semester Year)",
+  "maxTransferCredits": (positive whole number),
+ "minimumCumulativeGPA": "(letter grade)",
+ "tracks": [
+    {
+       "name": "(trackName1)",
+      "totalCredits": (positive whole number),
+      "thesisRequired": "(True/False)",
+      "maxCreditsInCombinationY": {
+"credits": (positive whole number),
+"courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+      ]
+},
+        "xCreditsForCourseY":  {
+"credits": (positive whole number),
+        "course": "ESE 698"
+           },
+       "maxCreditsForCourseY":  {
+"credits": 3,
+        "course": "(Department CourseNum)"
+           },
+       "minOneCourseInEachSubArea": [
+        {
+              "subArea": "subArea1",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+        {
+             "subArea": "subArea2",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+...
+        {
+              "subArea": "subAreaN",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+}
+         ],
+      "minTwoCoursesInEachSubArea": [
+        {
+              "subArea": "subArea1",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+        {
+             "subArea": "subArea2",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+...
+        {
+              "subArea": "subAreaN",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+}
+      ],
+  "minRegularLectureBasedCourses": {
+"numCourses": (positive whole number),
+"notCountedCourses": [
+     "(Department CourseNum1)",
+      "(Department CourseNum2)",
+      ...
+      "(Department CourseNumN)"
+ ],
+"coursesCountedOnlyOnceAsRegularCourse": [
+     "(Department CourseNum1)",
+     "(Department CourseNum2)",
+     …
+     "(Department CourseNumN)"
+ ]
+       },
+    "requiredCreditsOfCourseX": {
+        "minCredits": (whole number that is at least 1),
+        "maxCredits": (whole number that is at least minCredits+1),
+        "substitutionsWithApproval": [
+           "(Department CourseNum1)",
+   "(Department CourseNum2)",
+     …
+   "(Department CourseNumN)"
+           ]
+       }
+    },  
 {
-    "degreeName": "Computer Engineering",
-    "requirementVersion": "(Semester Year)",
-    "maxTransferCredits": (positive whole number),
-   "minimumCumulativeGPA": "(letter grade)",
-    "tracks": [
-       {
-         "name": "(trackName1)",
-         "totalCredits": (positive whole number),
-         "thesisRequired": "(True/False)",
-         "maxCreditsInCombinationY": {
-  "credits": (positive whole number),
-  "courses": [
-           "(course1)",
-          "(course2)",
-           ...
-           "(courseN)"
-        ]
-  },
-          "xCreditsForCourseY":  {
-  "credits": (positive whole number),
-      "course": "ESE 698"
-              },
-          "maxCreditsForCourseY":  {
-  "credits": 3,
-      "course": "(Department CourseNum)"
-              },
-          "minOneCourseInEachSubArea": [
-      {
-                 "subArea": "subArea1",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-      {
-                "subArea": "subArea2",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-  ...
-      {
-                 "subArea": "subAreaN",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  }
-            ],
-         "minTwoCoursesInEachSubArea": [
-      {
-                 "subArea": "subArea1",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-      {
-                "subArea": "subArea2",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-  ...
-      {
-                 "subArea": "subAreaN",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  }
+       "name": "(trackName2)",
+      "totalCredits": (positive whole number),
+      "thesisRequired": "(True/False)",
+      "maxCreditsInCombinationY": {
+"credits": (positive whole number),
+"courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+      ]
+},
+        "xCreditsForCourseY":  {
+"credits": (positive whole number),
+        "course": "ESE 698"
+           },
+       "maxCreditsForCourseY":  {
+"credits": 3,
+        "course": "(Department CourseNum)"
+           },
+       "minOneCourseInEachSubArea": [
+        {
+              "subArea": "subArea1",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+        {
+             "subArea": "subArea2",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+...
+        {
+              "subArea": "subAreaN",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+}
          ],
-     "minRegularLectureBasedCourses": {
-  "numCourses": (positive whole number),
-  "notCountedCourses": [
-       "(Department CourseNum1)",
-        "(Department CourseNum2)",
-        ...
-        "(Department CourseNumN)"
-   ],
-  "coursesCountedOnlyOnceAsRegularCourse": [
-       "(Department CourseNum1)",
-       "(Department CourseNum2)",
-       …
-       "(Department CourseNumN)"
-   ]
-         },
-      "requiredCreditsOfCourseX": {
-          "minCredits": (whole number that is at least 1),
-          "maxCredits": (whole number that is at least minCredits+1),
-          "substitutionsWithApproval": [
-         "(Department CourseNum1)",
+      "minTwoCoursesInEachSubArea": [
+        {
+              "subArea": "subArea1",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+        {
+             "subArea": "subArea2",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+...
+        {
+              "subArea": "subAreaN",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+}
+      ],
+  "minRegularLectureBasedCourses": {
+"numCourses": (positive whole number),
+"notCountedCourses": [
+     "(Department CourseNum1)",
+      "(Department CourseNum2)",
+      ...
+      "(Department CourseNumN)"
+ ],
+"coursesCountedOnlyOnceAsRegularCourse": [
+     "(Department CourseNum1)",
      "(Department CourseNum2)",
-       …
+     …
      "(Department CourseNumN)"
-             ]
-         }
-      },
-  {
-         "name": "(trackName2)",
-         "totalCredits": (positive whole number),
-         "thesisRequired": "(True/False)",
-         "maxCreditsInCombinationY": {
-  "credits": (positive whole number),
-  "courses": [
-           "(course1)",
-          "(course2)",
-           ...
-           "(courseN)"
-        ]
-  },
-          "xCreditsForCourseY":  {
-  "credits": (positive whole number),
-      "course": "ESE 698"
-              },
-          "maxCreditsForCourseY":  {
-  "credits": 3,
-      "course": "(Department CourseNum)"
-              },
-          "minOneCourseInEachSubArea": [
-      {
-                 "subArea": "subArea1",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-      {
-                "subArea": "subArea2",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-  ...
-      {
-                 "subArea": "subAreaN",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  }
-            ],
-         "minTwoCoursesInEachSubArea": [
-      {
-                 "subArea": "subArea1",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-      {
-                "subArea": "subArea2",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-  ...
-      {
-                 "subArea": "subAreaN",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  }
+ ]
+       },
+    "requiredCreditsOfCourseX": {
+        "minCredits": (whole number that is at least 1),
+        "maxCredits": (whole number that is at least minCredits+1),
+        "substitutionsWithApproval": [
+           "(Department CourseNum1)",
+   "(Department CourseNum2)",
+     …
+   "(Department CourseNumN)"
+           ]
+       }
+    },  
+…
+{
+       "name": "(trackNameN)",
+      "totalCredits": (positive whole number),
+      "thesisRequired": "(True/False)",
+      "maxCreditsInCombinationY": {
+"credits": (positive whole number),
+"courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+      ]
+},
+        "xCreditsForCourseY":  {
+"credits": (positive whole number),
+        "course": "ESE 698"
+           },
+       "maxCreditsForCourseY":  {
+"credits": 3,
+        "course": "(Department CourseNum)"
+           },
+       "minOneCourseInEachSubArea": [
+        {
+              "subArea": "subArea1",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+        {
+             "subArea": "subArea2",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+...
+        {
+              "subArea": "subAreaN",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+}
          ],
-     "minRegularLectureBasedCourses": {
-  "numCourses": (positive whole number),
-  "notCountedCourses": [
-       "(Department CourseNum1)",
-        "(Department CourseNum2)",
-        ...
-        "(Department CourseNumN)"
-   ],
-  "coursesCountedOnlyOnceAsRegularCourse": [
-       "(Department CourseNum1)",
-       "(Department CourseNum2)",
-       …
-       "(Department CourseNumN)"
-   ]
-         },
-      "requiredCreditsOfCourseX": {
-          "minCredits": (whole number that is at least 1),
-          "maxCredits": (whole number that is at least minCredits+1),
-          "substitutionsWithApproval": [
-         "(Department CourseNum1)",
+      "minTwoCoursesInEachSubArea": [
+        {
+              "subArea": "subArea1",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+        {
+             "subArea": "subArea2",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+},
+...
+        {
+              "subArea": "subAreaN",
+            "courses": [
+                    "(course1)",
+                   "(course2)",
+                     ...
+                    "(courseN)"
+      ]
+}
+      ],
+  "minRegularLectureBasedCourses": {
+"numCourses": (positive whole number),
+"notCountedCourses": [
+     "(Department CourseNum1)",
+      "(Department CourseNum2)",
+      ...
+      "(Department CourseNumN)"
+ ],
+"coursesCountedOnlyOnceAsRegularCourse": [
+     "(Department CourseNum1)",
      "(Department CourseNum2)",
-       …
+     …
      "(Department CourseNumN)"
-             ]
-         }
-      },
-  …
-  {
-         "name": "(trackNameN)",
-         "totalCredits": (positive whole number),
-         "thesisRequired": "(True/False)",
-         "maxCreditsInCombinationY": {
-  "credits": (positive whole number),
-  "courses": [
-           "(course1)",
-          "(course2)",
-           ...
-           "(courseN)"
-        ]
-  },
-          "xCreditsForCourseY":  {
-  "credits": (positive whole number),
-      "course": "ESE 698"
-              },
-          "maxCreditsForCourseY":  {
-  "credits": 3,
-      "course": "(Department CourseNum)"
-              },
-          "minOneCourseInEachSubArea": [
-      {
-                 "subArea": "subArea1",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-      {
-                "subArea": "subArea2",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-  ...
-      {
-                 "subArea": "subAreaN",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  }
-            ],
-         "minTwoCoursesInEachSubArea": [
-      {
-                 "subArea": "subArea1",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-      {
-                "subArea": "subArea2",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  },
-  ...
-      {
-                 "subArea": "subAreaN",
-          "courses": [
-               "(course1)",
-             "(course2)",
-               ...
-              "(courseN)"
-        ]
-  }
-         ],
-     "minRegularLectureBasedCourses": {
-  "numCourses": (positive whole number),
-  "notCountedCourses": [
-       "(Department CourseNum1)",
-        "(Department CourseNum2)",
-        ...
-        "(Department CourseNumN)"
-   ],
-  "coursesCountedOnlyOnceAsRegularCourse": [
-       "(Department CourseNum1)",
-       "(Department CourseNum2)",
-       …
-       "(Department CourseNumN)"
-   ]
-         },
-      "requiredCreditsOfCourseX": {
-          "minCredits": (whole number that is at least 1),
-          "maxCredits": (whole number that is at least minCredits+1),
-          "substitutionsWithApproval": [
-         "(Department CourseNum1)",
-     "(Department CourseNum2)",
-       …
-     "(Department CourseNumN)"
-             ]
-         }
-      }
-    ]
-  }
+ ]
+       },
+    "requiredCreditsOfCourseX": {
+        "minCredits": (whole number that is at least 1),
+        "maxCredits": (whole number that is at least minCredits+1),
+        "substitutionsWithApproval": [
+           "(Department CourseNum1)",
+   "(Department CourseNum2)",
+     …
+   "(Department CourseNumN)"
+           ]
+       }
+    }
+  ]
+}
 
 
-  Notes regarding file format:
-  -() indicate where input values should go. Format and desired values are described by the description inside the parenthesis. () must be removed once an input is given.
-     -Example: "(Semester Year)" would become "Spring 2021"
-  -Every course will have the following format (Department CourseNumber CourseName)
+
+
+Notes regarding file format: 
+-() indicate where input values should go. Format and desired values are described by the description inside the parenthesis. () must be removed once an input is given.
+  -Example: "(Semester Year)" would become "Spring 2021"
+-Every course will have the following format (Department CourseNumber CourseName)

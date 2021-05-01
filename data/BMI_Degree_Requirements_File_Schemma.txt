@@ -1,0 +1,169 @@
+﻿{
+  "degreeName": "Biomedical Informatics",
+  "requirementVersion": "(Semester Year)",
+  "minimumCumulativeGPA": "(letter grade)",
+  "registrationRequired": "(True/False)",
+  "foreignLanguageRequired": "(True/False)",
+  "requiredCourses": [
+            " BMI 540 Statistical Methods in Biomedical Informatics"
+              ],
+  "fullTimeCourseRequirement":  "BMI 592 Biomedical Informatics",
+   "maxCreditsInCombinationY": {
+"credits": (Positive whole number),
+"courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+      ]
+},
+
+
+  "maxTotalCreditsForCourses":  {
+"credits": (Positive whole number),
+        "courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+              ]
+    },
+
+
+  "tracks": [
+       {
+            "name": "Translational Bioinformatics With Thesis",
+"totalCredits": (Positive whole number),
+           "thesisRequired": "True",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 511 Translational Bioinformatics"
+],
+             "coreCourses": [
+                      "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+              ],
+"electiveCourses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+              ],
+             "unapplicable_courses_for_credits": [
+            "BMI 598 M.S. Capstone Project in Biomedical Informatics"
+              ]
+
+
+    },
+    {
+            "name": "Clinical Informatics With Thesis",
+           "totalCredits": (Positive whole number),
+           "thesisRequired": "True",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 512 Clinical Bioinformatics"
+],
+             "coreCourses": [
+                      "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+              ],
+"electiveCourses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+              ],
+ "unapplicable_courses_for_credits": [
+            "BMI 598 M.S. Capstone Project in Biomedical Informatics"
+              ]
+    },
+   {
+            "name": "Imaging Bioinformatics With Thesis",
+           "totalCredits": (Positive whole number),
+           "thesisRequired": "True",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 513 Imaging Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+              ],
+"electiveCourses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+              ],
+  "unapplicable_courses_for_credits": [
+            "BMI 598 M.S. Capstone Project in Biomedical Informatics"
+              ]
+    },
+    {
+            "name": "Translational Bioinformatics With Capstone Project",
+           "totalCredits": (Positive whole number),
+           "thesisRequired": "False",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 511 Translational Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+              ],
+"electiveCourses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+              ],
+  "unapplicable_courses_for_credits": [
+            "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
+              ]
+    },
+    {
+            "name": "Clinical Bioinformatics With Capstone Project",
+           "totalCredits": (Positive whole number),
+           "thesisRequired": "False",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+     "BMI 512 Clinical Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+              ],
+"electiveCourses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+              ],
+"unapplicable_courses_for_credits": [
+            "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
+              ]
+    },
+    {
+            "name": "Imaging Bioinformatics With Capstone Project",
+           "totalCredits": (Positive whole number),
+           "thesisRequired": "False",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 513 Imaging Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+              ],
+"electiveCourses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+              ],
+"unapplicable_courses_for_credits": [
+            "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
+              ]
+        }
+     ]
+ }

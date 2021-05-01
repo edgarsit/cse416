@@ -1,0 +1,100 @@
+﻿{
+  "degreeName": "Computer Science",
+  "requirementVersion": "(Semester Year)",
+  "minimumCumulativeGPA": "(letter grade)",
+  "registrationRequired": "(True/False)",
+  "foreignLanguageRequired": "(True/False)",
+  "CSE587Info": {
+     "max_credits": (positive whole number),
+     "max_classes": (positive whole number)
+     },
+
+
+  "breaths": [
+    {
+       "name": "Theory",
+        "courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+      ]
+    },
+    {
+       "name": "Systems",
+        "courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+      ]
+    },
+    {
+        "name": "Information and Intelligent Systems",
+        "courses": [
+            "(course1)",
+            "(course2)",
+             ...
+             "(courseN)"
+      ]
+       }
+     ],
+
+
+
+
+  "tracks": [
+    {
+      "name": "Advanced Project",
+      "totalCredits": 31,
+     "thesisRequired": "False",
+      "coreCourses": [
+            "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science"
+              ],
+       "additionalCourses": (Positive whole number),
+       "additionalRequirement": {},
+      "unapplicable_courses_for_credits": [
+            "CSE 599 Laboratory in Computer Science"
+              ]
+    },
+    {
+      "name": "Special Project",
+     "totalCredits": (Positive whole number),
+      "thesisRequired": "False",
+      "coreCourses": [
+          "CSE 522 Basic Project in Computer Science"
+              ],
+        "additionalCourses": (Positive whole number),
+        "additionalRequirement": {
+           "minCredits":(Positive whole number),
+           "maxCredits": (Positive whole number),
+           "sixHundredCourses": "True",
+           "courses": [
+              "CSE 590",
+              "CSE 591",
+              "CSE 592",
+              "CSE 593",
+              "CSE 594",
+              "CSE 595"
+              ]
+           },
+      "unapplicable_courses_for_credits": [
+            "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science",
+            "CSE 599 Laboratory in Computer Science"
+              ]     
+    },
+    {
+      "name": "With Thesis",
+      "totalCredits": (Positive whole number),
+     "thesisRequired": "True",
+      "coreCourses": [
+          "CSE 599 Laboratory in Computer Science (9 credit)"
+              ],
+        "additionalCourses": (Positive whole number),
+         "additionalRequirement": {},
+          "unapplicable_courses_for_credits": []     
+     }
+   ]
+}

@@ -1,0 +1,236 @@
+﻿{
+  "degreeName": "Biomedical Informatics",
+  "requirementVersion": "Summer 2020",
+  "minimumCumulativeGPA": "B",
+  "registrationRequired": "True",
+  "foreignLanguageRequired": "False",
+  "requiredCourses": [
+            " BMI 540 Statistical Methods in Biomedical Informatics"
+              ],
+  "fullTimeCourseRequirement":  "BMI 592 Biomedical Informatics",
+   "maxCreditsInCombinationY": {
+"credits": 6,
+"courses": [
+            "BMI 596",
+            "BMI 696"
+             ]
+},
+
+
+  "maxTotalCreditsForCourses":  {
+"credits": 3,
+        "courses": [
+                  "BMI 590", 
+                  "BMI 591", 
+      "BMI 592", 
+      "BMI 595", 
+      "BMI 596", 
+      "BMI 690", 
+      "BMI 691", 
+      "BMI 695",
+      "BMI 696"
+]
+    },
+
+
+  "tracks": [
+       {
+            "name": "Translational Bioinformatics With Thesis",
+"totalCredits": 21,
+           "thesisRequired": "True",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 511 Translational Bioinformatics"
+],
+             "coreCourses": [
+                      "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+              ],
+"electiveCourses": [
+                "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+    "BMI 520 Data Analytics and Software Stacks",
+    "BMI 530 Software Development in Biomedical Informatics",
+    "BMI 540 Statistical Methods in Biomedical Informatics",
+    "BMI 560 Personalized Medicine",
+    "BMI 590 Independent Study in Biomedical Informatics",
+    "BMI 591 Independent Reading in Biomedical Informatics",
+    "BMI 595 Special Topics in Biomedical Informatics",
+    "BMI 596 Special Problems in Biomedical Informatics",
+    "BMI 622 Advanced Topics in Biomedical Informatics",
+    "BMI 690 Independent Study in Biomedical Informatics",
+    "BMI 691 Independent Reading in Biomedical Informatics",
+    "BMI 695 Special Topics in Biomedical Informatics",
+    "BMI 696 Special Problems in Biomedical Informatics"
+],
+             "unapplicable_courses_for_credits": [
+            "BMI 598 M.S. Capstone Project in Biomedical Informatics"
+              ]
+
+
+    },
+    {
+            "name": "Clinical Informatics With Thesis",
+           "totalCredits": 21,
+           "thesisRequired": "True",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 512 Clinical Bioinformatics"
+],
+             "coreCourses": [
+                      "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+              ],
+"electiveCourses": [
+                "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+    "BMI 520 Data Analytics and Software Stacks",
+    "BMI 530 Software Development in Biomedical Informatics",
+    "BMI 540 Statistical Methods in Biomedical Informatics",
+    "BMI 550 Clinical Informatics Practice Patterns",
+    "BMI 551 Case Studies in Clinical Informatics",
+    "BMI 552 Quality Improvement Methods for Clinical Informatics",
+    "BMI 590 Independent Study in Biomedical Informatics",
+    "BMI 591 Independent Reading in Biomedical Informatics",
+    "BMI 595 Special Topics in Biomedical Informatics",
+    "BMI 596 Special Problems in Biomedical Informatics",
+    "BMI 620 Advanced Topics in Clinical Informatics",
+    "BMI 690 Independent Study in Biomedical Informatics",
+    "BMI 691 Independent Reading in Biomedical Informatics",
+    "BMI 695 Special Topics in Biomedical Informatics",
+    "BMI 696 Special Problems in Biomedical Informatics"
+],
+ "unapplicable_courses_for_credits": [
+            "BMI 598 M.S. Capstone Project in Biomedical Informatics"
+              ]
+    },
+   {
+            "name": "Imaging Bioinformatics With Thesis",
+           "totalCredits": 21,
+           "thesisRequired": "True",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 513 Imaging Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+              ],
+"electiveCourses": [
+                "BMI 514 Imaging Informatics Analysis",
+    "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+    "BMI 520 Data Analytics and Software Stacks",
+    "BMI 530 Software Development in Biomedical Informatics",
+    "BMI 540 Statistical Methods in Biomedical Informatics",
+    "BMI 590 Independent Study in Biomedical Informatics",
+    "BMI 591 Independent Reading in Biomedical Informatics",
+    "BMI 595 Special Topics in Biomedical Informatics",
+    "BMI 596 Special Problems in Biomedical Informatics",
+    "BMI 625 Advanced Topics in Imaging Informatics",
+    "BMI 690 Independent Study in Biomedical Informatics",
+    "BMI 691 Independent Reading in Biomedical Informatics",
+    "BMI 695 Special Topics in Biomedical Informatics",
+    "BMI 696 Special Problems in Biomedical Informatics"
+],
+  "unapplicable_courses_for_credits": [
+            "BMI 598 M.S. Capstone Project in Biomedical Informatics"
+              ]
+    },
+    {
+            "name": "Translational Bioinformatics With Capstone Project",
+           "totalCredits": 30,
+           "thesisRequired": "False",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 511 Translational Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+              ],
+"electiveCourses": [
+                "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+    "BMI 520 Data Analytics and Software Stacks",
+    "BMI 530 Software Development in Biomedical Informatics",
+    "BMI 540 Statistical Methods in Biomedical Informatics",
+    "BMI 560 Personalized Medicine",
+    "BMI 590 Independent Study in Biomedical Informatics",
+    "BMI 591 Independent Reading in Biomedical Informatics",
+    "BMI 595 Special Topics in Biomedical Informatics",
+    "BMI 596 Special Problems in Biomedical Informatics",
+    "BMI 622 Advanced Topics in Biomedical Informatics",
+    "BMI 690 Independent Study in Biomedical Informatics",
+    "BMI 691 Independent Reading in Biomedical Informatics",
+    "BMI 695 Special Topics in Biomedical Informatics",
+    "BMI 696 Special Problems in Biomedical Informatics"
+],
+  "unapplicable_courses_for_credits": [
+            "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
+              ]
+    },
+    {
+            "name": "Clinical Bioinformatics With Capstone Project",
+           "totalCredits": 30,
+           "thesisRequired": "False",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+     "BMI 512 Clinical Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+              ],
+"electiveCourses": [
+                "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+    "BMI 520 Data Analytics and Software Stacks",
+    "BMI 530 Software Development in Biomedical Informatics",
+    "BMI 540 Statistical Methods in Biomedical Informatics",
+    "BMI 550 Clinical Informatics Practice Patterns",
+    "BMI 551 Case Studies in Clinical Informatics",
+    "BMI 552 Quality Improvement Methods for Clinical Informatics",
+    "BMI 590 Independent Study in Biomedical Informatics",
+    "BMI 591 Independent Reading in Biomedical Informatics",
+    "BMI 595 Special Topics in Biomedical Informatics",
+    "BMI 596 Special Problems in Biomedical Informatics",
+    "BMI 620 Advanced Topics in Clinical Informatics",
+    "BMI 690 Independent Study in Biomedical Informatics",
+    "BMI 691 Independent Reading in Biomedical Informatics",
+    "BMI 695 Special Topics in Biomedical Informatics",
+    "BMI 696 Special Problems in Biomedical Informatics"
+],
+"unapplicable_courses_for_credits": [
+            "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
+              ]
+    },
+    {
+            "name": "Imaging Bioinformatics With Capstone Project",
+           "totalCredits": 30,
+           "thesisRequired": "False",
+        "sequence": [
+                "BMI 501 Introduction to Biomedical Informatics",
+    "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+    "BMI 513 Imaging Bioinformatics"
+],
+"coreCourses": [
+                      "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+              ],
+"electiveCourses": [
+                "BMI 514 Imaging Informatics Analysis",
+    "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+    "BMI 520 Data Analytics and Software Stacks",
+    "BMI 530 Software Development in Biomedical Informatics",
+    "BMI 540 Statistical Methods in Biomedical Informatics",
+    "BMI 590 Independent Study in Biomedical Informatics",
+    "BMI 591 Independent Reading in Biomedical Informatics",
+    "BMI 595 Special Topics in Biomedical Informatics",
+    "BMI 596 Special Problems in Biomedical Informatics",
+    "BMI 625 Advanced Topics in Imaging Informatics",
+    "BMI 690 Independent Study in Biomedical Informatics",
+    "BMI 691 Independent Reading in Biomedical Informatics",
+    "BMI 695 Special Topics in Biomedical Informatics",
+    "BMI 696 Special Problems in Biomedical Informatics"
+],
+"unapplicable_courses_for_credits": [
+            "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
+              ]
+        }
+     ]
+ }
