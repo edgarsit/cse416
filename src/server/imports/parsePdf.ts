@@ -1,5 +1,6 @@
 import * as pdf from 'pdfjs-dist/es5/build/pdf';
 import type { TextItem } from 'pdfjs-dist/types/display/api';
+import { performance } from 'perf_hooks';
 
 import type { CourseBase, ScrapedCourse } from '../../model/course';
 
@@ -67,6 +68,7 @@ function parse(desc: string): {
 }
 
 export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'courseSet' | '__t' | 'prerequisites'>[]> {
+  const start = performance.now();
   const loadingTask = pdf.getDocument(fileName);
   const doc = await loadingTask.promise;
   const { numPages } = doc;
@@ -150,8 +152,6 @@ export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'c
     }
   };
 
-  const arr = new Array(numPages).fill(undefined).map((_, i) => loadPage(i + 1));
-
   const acc: Acc = {
     short: '',
     long: '',
@@ -159,9 +159,11 @@ export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'c
     desc: '',
     acc: [],
   };
-  for (const ps of arr) {
-    processPage(acc, await ps); // eslint-disable-line no-await-in-loop
+  for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+    // eslint-disable-next-line no-await-in-loop
+    const ps = await loadPage(pageNum);
+    processPage(acc, ps);
   }
-  push(acc);
+  console.log(`Parsed PDF in: ${(performance.now() - start) / 1000} s`);
   return acc.acc;
 }
