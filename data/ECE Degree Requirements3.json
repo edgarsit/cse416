@@ -1,4 +1,4 @@
-﻿{
+{
   "degreeName": "Computer Engineering",
   "requirementVersion": "Spring 2021",
   "maxTransferCredits": 12,
@@ -95,7 +95,7 @@
  "ECE 699"
            ]
        }
-    },  
+    },
 {
        "name": "Thesis Option",
       "totalCredits": 30,

@@ -1,4 +1,4 @@
-﻿{
+{
   "degreeName": "Computer Science",
   "requirementVersion": "Spring 2021",
   "minimumCumulativeGPA": "B",
@@ -93,7 +93,7 @@
             "CSE 523 Laboratory in Computer Science",
         "CSE 524 Laboratory in Computer Science",
             "CSE 599 Laboratory in Computer Science"
-              ]     
+              ]
     },
     {
       "name": "With Thesis",
@@ -104,7 +104,7 @@
               ],
         "additionalCourses": 6,
          "additionalRequirement": {},
-          "unapplicable_courses_for_credits": []     
+          "unapplicable_courses_for_credits": []
      }
    ]
 }

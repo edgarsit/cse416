@@ -1,4 +1,4 @@
-﻿{
+{
   "degreeName": "Biomedical Informatics",
   "requirementVersion": "Spring 2021",
   "minimumCumulativeGPA": "B",
@@ -20,13 +20,13 @@
   "maxTotalCreditsForCourses":  {
 "credits": 3,
         "courses": [
-                  "BMI 590", 
-                  "BMI 591", 
-      "BMI 592", 
-      "BMI 595", 
-      "BMI 596", 
-      "BMI 690", 
-      "BMI 691", 
+                  "BMI 590",
+                  "BMI 591",
+      "BMI 592",
+      "BMI 595",
+      "BMI 596",
+      "BMI 690",
+      "BMI 691",
       "BMI 695",
       "BMI 696"
 ]
