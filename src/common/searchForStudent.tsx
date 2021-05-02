@@ -58,12 +58,30 @@ function Filter({ show, onHide, c }: FilterProps) {
 export default function SearchForStudent({ values }: { values?: any[] }): JSX.Element {
   const [modalShow, setModalShow] = React.useState(false);
   const [alertShow, setAlertShow] = React.useState(false);
-  const data = values ?? [];
+  const data0 = values ?? [];
+  const [data, setData] = React.useState(data0);
+  const s: [string | null, -1 | 1] = [null, 1];
+  const [currSort, setCurrSort] = React.useState(s);
 
   const onHide = () => {
     setModalShow(false);
     setAlertShow(true);
     setTimeout(() => setAlertShow(false), 1000);
+  };
+
+  const sortBy = (key: string) => () => {
+    const data1 = JSON.parse(JSON.stringify(data0));
+    const dir = key === currSort[0] ? currSort[1] : 1;
+    setData(data1.sort((a, b) => dir * String(a[key]).localeCompare(b[key])));
+    setCurrSort([key, (-dir as any)]);
+  };
+
+  const showSort = (k: string, s: string) => {
+    const [key, dir] = currSort;
+    if (key === k) {
+      return s + (dir > 0 ? '\u2191' : '\u2193');
+    }
+    return s;
   };
 
   return (
@@ -88,7 +106,7 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
                       <Tooltip id={k}>{l}</Tooltip>
                     }
                   >
-                    <th>{s}</th>
+                    <th onClick={sortBy(k)}>{ showSort(k, s) }</th>
                   </OverlayTrigger>
                 ))
               }
