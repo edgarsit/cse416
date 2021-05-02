@@ -1,56 +1,39 @@
+// import * as pdf from 'pdfjs-dist'
 import * as pdf from 'pdfjs-dist/es5/build/pdf';
-import type { TextItem } from 'pdfjs-dist/types/display/api';
 import { performance } from 'perf_hooks';
 
-import type { CourseBase, ScrapedCourse } from '../../model/course';
+import type { CourseBase, Offering, ScrapedCourse } from '../../model/course';
 
-function assertArrayEq<T, U>(head: T[], s: U[], tail: T[], map: (arg: U) => T): U[] {
-  if (s.length < head.length + tail.length) {
-    throw new Error('Internal Error');
-  }
-  for (let i = 0; i < head.length; i++) {
-    const a = head[i];
-    const b = map(s[i]!);
-    if (a != null && a !== b) {
-      console.error(`"${a}" !== "${b}"`);
-    }
-  }
-  for (let i = 0; i < tail.length; i++) {
-    const a = tail[i];
-    const b = map(s[(s.length - tail.length) + i]!);
-    if (a != null && a !== b) {
-      console.error(`"${a}" !== "${b}"`);
-    }
-  }
-  return s.slice(head.length, -tail.length);
-}
+type SC = Omit<ScrapedCourse, 'courseSet' | '__t'>;
 
 interface Acc {
-  short: string,
-  long: string,
-  title: string,
-  desc: string,
-  acc: Omit<ScrapedCourse, 'courseSet' | '__t' | 'prerequisites'>[],
+  title?: {
+    department: string,
+    number: string,
+    fullName: string
+  },
+  desc: string[],
+  acc: SC[]
 }
 
+const sp = (r: RegExp) => RegExp(r.source.replace(/ /g, '\\s*'), r.flags);
 // Hoisted to give more room to read and debug
-const re = /(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A-, B\+, etc\.\))|(?:S\/U grading))?( (?:May be repeated for credit|May be repeated \d+ times FOR credit)\.?)?$/i;
-const re1 = /.*Prerequisite.*:(.*)/i;
+const re = sp(/(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A-, B\+, etc\.\))|(?:S\/U grading))?( (?:May be repeated for credit|May be repeated (\d+) times? FOR credit)\.?)?$/i);
+const prRe = /.*Prerequisite.*:(.*)/i;
 const re2 = /([a-z]{3})(\/[a-z]{3})?\s*(\d{3})/ig;
-function parse(desc: string): {
-  minCredits: number, maxCredits: number, prerequisites: CourseBase[]
-} | null {
+function parseDesc(desc: string) {
   const m = desc.match(re);
   if (m == null) {
     return null;
   }
-  const [_, minS, maxS] = m;
-  // TODO remove cring
+  const [_, minS, maxS, _grading, rep, repCount] = m;
   const prerequisites: CourseBase[] = [];
-  const n = desc.slice(0, m.index).match(re1);
-  if (n != null) {
-    const [_, pq] = n;
+  let inbetween = desc.slice(0, m.index);
+  const pr = inbetween.match(prRe);
+  if (pr != null) {
+    const [_, pq] = pr;
     if (pq) {
+      inbetween = pq;
       for (const p of pq.matchAll(re2)) {
         const [_, d0, d1, number] = p;
         prerequisites.push({ department: d0!, number: +number! });
@@ -60,13 +43,71 @@ function parse(desc: string): {
       }
     }
   }
+
+  const semester: string[] = [];
+  for (const sem of ['Fall', 'Spring', 'Summer']) {
+    if (inbetween.includes(sem)) {
+      semester.push(sem);
+    }
+  }
+
+  let yearParity;
+  if (inbetween.includes('even years')) {
+    yearParity = 0;
+  } else if (inbetween.includes('odd years')) {
+    yearParity = 1;
+  }
+
+  let repeat = 0;
+  if (rep) {
+    repeat = +(repCount ?? Number.POSITIVE_INFINITY);
+  }
+
   return {
     minCredits: +(minS ?? maxS ?? 3) | 0,
     maxCredits: +(maxS ?? 3) | 0,
+    offering: {
+      semester,
+      yearParity,
+    },
+    repeat,
     prerequisites,
   };
 }
 
+const creditsRe = /(?:(\d+)-)?(\d+) credits?/i;
+function parseDesc1(desc: string): {
+  minCredits: number, maxCredits: number,
+  offering: Offering, prerequisites: CourseBase[]
+} {
+  const p = parseDesc(desc);
+  if (p != null) {
+    return p;
+  }
+  const base = {
+    offering: {
+      semester: [],
+      yearParity: -1,
+    },
+    prerequisites: [],
+  };
+  const m = desc.match(creditsRe);
+  if (!m) {
+    return {
+      minCredits: 3,
+      maxCredits: 3,
+      ...base,
+    };
+  }
+  const [_, minS, maxS] = m;
+  return {
+    minCredits: +(minS ?? maxS ?? 3) | 0,
+    maxCredits: +(maxS ?? 3) | 0,
+    ...base,
+  };
+}
+
+const titleRe = /^\s*(\S+)\s+(\d+)\s*:\s*(.*)$/;
 export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'courseSet' | '__t' | 'prerequisites'>[]> {
   const start = performance.now();
   const loadingTask = pdf.getDocument(fileName);
@@ -76,87 +117,59 @@ export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'c
   const loadPage = async (pageNum: number) => {
     const page = await doc.getPage(pageNum);
     const content = await page.getTextContent();
-    const v = assertArrayEq([null, null, 'GRADUATE  COURSE  DESCRIPTIONS', null], content.items, ['Stony Brook University Graduate Bulletin: www.stonybrook.edu/gradbulletin', `${pageNum}`], (item) => item.str);
-    return v;
+    // Spring # optional
+    // 2020   # optional
+    // GRADUATE  COURSE  DESCRIPTIONS
+    // Spring 2020
+    // ...
+    // Stony Brook University Graduate Bulletin: www.stonybrook.edu/gradbulletin
+    // ${pageNum}
+
+    const gcd = 'GRADUATE  COURSE  DESCRIPTIONS';
+    const bu = 'Stony Brook University Graduate Bulletin: www.stonybrook.edu/gradbulletin';
+    const i = content.items.findIndex((x) => x.str === gcd);
+    const j = content.items.findIndex((x) => x.str === bu);
+    return content.items.slice(i + 1, j).map((x) => x.str);
   };
 
   const push = (acc: Acc) => {
     const { title, desc } = acc;
-    const m = title.match(/^\s*(\S+)\s+(\S*)\s*:\s*(.*)$/);
-    if (m == null) {
-      throw Error('Unable to split course title');
+    if (title == null) {
+      return;
     }
-    const [_, department, number, fullName] = m;
-    const pd = parse(desc);
+    const { department, number, fullName } = title;
+    const pd = parseDesc1(desc.join(' '));
     if (pd == null) {
       throw Error('Unable to parse course description');
     }
     const sc = {
-      department: department!,
-      number: +number! | 0,
-      fullName: fullName!,
+      department,
+      number: +number | 0,
+      fullName,
       ...pd,
     };
     acc.acc.push(sc);
-    acc.title = '';
-    acc.desc = '';
+    acc.title = undefined;
+    acc.desc = [];
   };
 
-  // TODO fix run on parsing
-  const processPage = (acc: Acc, ps: TextItem[]) => {
-    for (const p of ps) {
-      switch (p.fontName) {
-        case 'Helvetica':
-          switch (p.height) {
-            case 11.25:
-              if (acc.short === '' || acc.title !== '' || acc.desc !== '') {
-                throw new Error();
-              }
-              acc.long += p.str;
-              break;
-            case 9:
-              if (acc.short === '' || acc.long === '') {
-                throw new Error();
-              }
-              if (acc.desc !== '') {
-                push(acc);
-              }
-              acc.title = `${acc.title} ${p.str}`;
-              break;
-            default:
-              throw new Error();
-          }
-          break;
-        case 'Times':
-          switch (p.height) {
-            case 22.5:
-              if (acc.title !== '') {
-                push(acc);
-              }
-              acc.short = p.str;
-              acc.long = '';
-              break;
-            case 9:
-              if (acc.short === '' || acc.title === '') {
-                throw new Error();
-              }
-              acc.desc = `${acc.desc} ${p.str}`;
-              break;
-            default:
-              throw new Error();
-          }
-          break;
-        default:
-          throw new Error();
+  // TODO not using fonts has issues with multiline titles eg AMS 500
+  const processPage = (acc: Acc, ps: string[]) => {
+    for (const line of ps) {
+      const m = line.match(titleRe);
+      if (m !== null) {
+        push(acc);
+        const [_, department, number, fullName] = m;
+        acc.title = { department: department!, number: number!, fullName: fullName! };
+      } else {
+        acc.desc.push(line);
       }
     }
   };
 
   const acc: Acc = {
-    short: '',
-    long: '',
-    title: '',
-    desc: '',
+    title: undefined,
+    desc: [],
     acc: [],
   };
   for (let pageNum = 1; pageNum <= numPages; pageNum++) {
@@ -164,6 +177,10 @@ export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'c
     const ps = await loadPage(pageNum);
     processPage(acc, ps);
   }
-  console.log(`Parsed PDF in: ${(performance.now() - start) / 1000} s`);
+  push(acc);
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`Parsed PDF in: ${(performance.now() - start) / 1000} s`);
+  }
   return acc.acc;
 }

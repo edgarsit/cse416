@@ -3,14 +3,10 @@ import type { Types } from 'mongoose';
 import type { Ref } from 'react';
 import { rprop } from './util';
 
-export enum Grading {
-  Letter = 'Letter graded (A, A-, B+, etc.)',
-  SU = 'S/U grading'
-}
-
 export enum Semester {
   Spring,
-  Summer,
+  SummerI,
+  SummerII,
   Fall,
   Winter
 }
@@ -33,6 +29,14 @@ export class CourseBase {
   public number!: number
 }
 
+export class Offering {
+  @rprop()
+  public semester!: string[]
+
+  @prop({ enum: [0, 1] })
+  public yearParity?: number
+}
+
 // TODO index
 export class ScrapedCourse extends CourseBase {
   @rprop()
@@ -46,6 +50,12 @@ export class ScrapedCourse extends CourseBase {
 
   @rprop({ type: () => [CourseBase] })
   public prerequisites!: CourseBase[]
+
+  @rprop()
+  public offering!: Offering
+
+  @rprop()
+  public repeat?: number
 
   @rprop({ ref: () => ScrapedCourseSet })
   public courseSet!: Ref<ScrapedCourseSet>[]
