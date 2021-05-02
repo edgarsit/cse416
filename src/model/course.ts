@@ -30,7 +30,7 @@ export class CourseBase {
 }
 
 export class Offering {
-  @rprop()
+  @rprop({ type: () => [String] })
   public semester!: string[]
 
   @prop({ enum: [0, 1] })
