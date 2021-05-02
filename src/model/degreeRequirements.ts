@@ -4,8 +4,8 @@ import { prop, rprop } from './util';
 // Short name cuz no time
 const id = <T>(x: T): T => x;
 const cc = (s: string): Course => {
-  const [department, courseNum] = s.split(/\s+/);
-  return { department: department!, courseNum: courseNum! };
+  const [department, number] = s.split(/\s+/);
+  return { department: department!, number: +number! };
 };
 
 const c = (v) => rprop({

@@ -2,7 +2,7 @@
 import * as pdf from 'pdfjs-dist/es5/build/pdf';
 import { performance } from 'perf_hooks';
 
-import type { CourseBase, Offering, ScrapedCourse } from '../../model/course';
+import type { Course, Offering, ScrapedCourse } from '../../model/course';
 
 type SC = Omit<ScrapedCourse, 'courseSet' | '__t'>;
 
@@ -27,7 +27,7 @@ function parseDesc(desc: string) {
     return null;
   }
   const [_, minS, maxS, _grading, rep, repCount] = m;
-  const prerequisites: CourseBase[] = [];
+  const prerequisites: Course[] = [];
   let inbetween = desc.slice(0, m.index);
   const pr = inbetween.match(prRe);
   if (pr != null) {
@@ -78,7 +78,7 @@ function parseDesc(desc: string) {
 const creditsRe = /(?:(\d+)-)?(\d+) credits?/i;
 function parseDesc1(desc: string): {
   minCredits: number, maxCredits: number,
-  offering: Offering, prerequisites: CourseBase[]
+  offering: Offering, prerequisites: Course[]
 } {
   const p = parseDesc(desc);
   if (p != null) {

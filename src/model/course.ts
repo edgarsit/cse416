@@ -21,7 +21,7 @@ export class ScrapedCourseSet {
   public semester!: Semester
 }
 
-export class CourseBase {
+export class Course {
   @rprop()
   public department!: string
 
@@ -38,7 +38,7 @@ export class Offering {
 }
 
 // TODO index
-export class ScrapedCourse extends CourseBase {
+export class ScrapedCourse extends Course {
   @rprop()
   public fullName!: string
 
@@ -48,8 +48,8 @@ export class ScrapedCourse extends CourseBase {
   @rprop()
   public maxCredits!: number
 
-  @rprop({ type: () => [CourseBase] })
-  public prerequisites!: CourseBase[]
+  @rprop({ type: () => [Course] })
+  public prerequisites!: Course[]
 
   @rprop()
   public offering!: Offering
@@ -102,19 +102,12 @@ export class CourseOffering {
   public timeslot!: string
 }
 
-export class Course {
-  @rprop()
-  public department!: string
-
-  @rprop()
-  public courseNum!: string
-}
-
 // TODO fix up schema, index on all except grade
 export class CoursePlan {
   @rprop()
   sbuId!: string
 
+  // TODO ref to Course?
   @rprop()
   department!: string
 
