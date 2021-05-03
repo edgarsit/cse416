@@ -222,7 +222,6 @@ function requirementStatus(s: Student) {
             }
             reqStatus[2]+=unsatisfiedCoursesNum
             cumulativeGPA=cumulativeGPA/numCourses
-            coreCourseGPA=coreCourseGPA/coreCoursesTaken
             
             if cumulativeGPA at least the values in the degree requirement
             {
