@@ -173,16 +173,28 @@ router.post('/studentData', async (req, res) => {
   const plan: any[] = await readCSV(files.plan?.path);
   await CoursePlanModel.bulkWrite(
     plan.map((c) => {
-      const filter = Object.fromEntries(Object.entries(c).map(
-        ([k, v]) => [sc2cc(k), { $eq: v }],
-      ));
+      const filter = { sbuId: { $eq: c.sbu_id } };
       return {
-        updateOne: {
+        deleteMany: {
           filter,
-          update: { $setOnInsert: c },
-          upsert: true,
         },
       };
+    }),
+  );
+  await StudentModel.bulkWrite(
+    plan.map((c) => {
+      const filter = { sbuId: { $eq: c.sbu_id } };
+      return {
+        deleteMany: {
+          filter,
+        },
+      };
+    }),
+  );
+  await CoursePlanModel.create(
+    plan.map((c) => {
+      const filter = me(c, ([k, v]) => [sc2cc(k as any), v]);
+      return filter;
     }),
   );
   return res.redirect('/');
