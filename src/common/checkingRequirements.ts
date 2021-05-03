@@ -17,6 +17,8 @@ even if it imposes minimums on both cumulative GPA and departmental GPA. number-
 */
 
 //not sure what to do about time limit
+//More conditionals are needed to separate courses taken in past semesters and htose taken in the current
+//as well as which index gets updated in reqstatus
 function requirementStatus (s: Student){
     let reqStatus: [number, number, number] = [0, 0, 0];//satisfied,pending,unsatisfied
     let coursePlans=CoursePlanModel.find({sbuId : s.sbuId})
@@ -62,8 +64,6 @@ function requirementStatus (s: Student){
             {
                 if course is in track.coreCourses
                 {
-                    //not sure if more conditionals are needed to separate changes by the semester in courseplan
-                    //this also applies to the other cases as well
                     reqStatus[0]+=1
                     unsatisfiedCourseNum-=1
                 }
@@ -158,8 +158,33 @@ function requirementStatus (s: Student){
             */
            break; 
         } 
-        case "BMI": { 
-           
+        case "BMI": { //I think foreign language can be ignored
+           /*
+
+            if finalRecommendation is true
+            {
+                reqStatus[0]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
+
+            let creditsNeeded=track.totalCredits
+            taken_credits=0 //update these two variables to keep track of credit requirement
+            pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
+            let coursesTaken=0
+            let cumulativeGPA=0
+            let maxCreditsinCombinationY=0//variable to keep track of the amount of credits with courses in this field
+            //If the value goes over the vlaue in the degree requirement, the credits over that value should be subtracted from
+            //taken or pending credit variables, might not have the time to deal with that specific case so maybe it can be ignored
+
+
+
+            Get track of student
+            
+            return reqStatus
+            */
            break; 
         } 
         case "CSE": { 
