@@ -65,10 +65,10 @@ export class Student extends User {
   @ruprop({ short: 'Grad Year' })
   public graduationYear!: string
 
-  @ruprop()
+  @ruprop({ default: false })
   public graduated!: boolean
 
-  @ruprop()
+  @ruprop({ default: '' })
   public comments!: string
 
   @ruprop({ unique: true })

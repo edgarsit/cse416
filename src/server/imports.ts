@@ -149,15 +149,25 @@ router.post('/studentData', async (req, res) => {
   await StudentModel.bulkWrite(
     profile.map((c) => {
       const filter = { sbuId: { $eq: c.sbu_id } };
-      const up = me(c, ([k, v]) => [sc2cc(k as string), v]);
       return {
-        updateOne: {
+        deleteMany: {
           filter,
-          update: { $setOnInsert: up },
-          upsert: true,
         },
       };
     }),
+  );
+  await StudentModel.bulkWrite(
+    profile.map((c) => {
+      const filter = { email: { $eq: c.email } };
+      return {
+        deleteMany: {
+          filter,
+        },
+      };
+    }),
+  );
+  await StudentModel.create(
+    profile.map((c) => me(c, ([k, v]) => [sc2cc(k as string), v])),
   );
   // TODO parallelize
   const plan: any[] = await readCSV(files.plan?.path);
