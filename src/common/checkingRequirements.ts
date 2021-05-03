@@ -160,6 +160,8 @@ function requirementStatus (s: Student){
         } 
         case "BMI": { //I think foreign language can be ignored
            /*
+           //One thing not written here is handling the case where a student is checked to see if they are full
+           //time and if they are taking the fullTImeRequiredCourse in the degree requirement
 
             if finalRecommendation is true
             {
@@ -175,14 +177,71 @@ function requirementStatus (s: Student){
             pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
             let coursesTaken=0
             let cumulativeGPA=0
-            let maxCreditsinCombinationY=0//variable to keep track of the amount of credits with courses in this field
+            let creditsinCombinationY=0//variable to keep track of the amount of credits with courses in this field
             //If the value goes over the vlaue in the degree requirement, the credits over that value should be subtracted from
             //taken or pending credit variables, might not have the time to deal with that specific case so maybe it can be ignored
+            let totalCreditsForCourses=0//same as the previous variable but for maxTotalCreditsForCourses in the degree
+
 
 
 
             Get track of student
+            let unsatisfiedCoursesNum=requiredCourses+num courses in sequence (3 with degree requirement1 file)+
+                core courses in track + num courses in electiveCourses
+
+            For every course in courseplan
+            {
+                if course is in requiredCourses
+                {
+                    reqStatus[0]+=1
+                    unsatisfiedCourseNum-=1
+                    //update credit and grade related variables
+                }
+                else
+                {
+                    if course in track.sequence
+                    {
+                        if the course is 502 or 503 and the other has been taken {continue;}//essentially ignore the course, except for maybe grade handling
+                        reqStatus[0]+=1
+                        unsatisfiedCourseNum-=1
+                        //update credit and grade related variables
+                    }
+                    else
+                    {
+                        if course is in track.electiveCourses
+                        {
+                            reqStatus[0]+=1
+                            unsatisfiedCourseNum-=1
+                            //update credit and grade related variables
+                        }
+                    }
+                }
+            }
+            reqStatus[2]+=unsatisfiedCoursesNum
+            cumulativeGPA=cumulativeGPA/numCourses
+            coreCourseGPA=coreCourseGPA/coreCoursesTaken
             
+            if cumulativeGPA at least the values in the degree requirement
+            {
+                reqStatus[0]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
+
+            if taken_credits>= track.totalCredits
+            {
+                reqStatus[0]+=1
+            }
+            elseif taken_credits+pending_credits>=track.totalCredits
+            {
+                reqStatus[0]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
             return reqStatus
             */
            break; 
@@ -208,4 +267,6 @@ function isCourseInRange (c: Course, r: string){
     let max: number=+r.substr(8,9)//upper bound for range
     return (c.department==dep && c.number>=min && c.number<=max)
 }
+
+
 
