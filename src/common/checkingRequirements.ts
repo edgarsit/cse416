@@ -16,6 +16,7 @@ GPA requirement counts as 1 requirement, even if it is multi-faceted, e.g.,
 even if it imposes minimums on both cumulative GPA and departmental GPA. number-of-credits requirement counts as 1 requirement.
 */
 
+//not sure what to do about time limit
 function requirementStatus (s: Student){
     let reqStatus: [number, number, number] = [0, 0, 0];//satisfied,pending,unsatisfied
     let coursePlans=CoursePlanModel.find({sbuId : s.sbuId})
@@ -24,8 +25,21 @@ function requirementStatus (s: Student){
         case "AMS": { 
             /*
 
-            //Need to handle the generic gpa requirement and credit requirement
+            if finalRecommendation is true
+            {
+                reqStatus[0]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
 
+            let creditsNeeded=track.totalCredits
+            let coursesTaken=0
+            let coreCoursesTaken=0
+            let cumulativeGPA=0
+            let coreCourseGPA=0
+            let xCreditsGradeY=0//variable to keep track of the amount of credits with grade Y
 
 
             Get track of student
@@ -40,6 +54,10 @@ function requirementStatus (s: Student){
 
                 //update the variable/array tempName with string parsed into x and range
             }
+
+            taken_credits=0 //update these two variables to keep track of credit requirement
+            pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
+
             For every course in courseplan
             {
                 if course is in track.coreCourses
@@ -74,8 +92,20 @@ function requirementStatus (s: Student){
                             }
                             else
                             {
-                                check substitutions // I can write pseudocode or code for it tomorrow, dont have the time for
-                                //writing it out tonight
+                                for substitution in track.substitutions
+                                {
+                                    parse substitution string into a tuple (x,range), tempName2, where x is num courses in range
+                                    for e in tempName2
+                                    {
+                                        if e[0]>0 && isCourseInRange(course,e[1])
+                                        {
+                                            reqStatus[0]+=1
+                                            unsatisfiedCourseNum-=1
+                                            e[0]-=1
+                                            coreCourse=True
+                                        }
+                                    }
+                                }
                             }
                         }
                         else
@@ -85,7 +115,46 @@ function requirementStatus (s: Student){
                         }
                     }
                 }
+                if course was taken in the past, taken_credits+= credit value of course
+                else if course is taken now, pending credits+= credit value of course
+
+                if course.grade== track.xCreditsGradeY.Grade
+                {
+                    xCreditsGradeY+=credit value of course
+                }
+
+                 handle grade calculations for courses taken. would be something along the lines of the follwing
+                lines but put into areas above where the course is taken during the current semester
+                    numCourses+=1
+                    cumulativeGPA+=course.grade
+                same would apply for coreCourseGPA, but only for core courses
             }
+            reqStatus[2]+=unsatisfiedCoursesNum
+            cumulativeGPA=cumulativeGPA/numCourses
+            coreCourseGPA=coreCourseGPA/coreCoursesTaken
+            
+            if cumulativeGPA and coreCOurseGPA and xCreditsGradeY are at least the values in the degree requirement
+            {
+                reqStatus[0]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
+
+            if taken_credits>= track.totalCredits
+            {
+                reqStatus[0]+=1
+            }
+            elseif taken_credits+pending_credits>=track.totalCredits
+            {
+                reqStatus[0]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
+            return reqStatus
             */
            break; 
         } 
@@ -102,7 +171,7 @@ function requirementStatus (s: Student){
            break; 
         } 
         default: { 
-           //maybe throw an error 
+           //maybe throw an error or return reqStatus as is or (-1,-1,-1)
            break; 
         } 
      } 
