@@ -73,7 +73,7 @@ server.get('/login', (req, res) => {
 // hack for video
 server.get('/dump/:model', async (req, res) => {
   // eslint-disable-next-line import/namespace
-  res.json(await modelHack[req.params.model!].find({}));
+  res.status(200).json(await modelHack[req.params.model!].find({}));
 });
 
 server.use((req, res, next) => {
