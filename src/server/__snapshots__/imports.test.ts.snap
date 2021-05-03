@@ -3,9 +3,16 @@
 exports[`parse AMS Degree Requirements1.json 1`] = `
 Object {
   "coreCourseGPA": 3,
+  "cse587Info": Object {
+    "maxClasses": 0,
+    "maxCredits": 0,
+  },
   "degreeName": "Applied Mathematics and Statistics",
   "finalRecommendation": "Required",
+  "foreignLanguageRequired": "False",
+  "fullTimeCourseRequirement": Array [],
   "minimumCumulativeGPA": "B",
+  "registrationRequired": "False",
   "requirementVersion": "Spring 2021",
   "timeLimit": "3 years",
   "tracks": Array [
@@ -448,7 +455,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -482,7 +489,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -514,7 +521,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -546,7 +553,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -580,7 +587,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -612,7 +619,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -681,7 +688,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -715,7 +722,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -747,7 +754,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -779,7 +786,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -813,7 +820,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -845,7 +852,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -914,7 +921,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -948,7 +955,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -980,7 +987,7 @@ Object {
       ],
       "thesisRequired": "True",
       "totalCredits": 21,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
       ],
     },
@@ -1012,7 +1019,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -1046,7 +1053,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -1078,7 +1085,7 @@ Object {
       ],
       "thesisRequired": "False",
       "totalCredits": 30,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
       ],
     },
@@ -1089,8 +1096,8 @@ Object {
 exports[`parse CSE Degree Requirements1.json 1`] = `
 Object {
   "CSE587Info": Object {
-    "max_classes": 2,
-    "max_credits": 4,
+    "maxClasses": 2,
+    "maxCredits": 4,
   },
   "breaths": Array [
     Object {
@@ -1147,7 +1154,7 @@ Object {
       "name": "Advanced Project",
       "thesisRequired": "False",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "CSE 599 Laboratory in Computer Science",
       ],
     },
@@ -1172,7 +1179,7 @@ Object {
       "name": "Special Project",
       "thesisRequired": "False",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "CSE 523 Laboratory in Computer Science",
         "CSE 524 Laboratory in Computer Science",
         "CSE 599 Laboratory in Computer Science",
@@ -1187,7 +1194,7 @@ Object {
       "name": "With Thesis",
       "thesisRequired": "True",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [],
+      "unapplicableCoursesCredits": Array [],
     },
   ],
 }
@@ -1196,7 +1203,7 @@ Object {
 exports[`parse CSE Degree Requirements2.json 1`] = `
 Object {
   "CSE587Info": Object {
-    "max_classes": 2,
+    "maxClasses": 2,
     "max_credits": 4,
   },
   "breaths": Array [
@@ -1254,7 +1261,7 @@ Object {
       "name": "Advanced Project",
       "thesisRequired": "False",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "CSE 599 Laboratory in Computer Science",
       ],
     },
@@ -1279,7 +1286,7 @@ Object {
       "name": "Special Project",
       "thesisRequired": "False",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "CSE 523 Laboratory in Computer Science",
         "CSE 524 Laboratory in Computer Science",
         "CSE 599 Laboratory in Computer Science",
@@ -1294,7 +1301,7 @@ Object {
       "name": "With Thesis",
       "thesisRequired": "True",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [],
+      "unapplicableCoursesCredits": Array [],
     },
   ],
 }
@@ -1303,8 +1310,8 @@ Object {
 exports[`parse CSE Degree Requirements3.json 1`] = `
 Object {
   "CSE587Info": Object {
-    "max_classes": 2,
-    "max_credits": 4,
+    "maxClasses": 2,
+    "maxCredits": 4,
   },
   "breaths": Array [
     Object {
@@ -1361,7 +1368,7 @@ Object {
       "name": "Advanced Project",
       "thesisRequired": "False",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "CSE 599 Laboratory in Computer Science",
       ],
     },
@@ -1386,7 +1393,7 @@ Object {
       "name": "Special Project",
       "thesisRequired": "False",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [
+      "unapplicableCoursesCredits": Array [
         "CSE 523 Laboratory in Computer Science",
         "CSE 524 Laboratory in Computer Science",
         "CSE 599 Laboratory in Computer Science",
@@ -1401,7 +1408,7 @@ Object {
       "name": "With Thesis",
       "thesisRequired": "True",
       "totalCredits": 31,
-      "unapplicable_courses_for_credits": Array [],
+      "unapplicableCoursesCredits": Array [],
     },
   ],
 }
