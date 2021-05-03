@@ -5,12 +5,14 @@ import {
 import { keysOf, Semester } from '../model/course';
 import { Bar } from './util';
 
-function Field({ s, pl, l }: { s: string, pl: string, l?: string }): JSX.Element {
+function Field({
+  s, pl, l, required,
+}: { s: string, pl: string, l?: string, required?: boolean }): JSX.Element {
   return (
     <Form.Group as={Row} controlId={s}>
       <Form.Label column>{l ?? s[0]?.toUpperCase() + s.slice(1)}</Form.Label>
       <Col>
-        <Form.Control type="text" placeholder={pl} name={s} />
+        <Form.Control type="text" placeholder={pl} name={s} required={required} />
       </Col>
     </Form.Group>
   );
@@ -29,6 +31,7 @@ export default function Import(): JSX.Element {
               <Form.File
                 name="file"
                 accept="application/pdf"
+                // required
               />
             </Col>
           </Form.Group>
@@ -48,6 +51,7 @@ export default function Import(): JSX.Element {
               <Form.File
                 name="file"
                 accept="application/json"
+                required
               />
             </Col>
           </Form.Group>
@@ -60,6 +64,7 @@ export default function Import(): JSX.Element {
               <Form.File
                 name="file"
                 accept="application/csv,text/csv"
+                required
               />
             </Col>
           </Form.Group>
@@ -72,6 +77,7 @@ export default function Import(): JSX.Element {
               <Form.File
                 name="profile"
                 accept="application/csv,text/csv"
+                required
               />
             </Col>
           </Form.Group>
@@ -81,6 +87,7 @@ export default function Import(): JSX.Element {
               <Form.File
                 name="plan"
                 accept="application/csv,text/csv"
+                required
               />
             </Col>
           </Form.Group>
@@ -93,6 +100,7 @@ export default function Import(): JSX.Element {
               <Form.File
                 name="file"
                 accept="application/csv,text/csv"
+                required
               />
             </Col>
           </Form.Group>
