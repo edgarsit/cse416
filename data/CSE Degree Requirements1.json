@@ -2,109 +2,99 @@
   "degreeName": "Computer Science",
   "requirementVersion": "Spring 2021",
   "minimumCumulativeGPA": "B",
-  "registrationRequired": "True",
-  "foreignLanguageRequired": "False",
+  "registrationRequired": true,
+  "foreignLanguageRequired": false,
   "CSE587Info": {
-     "maxCredits": 4,
-     "maxClasses": 2
-     },
-
+    "maxCredits": 4,
+    "maxClasses": 2
+  },
 
   "breaths": [
     {
-       "name": "Theory",
-        "courses": [
-"CSE 512 Machine Learning",
-"CSE 526 Principles Programming Languages",
-"CSE 540 Theory of Computation",
-"CSE 541 Logic in Computer Science",
-"CSE 547 Discrete Mathematics",
-"CSE 548 Analysis of Algorithms",
-"CSE 549 Computational Biology"
-]
+      "name": "Theory",
+      "courses": [
+        "CSE 512 Machine Learning",
+        "CSE 526 Principles Programming Languages",
+        "CSE 540 Theory of Computation",
+        "CSE 541 Logic in Computer Science",
+        "CSE 547 Discrete Mathematics",
+        "CSE 548 Analysis of Algorithms",
+        "CSE 549 Computational Biology"
+      ]
     },
     {
-       "name": "Systems",
-        "courses": [
-"CSE 502 Computer Architecture",
-"CSE 504 Compiler Design",
-"CSE 506 Operating Systems",
-"CSE 508 Network Security",
-"CSE 509 Computer System Security",
-"CSE 532 Theory of Database Systems",
-"CSE 534 Fundamentals of Computer Networks",
-"CSE 535 Distributed Systems"
-]
+      "name": "Systems",
+      "courses": [
+        "CSE 502 Computer Architecture",
+        "CSE 504 Compiler Design",
+        "CSE 506 Operating Systems",
+        "CSE 508 Network Security",
+        "CSE 509 Computer System Security",
+        "CSE 532 Theory of Database Systems",
+        "CSE 534 Fundamentals of Computer Networks",
+        "CSE 535 Distributed Systems"
+      ]
     },
     {
-        "name": "Information and Intelligent Systems",
-        "courses": [
-"CSE 505 Computing with Logic",
-"CSE 519 Data Science Fundamentals",
-"CSE 527 Introduction to Computer Vision",
-"CSE 528 Computer Graphics",
-"CSE 537 Artificial Intelligence",
-"CSE 538 Natural Language Processing",
-"CSE 564 Visualization"
-]
-       }
-     ],
-
-
-
+      "name": "Information and Intelligent Systems",
+      "courses": [
+        "CSE 505 Computing with Logic",
+        "CSE 519 Data Science Fundamentals",
+        "CSE 527 Introduction to Computer Vision",
+        "CSE 528 Computer Graphics",
+        "CSE 537 Artificial Intelligence",
+        "CSE 538 Natural Language Processing",
+        "CSE 564 Visualization"
+      ]
+    }
+  ],
 
   "tracks": [
     {
       "name": "Advanced Project",
       "totalCredits": 31,
-     "thesisRequired": "False",
+      "thesisRequired": false,
       "coreCourses": [
-            "CSE 523 Laboratory in Computer Science",
+        "CSE 523 Laboratory in Computer Science",
         "CSE 524 Laboratory in Computer Science"
-              ],
-       "additionalCourses": 7,
-       "additionalRequirement": {},
-      "unapplicableCoursesCredits": [
-            "CSE 599 Laboratory in Computer Science"
-              ]
+      ],
+      "additionalCourses": 7,
+      "additionalRequirement": {},
+      "unapplicableCoursesCredits": ["CSE 599 Laboratory in Computer Science"]
     },
     {
       "name": "Special Project",
-     "totalCredits": 31,
-      "thesisRequired": "False",
-      "coreCourses": [
-          "CSE 522 Basic Project in Computer Science"
-              ],
-        "additionalCourses": 8,
-        "additionalRequirement": {
-           "minCredits":3,
-           "maxCredits": 6,
-           "sixHundredCourses": "True",
-           "courses": [
-              "CSE 590",
-              "CSE 591",
-              "CSE 592",
-              "CSE 593",
-              "CSE 594",
-              "CSE 595"
-              ]
-           },
+      "totalCredits": 31,
+      "thesisRequired": false,
+      "coreCourses": ["CSE 522 Basic Project in Computer Science"],
+      "additionalCourses": 8,
+      "additionalRequirement": {
+        "minCredits": 3,
+        "maxCredits": 6,
+        "sixHundredCourses": true,
+        "courses": [
+          "CSE 590",
+          "CSE 591",
+          "CSE 592",
+          "CSE 593",
+          "CSE 594",
+          "CSE 595"
+        ]
+      },
       "unapplicableCoursesCredits": [
-            "CSE 523 Laboratory in Computer Science",
+        "CSE 523 Laboratory in Computer Science",
         "CSE 524 Laboratory in Computer Science",
-            "CSE 599 Laboratory in Computer Science"
-              ]
+        "CSE 599 Laboratory in Computer Science"
+      ]
     },
     {
       "name": "With Thesis",
       "totalCredits": 31,
-     "thesisRequired": "True",
-      "coreCourses": [
-          "CSE 599 Laboratory in Computer Science (9 credit)"
-              ],
-        "additionalCourses": 6,
-         "additionalRequirement": {},
-          "unapplicableCoursesCredits": []
-     }
-   ]
+      "thesisRequired": true,
+      "coreCourses": ["CSE 599 Laboratory in Computer Science (9 credit)"],
+      "additionalCourses": 6,
+      "additionalRequirement": {},
+      "unapplicableCoursesCredits": []
+    }
+  ]
 }

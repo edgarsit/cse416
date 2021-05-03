@@ -2,7 +2,6 @@ import { Course } from './course';
 import { prop, rprop } from './util';
 
 // Short name cuz no time
-const id = <T>(x: T): T => x;
 const cc = (s: string): Course => {
   const [department, number] = s.split(/\s+/);
   return { department: department!, number: +number! };
@@ -39,7 +38,7 @@ export class XCreditsGradeY {
   public credits!: number
 
   @rprop()
-  public courses!: Course
+  public grade!: Course
 }
 
 export class MaxCreditsForGradeY {
@@ -109,13 +108,13 @@ export class DegreeRequirements {
   @rprop()
   public timeLimit!: string
 
-  @rprop({ map: ['Required', 'Not-Required'], get: id, set: (x) => ['Required', 'Not-Required'].indexOf(x) })
-  public finalRecommendation!: boolean
+  @rprop()
+  public finalRecommendationRequired!: boolean
 
-  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
+  @rprop()
   public registrationRequired!: boolean
 
-  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
+  @rprop()
   public foreignLanguageRequired!: boolean
 
   @c({ type: () => [Course] })
@@ -153,8 +152,8 @@ export class Elective {
   @prop()
   public range?: string
 
-  @rprop({ type: () => [[String]] })
-  public substitutions!: string[][]
+  @rprop({ type: () => [String] })
+  public substitutions!: string[]
 }
 
 export class Tracks {
@@ -164,14 +163,14 @@ export class Tracks {
   @rprop()
   public totalCredits!: number
 
-  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
-  public thesisRequired!: boolean
+  @prop()
+  public thesisRequired?: boolean
 
-  @rprop({ type: () => XCreditsForCourseY })
-  public xCreditsForCourseY!: XCreditsForCourseY[]
+  @prop({ type: () => XCreditsForCourseY })
+  public xCreditsForCourseY?: XCreditsForCourseY[]
 
-  @rprop({ type: () => XCreditsForCourseY })
-  public maxCreditsInCombinationY!: XCreditsForCourseY[]
+  @prop({ type: () => XCreditsForCourseY })
+  public maxCreditsInCombinationY?: XCreditsForCourseY[]
 
   @prop({ type: () => MaxCreditsForCourseY })
   public maxCreditsForCourseY?: MaxCreditsForCourseY

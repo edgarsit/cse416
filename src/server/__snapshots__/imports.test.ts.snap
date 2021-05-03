@@ -2,17 +2,20 @@
 
 exports[`parse AMS Degree Requirements1.json 1`] = `
 Object {
+  "breaths": Array [],
   "coreCourseGPA": 3,
   "cse587Info": Object {
     "maxClasses": 0,
     "maxCredits": 0,
   },
   "degreeName": "Applied Mathematics and Statistics",
-  "finalRecommendation": "Required",
-  "foreignLanguageRequired": "False",
+  "finalRecommendationRequired": true,
+  "foreignLanguageRequired": false,
   "fullTimeCourseRequirement": Array [],
+  "maxCreditsInCombinationY": Array [],
+  "maxTotalCreditsForCourses": Array [],
   "minimumCumulativeGPA": "B",
-  "registrationRequired": "False",
+  "registrationRequired": false,
   "requirementVersion": "Spring 2021",
   "timeLimit": "3 years",
   "tracks": Array [
@@ -397,7 +400,7 @@ Object {
 exports[`parse BMI Degree Requirements1.json 1`] = `
 Object {
   "degreeName": "Biomedical Informatics",
-  "foreignLanguageRequired": "False",
+  "foreignLanguageRequired": false,
   "fullTimeCourseRequirement": "BMI 592 Biomedical Informatics",
   "maxCreditsInCombinationY": Object {
     "courses": Array [
@@ -421,7 +424,7 @@ Object {
     "credits": 3,
   },
   "minimumCumulativeGPA": "B",
-  "registrationRequired": "True",
+  "registrationRequired": true,
   "requiredCourses": Array [
     " BMI 540 Statistical Methods in Biomedical Informatics",
   ],
@@ -453,7 +456,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 511 Translational Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -487,7 +490,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 512 Clinical Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -519,7 +522,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 513 Imaging Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -551,7 +554,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 511 Translational Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -585,7 +588,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 512 Clinical Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -617,7 +620,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 513 Imaging Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -630,7 +633,7 @@ Object {
 exports[`parse BMI Degree Requirements2.json 1`] = `
 Object {
   "degreeName": "Biomedical Informatics",
-  "foreignLanguageRequired": "False",
+  "foreignLanguageRequired": false,
   "fullTimeCourseRequirement": "BMI 592 Biomedical Informatics",
   "maxCreditsInCombinationY": Object {
     "courses": Array [
@@ -654,7 +657,7 @@ Object {
     "credits": 3,
   },
   "minimumCumulativeGPA": "B",
-  "registrationRequired": "True",
+  "registrationRequired": true,
   "requiredCourses": Array [
     " BMI 540 Statistical Methods in Biomedical Informatics",
   ],
@@ -686,7 +689,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 511 Translational Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -720,7 +723,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 512 Clinical Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -752,7 +755,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 513 Imaging Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -784,7 +787,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 511 Translational Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -818,7 +821,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 512 Clinical Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -850,7 +853,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 513 Imaging Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -863,7 +866,7 @@ Object {
 exports[`parse BMI Degree Requirements3.json 1`] = `
 Object {
   "degreeName": "Biomedical Informatics",
-  "foreignLanguageRequired": "False",
+  "foreignLanguageRequired": false,
   "fullTimeCourseRequirement": "BMI 592 Biomedical Informatics",
   "maxCreditsInCombinationY": Object {
     "courses": Array [
@@ -887,7 +890,7 @@ Object {
     "credits": 3,
   },
   "minimumCumulativeGPA": "B+",
-  "registrationRequired": "True",
+  "registrationRequired": true,
   "requiredCourses": Array [
     " BMI 540 Statistical Methods in Biomedical Informatics",
   ],
@@ -919,7 +922,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 511 Translational Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -953,7 +956,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 512 Clinical Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -985,7 +988,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 513 Imaging Bioinformatics",
       ],
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 21,
       "unapplicableCoursesCredits": Array [
         "BMI 598 M.S. Capstone Project in Biomedical Informatics",
@@ -1017,7 +1020,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 511 Translational Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -1051,7 +1054,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 512 Clinical Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -1083,7 +1086,7 @@ Object {
         "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
         "BMI 513 Imaging Bioinformatics",
       ],
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "unapplicableCoursesCredits": Array [
         "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
@@ -1139,9 +1142,9 @@ Object {
     },
   ],
   "degreeName": "Computer Science",
-  "foreignLanguageRequired": "False",
+  "foreignLanguageRequired": false,
   "minimumCumulativeGPA": "B",
-  "registrationRequired": "True",
+  "registrationRequired": true,
   "requirementVersion": "Spring 2021",
   "tracks": Array [
     Object {
@@ -1152,7 +1155,7 @@ Object {
         "CSE 524 Laboratory in Computer Science",
       ],
       "name": "Advanced Project",
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [
         "CSE 599 Laboratory in Computer Science",
@@ -1171,13 +1174,13 @@ Object {
         ],
         "maxCredits": 6,
         "minCredits": 3,
-        "sixHundredCourses": "True",
+        "sixHundredCourses": true,
       },
       "coreCourses": Array [
         "CSE 522 Basic Project in Computer Science",
       ],
       "name": "Special Project",
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [
         "CSE 523 Laboratory in Computer Science",
@@ -1192,7 +1195,7 @@ Object {
         "CSE 599 Laboratory in Computer Science (9 credit)",
       ],
       "name": "With Thesis",
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [],
     },
@@ -1246,9 +1249,9 @@ Object {
     },
   ],
   "degreeName": "Computer Science",
-  "foreignLanguageRequired": "False",
+  "foreignLanguageRequired": false,
   "minimumCumulativeGPA": "B",
-  "registrationRequired": "True",
+  "registrationRequired": true,
   "requirementVersion": "Fall 2020",
   "tracks": Array [
     Object {
@@ -1259,7 +1262,7 @@ Object {
         "CSE 524 Laboratory in Computer Science",
       ],
       "name": "Advanced Project",
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [
         "CSE 599 Laboratory in Computer Science",
@@ -1278,13 +1281,13 @@ Object {
         ],
         "maxCredits": 6,
         "minCredits": 3,
-        "sixHundredCourses": "True",
+        "sixHundredCourses": true,
       },
       "coreCourses": Array [
         "CSE 522 Basic Project in Computer Science",
       ],
       "name": "Special Project",
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [
         "CSE 523 Laboratory in Computer Science",
@@ -1299,7 +1302,7 @@ Object {
         "CSE 599 Laboratory in Computer Science (9 credit)",
       ],
       "name": "With Thesis",
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [],
     },
@@ -1353,9 +1356,9 @@ Object {
     },
   ],
   "degreeName": "Computer Science",
-  "foreignLanguageRequired": "False",
+  "foreignLanguageRequired": false,
   "minimumCumulativeGPA": "B+",
-  "registrationRequired": "True",
+  "registrationRequired": true,
   "requirementVersion": "Spring 2021",
   "tracks": Array [
     Object {
@@ -1366,7 +1369,7 @@ Object {
         "CSE 524 Laboratory in Computer Science",
       ],
       "name": "Advanced Project",
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [
         "CSE 599 Laboratory in Computer Science",
@@ -1385,13 +1388,13 @@ Object {
         ],
         "maxCredits": 6,
         "minCredits": 3,
-        "sixHundredCourses": "True",
+        "sixHundredCourses": true,
       },
       "coreCourses": Array [
         "CSE 522 Basic Project in Computer Science",
       ],
       "name": "Special Project",
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [
         "CSE 523 Laboratory in Computer Science",
@@ -1406,7 +1409,7 @@ Object {
         "CSE 599 Laboratory in Computer Science (9 credit)",
       ],
       "name": "With Thesis",
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 31,
       "unapplicableCoursesCredits": Array [],
     },
@@ -1506,7 +1509,7 @@ Object {
           "ESE 699",
         ],
       },
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "xCreditsForCourseY": Object {
         "course": "ESE 698",
@@ -1598,7 +1601,7 @@ Object {
           "ESE 699",
         ],
       },
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 30,
       "xCreditsForCourseY": Object {
         "course": "ESE 698",
@@ -1701,7 +1704,7 @@ Object {
           "ESE 699",
         ],
       },
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "xCreditsForCourseY": Object {
         "course": "ESE 698",
@@ -1793,7 +1796,7 @@ Object {
           "ESE 699",
         ],
       },
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 30,
       "xCreditsForCourseY": Object {
         "course": "ESE 698",
@@ -1896,7 +1899,7 @@ Object {
           "ECE 699",
         ],
       },
-      "thesisRequired": "False",
+      "thesisRequired": false,
       "totalCredits": 30,
       "xCreditsForCourseY": Object {
         "course": "ESE 698",
@@ -1988,7 +1991,7 @@ Object {
           "ECE 699",
         ],
       },
-      "thesisRequired": "True",
+      "thesisRequired": true,
       "totalCredits": 30,
       "xCreditsForCourseY": Object {
         "course": "ESE 698",
