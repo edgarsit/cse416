@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Container, Button, Form, Row, Col,
 } from 'react-bootstrap';
+import { keysOf, Semester } from '../model/course';
 import { Bar } from './util';
 
 function Field({ s, pl, l }: { s: string, pl: string, l?: string }): JSX.Element {
@@ -33,11 +34,7 @@ export default function Import(): JSX.Element {
           </Form.Group>
           <Form.Control as="select" name="semester">
             {
-              // TODO fix
-              ['Spring',
-                'Summer',
-                'Fall',
-                'Winter'].map((v) => <option key={v}>{v}</option>)
+             keysOf(Semester).map((v) => <option key={v}>{v}</option>)
             }
           </Form.Control>
           <Field s="year" pl="2021" />

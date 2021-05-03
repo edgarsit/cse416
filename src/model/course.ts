@@ -1,8 +1,7 @@
-import { prop } from '@typegoose/typegoose';
 import type { BasePropOptions } from '@typegoose/typegoose/lib/types';
 import type { Types } from 'mongoose';
 import type { Ref } from 'react';
-import { rprop } from './util';
+import { rprop, prop } from './util';
 
 export enum Semester {
   Spring,
@@ -39,6 +38,10 @@ export const semProp = (v?: Omit<BasePropOptions, 'required'>): PropertyDecorato
   },
   enum: Semester,
 });
+
+export function keysOf<T>(e: T): (keyof T)[] {
+  return Object.keys(e).filter((x) => Number.isNaN(+x)) as any;
+}
 
 export class ScrapedCourseSet {
   declare public _id: Types.ObjectId;
