@@ -1,7 +1,10 @@
 import type { BasePropOptions } from '@typegoose/typegoose/lib/types';
 import type { Types } from 'mongoose';
 import type { Ref } from 'react';
-import { rprop, prop } from './util';
+import type { Description, Fields } from './util';
+import {
+  rprop, prop, fields, ruprop, uprop,
+} from './util';
 
 export enum Semester {
   Spring,
@@ -135,26 +138,31 @@ export class CourseOffering {
 }
 
 // TODO fix up schema, index on all except grade
+@fields
 export class CoursePlan {
-  @rprop()
+  declare static fields: Description<Fields<CoursePlan>>
+
+  declare public _id: Types.ObjectId;
+
+  @ruprop()
   sbuId!: number
 
   // TODO ref to Course?
-  @rprop()
+  @ruprop()
   department!: string
 
-  @rprop()
+  @ruprop()
   courseNum!: string
 
-  @rprop()
+  @ruprop()
   section!: string
 
-  @rprop()
+  @ruprop()
   semester!: string
 
-  @rprop()
+  @ruprop()
   year!: string
 
-  @prop()
+  @uprop()
   grade?: string
 }

@@ -29,7 +29,7 @@ export default function EditStudentInformation(
   { user, location }: { user?: any, location?: string },
 ): JSX.Element {
   // TODO AJAX?
-  const data = user ?? '';
+  const data = user ?? {};
   return (
     <>
       <Bar />
@@ -38,9 +38,8 @@ export default function EditStudentInformation(
           {
             Object.entries(data).map(([k, v]) => <MakeRow key={k} x={[k, v as any]} />)
           }
-          <Button type="submit">
-            Submit
-          </Button>
+          <Button href={`/editCoursePlan/get/${data.sbuId}`}>Edit Course Plan</Button>
+          <Button type="submit" block>Submit</Button>
         </Form>
       </Container>
     </>

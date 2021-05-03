@@ -14,7 +14,12 @@ export type Fields<T> = {
   [P in keyof T as IsNotFunction<T[P], P>]-?: NonNullable<T[P]>
 }
 export type Description<T> = {
-  [P in keyof T]: { ty: ConstructorOf<T[P]>, short: string, long: string, map?: [string, string] }
+  [P in keyof T]: {
+    ty: ConstructorOf<T[P]>,
+    short: string,
+    long: string,
+    mapper?: [string, string]
+  }
 }
 
 type Ctor<T> = { new(...args: any[]): T }
@@ -22,8 +27,8 @@ export function fields<T extends Ctor<U> & { fields: Fields<U> }, U>(ctor: T): v
   ctor.fields = ctor.prototype[s]; // eslint-disable-line no-param-reassign
 }
 
-type OptionsI<T> = T & ({ short: string, long: string } | { name?: string })
-  & { map?: [string, string] };
+// TODO @prop({aaa: 0})
+type OptionsI<T> = T & ({ short?: string, long?: string }) & { map?: [string, string] };
 
 const hasOwnPropery:
   (target: any, v: symbol) => boolean = Function.call.bind({}.hasOwnProperty) as any;
@@ -31,26 +36,23 @@ const hasOwnPropery:
 export function uprop(options?: OptionsI<BasePropOptions>, kind?: WhatIsIt): PropertyDecorator {
   const f = prop_(options, kind);
   const {
-    type, short, long, map, name,
+    type, short, long, map,
   } = options ?? {};
   return (target: any, propertyKey) => {
     if (typeof propertyKey !== 'string') {
       throw new Error('Cannot annotate symbols');
     }
     const ty = type ?? Reflect.getMetadata('design:type', target, propertyKey);
-    const name_ = name ?? toView(propertyKey);
-    const d = { short: name_, long: name, map: ['True', 'False'] };
+    const name = toView(propertyKey);
     if (ty !== Boolean && map != null) {
       throw new Error('Do not use "map" on non-boolean keys');
     }
     const v = {
-      ...d,
       ty,
-      short,
-      long,
-      map,
+      short: short ?? name,
+      long: long ?? name,
+      map: map ?? ['True', 'False'],
     };
-
     const ts: { [x: string]: typeof v } = hasOwnPropery(target, s)
       ? target[s]
       // eslint-disable-next-line no-param-reassign
