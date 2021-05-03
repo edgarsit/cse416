@@ -5,7 +5,6 @@ import { IncomingForm } from 'formidable';
 import fs, { promises as fsp } from 'fs';
 import parseCsv from 'csv-parse';
 import type { CourseOffering } from '../model/course';
-import { Semester } from '../model/course';
 import { parsePdf } from './imports/parsePdf';
 import {
   ScrapedCourseSetModel, ScrapedCourseModel, CourseOfferingModel,
@@ -62,7 +61,7 @@ router.post('/scrape', async (req, res) => {
   const { year, semester, department } = fields;
   const departments = (department as string).split(',').map((x) => x.trim());
   const courseSet = await ScrapedCourseSetModel.create({
-    year, semester: Semester[semester as string],
+    year, semester,
   });
   await ScrapedCourseModel.bulkWrite(
     pdfCourses.map((c) => {

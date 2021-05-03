@@ -1,4 +1,5 @@
 import { prop } from '@typegoose/typegoose';
+import type { BasePropOptions } from '@typegoose/typegoose/lib/types';
 import type { Types } from 'mongoose';
 import type { Ref } from 'react';
 import { rprop } from './util';
@@ -11,13 +12,41 @@ export enum Semester {
   Winter
 }
 
+const toSem = (v: string): Semester => {
+  let ret: Semester | undefined;
+  const a = v.replace(/\s/g, '');
+  const b = a[0];
+  if (b !== undefined) {
+    const c = b.toUpperCase() + a.slice(1).toLowerCase();
+    if (c === 'Summer') {
+      return Semester.SummerI;
+    }
+    ret = Semester[c];
+  }
+  if (ret === undefined) {
+    throw new Error(`Unable to parse "${v}" as Semester`);
+  }
+  return ret;
+};
+
+export const semProp = (v?: Omit<BasePropOptions, 'required'>): PropertyDecorator => rprop({
+  ...v,
+  set(ss: string[] | string): Semester[] | Semester {
+    return Array.isArray(ss) ? ss.map(toSem) : toSem(ss);
+  },
+  get(s) {
+    return s;
+  },
+  enum: Semester,
+});
+
 export class ScrapedCourseSet {
   declare public _id: Types.ObjectId;
 
   @rprop()
   public year!: number
 
-  @rprop({ enum: Semester })
+  @semProp()
   public semester!: Semester
 }
 
@@ -92,8 +121,8 @@ export class CourseOffering {
   @prop()
   public section?: string
 
-  @rprop()
-  public semester!: string
+  @semProp()
+  public semester!: Semester
 
   @rprop()
   public year!: number
@@ -105,7 +134,7 @@ export class CourseOffering {
 // TODO fix up schema, index on all except grade
 export class CoursePlan {
   @rprop()
-  sbuId!: string
+  sbuId!: number
 
   // TODO ref to Course?
   @rprop()
