@@ -12,7 +12,7 @@
 
   "breaths": [
     {
-       "name": "Theory",
+       "subArea": "Theory",
         "courses": [
 "CSE 512 Machine Learning",
 "CSE 526 Principles Programming Languages",
@@ -24,7 +24,7 @@
 ]
     },
     {
-       "name": "Systems",
+       "subArea": "Systems",
         "courses": [
 "CSE 502 Computer Architecture",
 "CSE 504 Compiler Design",
@@ -37,7 +37,7 @@
 ]
     },
     {
-        "name": "Information and Intelligent Systems",
+        "subArea": "Information and Intelligent Systems",
         "courses": [
 "CSE 505 Computing with Logic",
 "CSE 519 Data Science Fundamentals",
