@@ -19,9 +19,9 @@ const me = function mapEntries<T, K extends string, V>(
     .map(f as any).filter(<U>(x: U): x is NonNullable<U> => x != null) as any) as any;
 };
 
-async function readCSV<T>(file: { path: fs.PathLike; } | undefined): Promise<T[]> {
-  if (file == null) { throw Error('file is undefined'); }
-  const csv = fs.createReadStream(file.path)
+async function readCSV<T>(path: fs.PathLike | undefined): Promise<T[]> {
+  if (path == null) { throw Error('path is undefined'); }
+  const csv = fs.createReadStream(path)
     .pipe(parseCsv({ columns: true }));
   const acc: T[] = [];
   for await (const r of csv) {
@@ -90,14 +90,13 @@ router.post('/degreeRequirements', async (req, res) => {
   return res.redirect('/');
 });
 
-router.post('/import/courseOffering', async (req, res) => {
-  const { files } = await parseForm(req);
-  const acc: (Omit<CourseOffering, 'number'> & { 'course_num': any })[] = await readCSV(files.file);
+async function parseCourseOffering(path: fs.PathLike | undefined) {
+  const acc: (Omit<CourseOffering, 'number'> & { 'course_num': any; })[] = await readCSV(path);
   await CourseOfferingModel.bulkWrite(
     acc.map((c) => {
       const filter = me(c,
         ([k, v]) => {
-          if (['year', 'semester'].includes(k)) {
+          if (!['year', 'semester'].includes(k)) {
             return null;
           }
           return [k, { $eq: v }];
@@ -121,6 +120,11 @@ router.post('/import/courseOffering', async (req, res) => {
       };
     }),
   );
+}
+
+router.post('/courseOffering', async (req, res) => {
+  const { files } = await parseForm(req);
+  await parseCourseOffering(files.file?.path);
   return res.redirect('/');
 });
 
@@ -129,9 +133,9 @@ const sc2cc = (s: string) => {
   return a[0] + a.slice(1).map((x) => x[0]?.toUpperCase() + x.slice(1)).join('');
 };
 // TODO extract common functionality
-router.post('/import/studentData', async (req, res) => {
+router.post('/studentData', async (req, res) => {
   const { files } = await parseForm(req);
-  const profile: any[] = await readCSV(files.profile);
+  const profile: any[] = await readCSV(files.profile?.path);
   await CoursePlanModel.bulkWrite(
     profile.map((c) => {
       const filter = { sbuId: { $eq: c.sbu_id } };
@@ -156,7 +160,7 @@ router.post('/import/studentData', async (req, res) => {
     }),
   );
   // TODO parallelize
-  const plan: any[] = await readCSV(files.plan);
+  const plan: any[] = await readCSV(files.plan?.path);
   await CoursePlanModel.bulkWrite(
     plan.map((c) => {
       const filter = Object.fromEntries(Object.entries(c).map(
@@ -174,9 +178,9 @@ router.post('/import/studentData', async (req, res) => {
   return res.redirect('/');
 });
 
-router.post('/import/grades', async (req, res) => {
+router.post('/grades', async (req, res) => {
   const { files } = await parseForm(req);
-  const acc: any[] = await readCSV(files.file);
+  const acc: any[] = await readCSV(files.file?.path);
   await CoursePlanModel.bulkWrite(
     acc.map((c) => {
       const filter = Object.fromEntries(Object.entries(c).map(
