@@ -1,0 +1,1993 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse AMS Degree Requirements1.json 1`] = `
+Object {
+  "coreCourseGPA": 3,
+  "degreeName": "Applied Mathematics and Statistics",
+  "finalRecommendation": "Required",
+  "minimumCumulativeGPA": "B",
+  "requirementVersion": "Spring 2021",
+  "timeLimit": "3 years",
+  "tracks": Array [
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 501 Differential Equations and Boundary Value Problems",
+        "AMS 503 Applications of Complex Analysis",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 526 Numerical Analysis I",
+        "AMS 527 Numerical Analysis II",
+        "AMS 528 Numerical Analysis III",
+        "AMS 595 Fundamentals of Computing (1 credit)",
+      ],
+      "elective": Object {
+        "numCourses": 4,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 12,
+      },
+      "name": "Computational Applied Mathematics",
+      "totalCredits": 31,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "MCB 520 Graduate Biochemistry OR CHE 541 Biomolecular Structure and Analysis",
+        "AMS 531 Laboratory Rotations in Computational Biology (two semesters, 0 credit)",
+        "AMS 532 Journal Club in Computational Biology (two semesters, 0 credit)",
+        "AMS 533 Numerical Methods and Algorithms in Computational Biology",
+        "AMS 535 Intro to Computational Structural Biology & Drug Design",
+        "AMS 537 Biological Networks & Dynamics",
+        "AMS 539 Introduction to Physical & Quantitative Biology (0 credit)",
+        "CSE 549 Computational Biology",
+      ],
+      "elective": Object {
+        "numCourses": 3,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 9,
+      },
+      "name": "Computational Biology",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [
+        "1 in AMS 570-586",
+      ],
+      "coreCourses": Array [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 540 Linear Programming",
+        "AMS 550 Stochastic Models",
+        "AMS 553 Simulation and Modeling",
+        "AMS 595 Fundamentals of Computing (1 credit)",
+      ],
+      "elective": Object {
+        "numCourses": 4,
+        "range": "AMS 542­-556",
+        "substitutions": Array [
+          "1 in AMS 570-­586",
+          "1 in AMS 511­-523",
+        ],
+        "totalCredits": 12,
+      },
+      "name": "Operations Research",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 570 Mathematical Statistics I",
+        "AMS 572 Exploratory Data Analysis",
+        "AMS 573 Design & Analysis of Categorical Data",
+        "AMS 578 Regression Theory",
+        "AMS 582 Design of Experiments",
+        "AMS 597 Statistical Computing",
+      ],
+      "elective": Object {
+        "numCourses": 2,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 6,
+      },
+      "name": "Statistics",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 511 Foundations of Quantitative Finance",
+        "AMS 512 Capital Markets & Portfolio Theory",
+        "AMS 513 Financial Derivatives and Stochastic Calculus",
+        "AMS 514 Computational Finance",
+        "AMS 516 Statistical Methods in Finance",
+        "AMS 517 Quantitative Risk Management",
+        "AMS 518 Advanced Stochastic Models, Risk Assessment & Portfolio Optimization",
+        "AMS 572 Data Analysis I",
+        "FIN 539 Investment Analysis",
+      ],
+      "elective": Object {
+        "numCourses": 1,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 3,
+      },
+      "name": "Quantitative Finance",
+      "totalCredits": 36,
+    },
+  ],
+  "xCreditsGradeY": Object {
+    "Credits": 18,
+    "Grade": "B",
+  },
+}
+`;
+
+exports[`parse AMS Degree Requirements2.json 1`] = `
+Object {
+  "coreCourseGPA": 3,
+  "degreeName": "Applied Mathematics and Statistics",
+  "finalRecommendation": "Required",
+  "minimumCumulativeGPA": "B",
+  "requirementVersion": "Fall 2020",
+  "timeLimit": "3 years",
+  "tracks": Array [
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 501 Differential Equations and Boundary Value Problems",
+        "AMS 503 Applications of Complex Analysis",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 526 Numerical Analysis I",
+        "AMS 527 Numerical Analysis II",
+        "AMS 528 Numerical Analysis III",
+        "AMS 595 Fundamentals of Computing (1 credit)",
+      ],
+      "elective": Object {
+        "numCourses": 4,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 12,
+      },
+      "name": "Computational Applied Mathematics",
+      "totalCredits": 31,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "MCB 520 Graduate Biochemistry OR CHE 541 Biomolecular Structure and Analysis",
+        "AMS 531 Laboratory Rotations in Computational Biology (two semesters, 0 credit)",
+        "AMS 532 Journal Club in Computational Biology (two semesters, 0 credit)",
+        "AMS 533 Numerical Methods and Algorithms in Computational Biology",
+        "AMS 535 Intro to Computational Structural Biology & Drug Design",
+        "AMS 537 Biological Networks & Dynamics",
+        "AMS 539 Introduction to Physical & Quantitative Biology (0 credit)",
+        "CSE 549 Computational Biology",
+      ],
+      "elective": Object {
+        "numCourses": 3,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 9,
+      },
+      "name": "Computational Biology",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [
+        "1 in AMS 570-586",
+      ],
+      "coreCourses": Array [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 540 Linear Programming",
+        "AMS 550 Stochastic Models",
+        "AMS 553 Simulation and Modeling",
+        "AMS 595 Fundamentals of Computing (1 credit)",
+      ],
+      "elective": Object {
+        "numCourses": 4,
+        "range": "AMS 542­-556",
+        "substitutions": Array [
+          "1 in AMS 570-­586",
+          "1 in AMS 511­-523",
+        ],
+        "totalCredits": 12,
+      },
+      "name": "Operations Research",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 570 Mathematical Statistics I",
+        "AMS 572 Exploratory Data Analysis",
+        "AMS 573 Design & Analysis of Categorical Data",
+        "AMS 578 Regression Theory",
+        "AMS 582 Design of Experiments",
+        "AMS 597 Statistical Computing",
+      ],
+      "elective": Object {
+        "numCourses": 2,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 6,
+      },
+      "name": "Statistics",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 511 Foundations of Quantitative Finance",
+        "AMS 512 Capital Markets & Portfolio Theory",
+        "AMS 513 Financial Derivatives and Stochastic Calculus",
+        "AMS 514 Computational Finance",
+        "AMS 516 Statistical Methods in Finance",
+        "AMS 517 Quantitative Risk Management",
+        "AMS 518 Advanced Stochastic Models, Risk Assessment & Portfolio Optimization",
+        "AMS 572 Data Analysis I",
+        "FIN 539 Investment Analysis",
+      ],
+      "elective": Object {
+        "numCourses": 1,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 3,
+      },
+      "name": "Quantitative Finance",
+      "totalCredits": 36,
+    },
+  ],
+  "xCreditsGradeY": Object {
+    "Credits": 18,
+    "Grade": "B",
+  },
+}
+`;
+
+exports[`parse AMS Degree Requirements3.json 1`] = `
+Object {
+  "coreCourseGPA": 3,
+  "degreeName": "Applied Mathematics and Statistics",
+  "finalRecommendation": "Required",
+  "minimumCumulativeGPA": "B+",
+  "requirementVersion": "Spring 2021",
+  "timeLimit": "3 years",
+  "tracks": Array [
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 501 Differential Equations and Boundary Value Problems",
+        "AMS 503 Applications of Complex Analysis",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 526 Numerical Analysis I",
+        "AMS 527 Numerical Analysis II",
+        "AMS 528 Numerical Analysis III",
+        "AMS 595 Fundamentals of Computing (1 credit)",
+      ],
+      "elective": Object {
+        "numCourses": 4,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 12,
+      },
+      "name": "Computational Applied Mathematics",
+      "totalCredits": 31,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "MCB 520 Graduate Biochemistry OR CHE 541 Biomolecular Structure and Analysis",
+        "AMS 531 Laboratory Rotations in Computational Biology (two semesters, 0 credit)",
+        "AMS 532 Journal Club in Computational Biology (two semesters, 0 credit)",
+        "AMS 533 Numerical Methods and Algorithms in Computational Biology",
+        "AMS 535 Intro to Computational Structural Biology & Drug Design",
+        "AMS 537 Biological Networks & Dynamics",
+        "AMS 539 Introduction to Physical & Quantitative Biology (0 credit)",
+        "CSE 549 Computational Biology",
+      ],
+      "elective": Object {
+        "numCourses": 3,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 9,
+      },
+      "name": "Computational Biology",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [
+        "1 in AMS 570-586",
+      ],
+      "coreCourses": Array [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 540 Linear Programming",
+        "AMS 550 Stochastic Models",
+        "AMS 553 Simulation and Modeling",
+        "AMS 595 Fundamentals of Computing (1 credit)",
+      ],
+      "elective": Object {
+        "numCourses": 4,
+        "range": "AMS 542­-556",
+        "substitutions": Array [
+          "1 in AMS 570-­586",
+          "1 in AMS 511­-523",
+        ],
+        "totalCredits": 12,
+      },
+      "name": "Operations Research",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 570 Mathematical Statistics I",
+        "AMS 572 Exploratory Data Analysis",
+        "AMS 573 Design & Analysis of Categorical Data",
+        "AMS 578 Regression Theory",
+        "AMS 582 Design of Experiments",
+        "AMS 597 Statistical Computing",
+      ],
+      "elective": Object {
+        "numCourses": 2,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 6,
+      },
+      "name": "Statistics",
+      "totalCredits": 30,
+    },
+    Object {
+      "additionalCoreCourseRequirements": Array [],
+      "coreCourses": Array [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 511 Foundations of Quantitative Finance",
+        "AMS 512 Capital Markets & Portfolio Theory",
+        "AMS 513 Financial Derivatives and Stochastic Calculus",
+        "AMS 514 Computational Finance",
+        "AMS 516 Statistical Methods in Finance",
+        "AMS 517 Quantitative Risk Management",
+        "AMS 518 Advanced Stochastic Models, Risk Assessment & Portfolio Optimization",
+        "AMS 572 Data Analysis I",
+        "FIN 539 Investment Analysis",
+      ],
+      "elective": Object {
+        "numCourses": 1,
+        "range": "",
+        "substitutions": Array [],
+        "totalCredits": 3,
+      },
+      "name": "Quantitative Finance",
+      "totalCredits": 36,
+    },
+  ],
+  "xCreditsGradeY": Object {
+    "Credits": 18,
+    "Grade": "B",
+  },
+}
+`;
+
+exports[`parse BMI Degree Requirements1.json 1`] = `
+Object {
+  "degreeName": "Biomedical Informatics",
+  "foreignLanguageRequired": "False",
+  "fullTimeCourseRequirement": "BMI 592 Biomedical Informatics",
+  "maxCreditsInCombinationY": Object {
+    "courses": Array [
+      "BMI 596",
+      "BMI 696",
+    ],
+    "credits": 6,
+  },
+  "maxTotalCreditsForCourses": Object {
+    "courses": Array [
+      "BMI 590",
+      "BMI 591",
+      "BMI 592",
+      "BMI 595",
+      "BMI 596",
+      "BMI 690",
+      "BMI 691",
+      "BMI 695",
+      "BMI 696",
+    ],
+    "credits": 3,
+  },
+  "minimumCumulativeGPA": "B",
+  "registrationRequired": "True",
+  "requiredCourses": Array [
+    " BMI 540 Statistical Methods in Biomedical Informatics",
+  ],
+  "requirementVersion": "Spring 2021",
+  "tracks": Array [
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 560 Personalized Medicine",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 622 Advanced Topics in Biomedical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Translational Bioinformatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 511 Translational Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 550 Clinical Informatics Practice Patterns",
+        "BMI 551 Case Studies in Clinical Informatics",
+        "BMI 552 Quality Improvement Methods for Clinical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 620 Advanced Topics in Clinical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Clinical Informatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 512 Clinical Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 514 Imaging Informatics Analysis",
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 625 Advanced Topics in Imaging Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Imaging Bioinformatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 513 Imaging Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 560 Personalized Medicine",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 622 Advanced Topics in Biomedical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Translational Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 511 Translational Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 550 Clinical Informatics Practice Patterns",
+        "BMI 551 Case Studies in Clinical Informatics",
+        "BMI 552 Quality Improvement Methods for Clinical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 620 Advanced Topics in Clinical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Clinical Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 512 Clinical Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 514 Imaging Informatics Analysis",
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 625 Advanced Topics in Imaging Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Imaging Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 513 Imaging Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse BMI Degree Requirements2.json 1`] = `
+Object {
+  "degreeName": "Biomedical Informatics",
+  "foreignLanguageRequired": "False",
+  "fullTimeCourseRequirement": "BMI 592 Biomedical Informatics",
+  "maxCreditsInCombinationY": Object {
+    "courses": Array [
+      "BMI 596",
+      "BMI 696",
+    ],
+    "credits": 6,
+  },
+  "maxTotalCreditsForCourses": Object {
+    "courses": Array [
+      "BMI 590",
+      "BMI 591",
+      "BMI 592",
+      "BMI 595",
+      "BMI 596",
+      "BMI 690",
+      "BMI 691",
+      "BMI 695",
+      "BMI 696",
+    ],
+    "credits": 3,
+  },
+  "minimumCumulativeGPA": "B",
+  "registrationRequired": "True",
+  "requiredCourses": Array [
+    " BMI 540 Statistical Methods in Biomedical Informatics",
+  ],
+  "requirementVersion": "Summer 2020",
+  "tracks": Array [
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 560 Personalized Medicine",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 622 Advanced Topics in Biomedical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Translational Bioinformatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 511 Translational Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 550 Clinical Informatics Practice Patterns",
+        "BMI 551 Case Studies in Clinical Informatics",
+        "BMI 552 Quality Improvement Methods for Clinical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 620 Advanced Topics in Clinical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Clinical Informatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 512 Clinical Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 514 Imaging Informatics Analysis",
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 625 Advanced Topics in Imaging Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Imaging Bioinformatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 513 Imaging Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 560 Personalized Medicine",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 622 Advanced Topics in Biomedical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Translational Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 511 Translational Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 550 Clinical Informatics Practice Patterns",
+        "BMI 551 Case Studies in Clinical Informatics",
+        "BMI 552 Quality Improvement Methods for Clinical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 620 Advanced Topics in Clinical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Clinical Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 512 Clinical Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 514 Imaging Informatics Analysis",
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 625 Advanced Topics in Imaging Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Imaging Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 513 Imaging Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse BMI Degree Requirements3.json 1`] = `
+Object {
+  "degreeName": "Biomedical Informatics",
+  "foreignLanguageRequired": "False",
+  "fullTimeCourseRequirement": "BMI 592 Biomedical Informatics",
+  "maxCreditsInCombinationY": Object {
+    "courses": Array [
+      "BMI 596",
+      "BMI 696",
+    ],
+    "credits": 6,
+  },
+  "maxTotalCreditsForCourses": Object {
+    "courses": Array [
+      "BMI 590",
+      "BMI 591",
+      "BMI 592",
+      "BMI 595",
+      "BMI 596",
+      "BMI 690",
+      "BMI 691",
+      "BMI 695",
+      "BMI 696",
+    ],
+    "credits": 3,
+  },
+  "minimumCumulativeGPA": "B+",
+  "registrationRequired": "True",
+  "requiredCourses": Array [
+    " BMI 540 Statistical Methods in Biomedical Informatics",
+  ],
+  "requirementVersion": "Spring 2021",
+  "tracks": Array [
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 560 Personalized Medicine",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 622 Advanced Topics in Biomedical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Translational Bioinformatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 511 Translational Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 550 Clinical Informatics Practice Patterns",
+        "BMI 551 Case Studies in Clinical Informatics",
+        "BMI 552 Quality Improvement Methods for Clinical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 620 Advanced Topics in Clinical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Clinical Informatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 512 Clinical Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 514 Imaging Informatics Analysis",
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 625 Advanced Topics in Imaging Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Imaging Bioinformatics With Thesis",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 513 Imaging Bioinformatics",
+      ],
+      "thesisRequired": "True",
+      "totalCredits": 21,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 560 Personalized Medicine",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 622 Advanced Topics in Biomedical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Translational Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 511 Translational Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 550 Clinical Informatics Practice Patterns",
+        "BMI 551 Case Studies in Clinical Informatics",
+        "BMI 552 Quality Improvement Methods for Clinical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 620 Advanced Topics in Clinical Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Clinical Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 512 Clinical Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+    Object {
+      "coreCourses": Array [
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)",
+      ],
+      "electiveCourses": Array [
+        "BMI 514 Imaging Informatics Analysis",
+        "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
+        "BMI 520 Data Analytics and Software Stacks",
+        "BMI 530 Software Development in Biomedical Informatics",
+        "BMI 540 Statistical Methods in Biomedical Informatics",
+        "BMI 590 Independent Study in Biomedical Informatics",
+        "BMI 591 Independent Reading in Biomedical Informatics",
+        "BMI 595 Special Topics in Biomedical Informatics",
+        "BMI 596 Special Problems in Biomedical Informatics",
+        "BMI 625 Advanced Topics in Imaging Informatics",
+        "BMI 690 Independent Study in Biomedical Informatics",
+        "BMI 691 Independent Reading in Biomedical Informatics",
+        "BMI 695 Special Topics in Biomedical Informatics",
+        "BMI 696 Special Problems in Biomedical Informatics",
+      ],
+      "name": "Imaging Bioinformatics With Capstone Project",
+      "sequence": Array [
+        "BMI 501 Introduction to Biomedical Informatics",
+        "BMI 502 Life Sciences for Biomedical Informatics OR BMI 503 Computer Science for Biomedical Informatics",
+        "BMI 513 Imaging Bioinformatics",
+      ],
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "unapplicable_courses_for_credits": Array [
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`parse CSE Degree Requirements1.json 1`] = `
+Object {
+  "CSE587Info": Object {
+    "max_classes": 2,
+    "max_credits": 4,
+  },
+  "breaths": Array [
+    Object {
+      "courses": Array [
+        "CSE 512 Machine Learning",
+        "CSE 526 Principles Programming Languages",
+        "CSE 540 Theory of Computation",
+        "CSE 541 Logic in Computer Science",
+        "CSE 547 Discrete Mathematics",
+        "CSE 548 Analysis of Algorithms",
+        "CSE 549 Computational Biology",
+      ],
+      "name": "Theory",
+    },
+    Object {
+      "courses": Array [
+        "CSE 502 Computer Architecture",
+        "CSE 504 Compiler Design",
+        "CSE 506 Operating Systems",
+        "CSE 508 Network Security",
+        "CSE 509 Computer System Security",
+        "CSE 532 Theory of Database Systems",
+        "CSE 534 Fundamentals of Computer Networks",
+        "CSE 535 Distributed Systems",
+      ],
+      "name": "Systems",
+    },
+    Object {
+      "courses": Array [
+        "CSE 505 Computing with Logic",
+        "CSE 519 Data Science Fundamentals",
+        "CSE 527 Introduction to Computer Vision",
+        "CSE 528 Computer Graphics",
+        "CSE 537 Artificial Intelligence",
+        "CSE 538 Natural Language Processing",
+        "CSE 564 Visualization",
+      ],
+      "name": "Information and Intelligent Systems",
+    },
+  ],
+  "degreeName": "Computer Science",
+  "foreignLanguageRequired": "False",
+  "minimumCumulativeGPA": "B",
+  "registrationRequired": "True",
+  "requirementVersion": "Spring 2021",
+  "tracks": Array [
+    Object {
+      "additionalCourses": 7,
+      "additionalRequirement": Object {},
+      "coreCourses": Array [
+        "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science",
+      ],
+      "name": "Advanced Project",
+      "thesisRequired": "False",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [
+        "CSE 599 Laboratory in Computer Science",
+      ],
+    },
+    Object {
+      "additionalCourses": 8,
+      "additionalRequirement": Object {
+        "courses": Array [
+          "CSE 590",
+          "CSE 591",
+          "CSE 592",
+          "CSE 593",
+          "CSE 594",
+          "CSE 595",
+        ],
+        "maxCredits": 6,
+        "minCredits": 3,
+        "sixHundredCourses": "True",
+      },
+      "coreCourses": Array [
+        "CSE 522 Basic Project in Computer Science",
+      ],
+      "name": "Special Project",
+      "thesisRequired": "False",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [
+        "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science",
+        "CSE 599 Laboratory in Computer Science",
+      ],
+    },
+    Object {
+      "additionalCourses": 6,
+      "additionalRequirement": Object {},
+      "coreCourses": Array [
+        "CSE 599 Laboratory in Computer Science (9 credit)",
+      ],
+      "name": "With Thesis",
+      "thesisRequired": "True",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [],
+    },
+  ],
+}
+`;
+
+exports[`parse CSE Degree Requirements2.json 1`] = `
+Object {
+  "CSE587Info": Object {
+    "max_classes": 2,
+    "max_credits": 4,
+  },
+  "breaths": Array [
+    Object {
+      "courses": Array [
+        "CSE 512 Machine Learning",
+        "CSE 526 Principles Programming Languages",
+        "CSE 540 Theory of Computation",
+        "CSE 541 Logic in Computer Science",
+        "CSE 547 Discrete Mathematics",
+        "CSE 548 Analysis of Algorithms",
+        "CSE 549 Computational Biology",
+      ],
+      "name": "Theory",
+    },
+    Object {
+      "courses": Array [
+        "CSE 502 Computer Architecture",
+        "CSE 504 Compiler Design",
+        "CSE 506 Operating Systems",
+        "CSE 508 Network Security",
+        "CSE 509 Computer System Security",
+        "CSE 532 Theory of Database Systems",
+        "CSE 534 Fundamentals of Computer Networks",
+        "CSE 535 Distributed Systems",
+      ],
+      "name": "Systems",
+    },
+    Object {
+      "courses": Array [
+        "CSE 505 Computing with Logic",
+        "CSE 519 Data Science Fundamentals",
+        "CSE 527 Introduction to Computer Vision",
+        "CSE 528 Computer Graphics",
+        "CSE 537 Artificial Intelligence",
+        "CSE 538 Natural Language Processing",
+        "CSE 564 Visualization",
+      ],
+      "name": "Information and Intelligent Systems",
+    },
+  ],
+  "degreeName": "Computer Science",
+  "foreignLanguageRequired": "False",
+  "minimumCumulativeGPA": "B",
+  "registrationRequired": "True",
+  "requirementVersion": "Fall 2020",
+  "tracks": Array [
+    Object {
+      "additionalCourses": 7,
+      "additionalRequirement": Object {},
+      "coreCourses": Array [
+        "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science",
+      ],
+      "name": "Advanced Project",
+      "thesisRequired": "False",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [
+        "CSE 599 Laboratory in Computer Science",
+      ],
+    },
+    Object {
+      "additionalCourses": 8,
+      "additionalRequirement": Object {
+        "courses": Array [
+          "CSE 590",
+          "CSE 591",
+          "CSE 592",
+          "CSE 593",
+          "CSE 594",
+          "CSE 595",
+        ],
+        "maxCredits": 6,
+        "minCredits": 3,
+        "sixHundredCourses": "True",
+      },
+      "coreCourses": Array [
+        "CSE 522 Basic Project in Computer Science",
+      ],
+      "name": "Special Project",
+      "thesisRequired": "False",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [
+        "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science",
+        "CSE 599 Laboratory in Computer Science",
+      ],
+    },
+    Object {
+      "additionalCourses": 6,
+      "additionalRequirement": Object {},
+      "coreCourses": Array [
+        "CSE 599 Laboratory in Computer Science (9 credit)",
+      ],
+      "name": "With Thesis",
+      "thesisRequired": "True",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [],
+    },
+  ],
+}
+`;
+
+exports[`parse CSE Degree Requirements3.json 1`] = `
+Object {
+  "CSE587Info": Object {
+    "max_classes": 2,
+    "max_credits": 4,
+  },
+  "breaths": Array [
+    Object {
+      "courses": Array [
+        "CSE 512 Machine Learning",
+        "CSE 526 Principles Programming Languages",
+        "CSE 540 Theory of Computation",
+        "CSE 541 Logic in Computer Science",
+        "CSE 547 Discrete Mathematics",
+        "CSE 548 Analysis of Algorithms",
+        "CSE 549 Computational Biology",
+      ],
+      "name": "Theory",
+    },
+    Object {
+      "courses": Array [
+        "CSE 502 Computer Architecture",
+        "CSE 504 Compiler Design",
+        "CSE 506 Operating Systems",
+        "CSE 508 Network Security",
+        "CSE 509 Computer System Security",
+        "CSE 532 Theory of Database Systems",
+        "CSE 534 Fundamentals of Computer Networks",
+        "CSE 535 Distributed Systems",
+      ],
+      "name": "Systems",
+    },
+    Object {
+      "courses": Array [
+        "CSE 505 Computing with Logic",
+        "CSE 519 Data Science Fundamentals",
+        "CSE 527 Introduction to Computer Vision",
+        "CSE 528 Computer Graphics",
+        "CSE 537 Artificial Intelligence",
+        "CSE 538 Natural Language Processing",
+        "CSE 564 Visualization",
+      ],
+      "name": "Information and Intelligent Systems",
+    },
+  ],
+  "degreeName": "Computer Science",
+  "foreignLanguageRequired": "False",
+  "minimumCumulativeGPA": "B+",
+  "registrationRequired": "True",
+  "requirementVersion": "Spring 2021",
+  "tracks": Array [
+    Object {
+      "additionalCourses": 7,
+      "additionalRequirement": Object {},
+      "coreCourses": Array [
+        "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science",
+      ],
+      "name": "Advanced Project",
+      "thesisRequired": "False",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [
+        "CSE 599 Laboratory in Computer Science",
+      ],
+    },
+    Object {
+      "additionalCourses": 8,
+      "additionalRequirement": Object {
+        "courses": Array [
+          "CSE 590",
+          "CSE 591",
+          "CSE 592",
+          "CSE 593",
+          "CSE 594",
+          "CSE 595",
+        ],
+        "maxCredits": 6,
+        "minCredits": 3,
+        "sixHundredCourses": "True",
+      },
+      "coreCourses": Array [
+        "CSE 522 Basic Project in Computer Science",
+      ],
+      "name": "Special Project",
+      "thesisRequired": "False",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [
+        "CSE 523 Laboratory in Computer Science",
+        "CSE 524 Laboratory in Computer Science",
+        "CSE 599 Laboratory in Computer Science",
+      ],
+    },
+    Object {
+      "additionalCourses": 6,
+      "additionalRequirement": Object {},
+      "coreCourses": Array [
+        "CSE 599 Laboratory in Computer Science (9 credit)",
+      ],
+      "name": "With Thesis",
+      "thesisRequired": "True",
+      "totalCredits": 31,
+      "unapplicable_courses_for_credits": Array [],
+    },
+  ],
+}
+`;
+
+exports[`parse ECE Degree Requirements1.json 1`] = `
+Object {
+  "degreeName": "Computer Engineering",
+  "maxTransferCredits": 12,
+  "minimumCumulativeGPA": "B",
+  "requirementVersion": "Spring 2021",
+  "tracks": Array [
+    Object {
+      "maxCreditsForCourseY": Object {
+        "course": "ESE 597",
+        "credits": 3,
+      },
+      "maxCreditsInCombinationY": Object {
+        "courses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698",
+        ],
+        "credits": 6,
+      },
+      "minOneCourseInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning",
+          ],
+          "subArea": "Hardware",
+        },
+        Object {
+          "courses": Array [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks",
+          ],
+          "subArea": "Networking",
+        },
+        Object {
+          "courses": Array [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture",
+          ],
+          "subArea": "CAD and VLSI",
+        },
+      ],
+      "minRegularLectureBasedCourses": Object {
+        "coursesCountedOnlyOnceAsRegularCourse": Array [
+          "ESE 670",
+        ],
+        "notCountedCourses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 697",
+          "ESE 698",
+          "ESE 699",
+        ],
+        "numCourses": 3,
+      },
+      "minTwoCoursesInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548 Analysis of Algorithms",
+          ],
+          "subArea": "Theory and Software",
+        },
+      ],
+      "name": "Non-Thesis Option",
+      "requiredCreditsOfCourseX": Object {
+        "maxCredits": 3,
+        "minCredits": 1,
+        "substitutionsWithApproval": Array [
+          "ESE 597",
+          "ESE 698",
+          "ESE 699",
+        ],
+      },
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "xCreditsForCourseY": Object {
+        "course": "ESE 698",
+        "credits": 3,
+      },
+    },
+    Object {
+      "maxCreditsForCourseY": Object {
+        "course": "ESE 597",
+        "credits": 3,
+      },
+      "maxCreditsInCombinationY": Object {
+        "courses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698",
+        ],
+        "credits": 6,
+      },
+      "minOneCourseInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning",
+          ],
+          "subArea": "Hardware",
+        },
+        Object {
+          "courses": Array [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks",
+          ],
+          "subArea": "Networking",
+        },
+        Object {
+          "courses": Array [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture",
+          ],
+          "subArea": "CAD and VLSI",
+        },
+      ],
+      "minRegularLectureBasedCourses": Object {
+        "coursesCountedOnlyOnceAsRegularCourse": Array [
+          "ESE 670",
+        ],
+        "notCountedCourses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 697",
+          "ESE 698",
+          "ESE 699",
+        ],
+        "numCourses": 1,
+      },
+      "minTwoCoursesInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548 Analysis of Algorithms",
+          ],
+          "subArea": "Theory and Software",
+        },
+      ],
+      "name": "Thesis Option",
+      "requiredCreditsOfCourseX": Object {
+        "maxCredits": 3,
+        "minCredits": 1,
+        "substitutionsWithApproval": Array [
+          "ESE 597",
+          "ESE 698",
+          "ESE 699",
+        ],
+      },
+      "thesisRequired": "True",
+      "totalCredits": 30,
+      "xCreditsForCourseY": Object {
+        "course": "ESE 698",
+        "credits": 3,
+      },
+    },
+  ],
+}
+`;
+
+exports[`parse ECE Degree Requirements2.json 1`] = `
+Object {
+  "degreeName": "Computer Engineering",
+  "maxTransferCredits": 12,
+  "minimumCumulativeGPA": "B",
+  "requirementVersion": "Fall 2020",
+  "tracks": Array [
+    Object {
+      "maxCreditsForCourseY": Object {
+        "course": "ESE 597",
+        "credits": 3,
+      },
+      "maxCreditsInCombinationY": Object {
+        "courses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698",
+        ],
+        "credits": 6,
+      },
+      "minOneCourseInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning",
+          ],
+          "subArea": "Hardware",
+        },
+        Object {
+          "courses": Array [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks",
+          ],
+          "subArea": "Networking",
+        },
+        Object {
+          "courses": Array [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture",
+          ],
+          "subArea": "CAD and VLSI",
+        },
+      ],
+      "minRegularLectureBasedCourses": Object {
+        "coursesCountedOnlyOnceAsRegularCourse": Array [
+          "ESE 670",
+        ],
+        "notCountedCourses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 697",
+          "ESE 698",
+          "ESE 699",
+        ],
+        "numCourses": 3,
+      },
+      "minTwoCoursesInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548 Analysis of Algorithms",
+          ],
+          "subArea": "Theory and Software",
+        },
+      ],
+      "name": "Non-Thesis Option",
+      "requiredCreditsOfCourseX": Object {
+        "maxCredits": 3,
+        "minCredits": 1,
+        "substitutionsWithApproval": Array [
+          "ESE 597",
+          "ESE 698",
+          "ESE 699",
+        ],
+      },
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "xCreditsForCourseY": Object {
+        "course": "ESE 698",
+        "credits": 3,
+      },
+    },
+    Object {
+      "maxCreditsForCourseY": Object {
+        "course": "ESE 597",
+        "credits": 3,
+      },
+      "maxCreditsInCombinationY": Object {
+        "courses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698",
+        ],
+        "credits": 6,
+      },
+      "minOneCourseInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning",
+          ],
+          "subArea": "Hardware",
+        },
+        Object {
+          "courses": Array [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks",
+          ],
+          "subArea": "Networking",
+        },
+        Object {
+          "courses": Array [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture",
+          ],
+          "subArea": "CAD and VLSI",
+        },
+      ],
+      "minRegularLectureBasedCourses": Object {
+        "coursesCountedOnlyOnceAsRegularCourse": Array [
+          "ESE 670",
+        ],
+        "notCountedCourses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 697",
+          "ESE 698",
+          "ESE 699",
+        ],
+        "numCourses": 1,
+      },
+      "minTwoCoursesInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548 Analysis of Algorithms",
+          ],
+          "subArea": "Theory and Software",
+        },
+      ],
+      "name": "Thesis Option",
+      "requiredCreditsOfCourseX": Object {
+        "maxCredits": 3,
+        "minCredits": 1,
+        "substitutionsWithApproval": Array [
+          "ESE 597",
+          "ESE 698",
+          "ESE 699",
+        ],
+      },
+      "thesisRequired": "True",
+      "totalCredits": 30,
+      "xCreditsForCourseY": Object {
+        "course": "ESE 698",
+        "credits": 3,
+      },
+    },
+  ],
+}
+`;
+
+exports[`parse ECE Degree Requirements3.json 1`] = `
+Object {
+  "degreeName": "Computer Engineering",
+  "maxTransferCredits": 12,
+  "minimumCumulativeGPA": "B+",
+  "requirementVersion": "Spring 2021",
+  "tracks": Array [
+    Object {
+      "maxCreditsForCourseY": Object {
+        "course": "ESE 597",
+        "credits": 3,
+      },
+      "maxCreditsInCombinationY": Object {
+        "courses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698",
+        ],
+        "credits": 6,
+      },
+      "minOneCourseInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE/CSE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning",
+          ],
+          "subArea": "Hardware",
+        },
+        Object {
+          "courses": Array [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks",
+          ],
+          "subArea": "Networking",
+        },
+        Object {
+          "courses": Array [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture",
+          ],
+          "subArea": "CAD and VLSI",
+        },
+      ],
+      "minRegularLectureBasedCourses": Object {
+        "coursesCountedOnlyOnceAsRegularCourse": Array [
+          "ESE 670",
+        ],
+        "notCountedCourses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ECE 697",
+          "ECE 698",
+          "ECE 699",
+        ],
+        "numCourses": 3,
+      },
+      "minTwoCoursesInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548/AMS 542 Analysis of Algorithms",
+          ],
+          "subArea": "Theory and Software",
+        },
+      ],
+      "name": "Non-Thesis Option",
+      "requiredCreditsOfCourseX": Object {
+        "maxCredits": 3,
+        "minCredits": 1,
+        "substitutionsWithApproval": Array [
+          "ECE 597",
+          "ECE 698",
+          "ECE 699",
+        ],
+      },
+      "thesisRequired": "False",
+      "totalCredits": 30,
+      "xCreditsForCourseY": Object {
+        "course": "ESE 698",
+        "credits": 3,
+      },
+    },
+    Object {
+      "maxCreditsForCourseY": Object {
+        "course": "ESE 597",
+        "credits": 3,
+      },
+      "maxCreditsInCombinationY": Object {
+        "courses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ESE 698",
+        ],
+        "credits": 6,
+      },
+      "minOneCourseInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE/CSE 536 Switching and Routing in Parallel and Distributed Systems",
+            "ESE 545 Computer Architecture",
+            "ESE 566 Hardware-Software Co-Design of Embedded Systems",
+            "ESE 587 Hardware Architectures for Deep Learning",
+          ],
+          "subArea": "Hardware",
+        },
+        Object {
+          "courses": Array [
+            "ESE 505 Wireless Network",
+            "ESE 506 Wireless Networking and Mobile Computing",
+            "ESE 546 Computer Communication Networks",
+            "ESE 548 Local & Wide Area Networks",
+          ],
+          "subArea": "Networking",
+        },
+        Object {
+          "courses": Array [
+            "ESE 507 Advanced Digital System Design & Generation",
+            "ESE 530 Computer Aided Design",
+            "ESE 549 Advanced VLSI System Testing",
+            "ESE 555 Advanced VLSI System Design",
+            "ESE 556 VLSI Physical and Logic Design Automation",
+            "ESE 575 Advanced VLSI Signal Processing Architecture",
+          ],
+          "subArea": "CAD and VLSI",
+        },
+      ],
+      "minRegularLectureBasedCourses": Object {
+        "coursesCountedOnlyOnceAsRegularCourse": Array [
+          "ESE 670",
+        ],
+        "notCountedCourses": Array [
+          "ESE 597",
+          "ESE 599",
+          "ECE 697",
+          "ECE 698",
+          "ECE 699",
+        ],
+        "numCourses": 1,
+      },
+      "minTwoCoursesInEachSubArea": Array [
+        Object {
+          "courses": Array [
+            "ESE 501: System Specification and Modeling",
+            "ESE 533: Convex Optimization and Eng. Applications",
+            "ESE 534: Cyber Physical systems",
+            "ESE 543: Mobile Cloud Computing",
+            "ESE 554 Computational Models for Computer Engineers",
+            "ESE 558: Digital Image Processing",
+            "ESE 588 Pattern Recognition",
+            "ESE 589: Learning Systems for Engineering Applications",
+            "CSE 506 Operating Systems",
+            "CSE 526 Principles of Programming Languages",
+            "CSE 548/AMS 542 Analysis of Algorithms",
+          ],
+          "subArea": "Theory and Software",
+        },
+      ],
+      "name": "Thesis Option",
+      "requiredCreditsOfCourseX": Object {
+        "maxCredits": 3,
+        "minCredits": 1,
+        "substitutionsWithApproval": Array [
+          "ECE 597",
+          "ECE 698",
+          "ECE 699",
+        ],
+      },
+      "thesisRequired": "True",
+      "totalCredits": 30,
+      "xCreditsForCourseY": Object {
+        "course": "ESE 698",
+        "credits": 3,
+      },
+    },
+  ],
+}
+`;
