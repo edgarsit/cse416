@@ -29,7 +29,8 @@
     "watch": "nodemon --ext ts,tsx --watch src src/server/index.ts",
     "build": "webpack --mode=development --env platform=web",
     "host": "ts-node src/server/index.ts",
-    "lint": "npx eslint src --report-unused-disable-directives --ext .js,.jsx,.ts,.tsx"
+    "lint": "npx eslint src --report-unused-disable-directives --ext .js,.jsx,.ts,.tsx",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
