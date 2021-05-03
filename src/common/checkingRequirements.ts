@@ -161,102 +161,194 @@ function requirementStatus(s: Student) {
             }
             return reqStatus
             */
-           break; 
-        } 
-        case "BMI": { //I think foreign language can be ignored
-           /*
-           //One thing not written here is handling the case where a student is checked to see if they are full
-           //time and if they are taking the fullTImeRequiredCourse in the degree requirement
+        break;
+    }
+    case "BMI": { //I think foreign language can be ignored
+        /*
+        //One thing not written here is handling the case where a student is checked to see if they are full
+        //time and if they are taking the fullTImeRequiredCourse in the degree requirement
 
-            if finalRecommendation is true
+        if finalRecommendation is true
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+
+        let creditsNeeded=track.totalCredits
+        taken_credits=0 //update these two variables to keep track of credit requirement
+        pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
+        let coursesTaken=0
+        let cumulativeGPA=0
+        let creditsinCombinationY=0//variable to keep track of the amount of credits with courses in this field
+        //If the value goes over the vlaue in the degree requirement, the credits over that value should be subtracted from
+        //taken or pending credit variables, might not have the time to deal with that specific case so maybe it can be ignored
+        let totalCreditsForCourses=0//same as the previous variable but for maxTotalCreditsForCourses in the degree
+
+
+        Get track of student
+        let unsatisfiedCoursesNum=requiredCourses+num courses in sequence (3 with degree requirement1 file)+
+            core courses in track + num courses in electiveCourses
+
+        For every course in courseplan
+        {
+            if course is in requiredCourses
             {
                 reqStatus[0]+=1
+                unsatisfiedCourseNum-=1
+                //update credit and grade related variables
             }
             else
             {
-                reqStatus[2]+=1
-            }
-
-            let creditsNeeded=track.totalCredits
-            taken_credits=0 //update these two variables to keep track of credit requirement
-            pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
-            let coursesTaken=0
-            let cumulativeGPA=0
-            let creditsinCombinationY=0//variable to keep track of the amount of credits with courses in this field
-            //If the value goes over the vlaue in the degree requirement, the credits over that value should be subtracted from
-            //taken or pending credit variables, might not have the time to deal with that specific case so maybe it can be ignored
-            let totalCreditsForCourses=0//same as the previous variable but for maxTotalCreditsForCourses in the degree
-
-
-            Get track of student
-            let unsatisfiedCoursesNum=requiredCourses+num courses in sequence (3 with degree requirement1 file)+
-                core courses in track + num courses in electiveCourses
-
-            For every course in courseplan
-            {
-                if course is in requiredCourses
+                if course in track.sequence
                 {
+                    if the course is 502 or 503 and the other has been taken {continue;}//essentially ignore the course, except for maybe grade handling
                     reqStatus[0]+=1
                     unsatisfiedCourseNum-=1
                     //update credit and grade related variables
                 }
                 else
                 {
-                    if course in track.sequence
+                    if course is in track.electiveCourses
                     {
-                        if the course is 502 or 503 and the other has been taken {continue;}//essentially ignore the course, except for maybe grade handling
                         reqStatus[0]+=1
                         unsatisfiedCourseNum-=1
                         //update credit and grade related variables
                     }
-                    else
+                }
+            }
+        }
+        reqStatus[2]+=unsatisfiedCoursesNum
+        cumulativeGPA=cumulativeGPA/numCourses
+        
+        if cumulativeGPA at least the values in the degree requirement
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+
+        if taken_credits>= track.totalCredits
+        {
+            reqStatus[0]+=1
+        }
+        elseif taken_credits+pending_credits>=track.totalCredits
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+        return reqStatus
+        */
+        break;
+    }
+    case 'CSE': {
+        /*
+        if finalRecommendation is true
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+
+        let creditsNeeded=track.totalCredits
+        taken_credits=0 //update these two variables to keep track of credit requirement
+        pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
+        let coursesTaken=0
+        let cumulativeGPA=0
+
+        let theoryBreadthTaken=False
+        let systemsBreadthTaken=False
+        let informationSystemsBreadthTaken=False
+
+        Get student track
+        let unsatisfiedCoursesNum=core courses in track + track.additionalCourses
+        let numElectives=track.additionalCourses
+        let additionalRequirementCredits=0 //if this is more than the max vlaue in the degree doc, subtract
+        //credits by difference
+        cse587credits=0
+
+        for course in coursePlan
+        {
+            //if the course is cse587, add credit amount to cse587credits. If it's above max_credits
+            //subtract the difference from total credits
+
+            //check if the course falls is in any of the three breadths, if it is, change the variable associated
+            //to it to true
+            if course is in track.coreCourses
+            {
+                reqStatus[0]+=1
+                unsatisfiedCourseNum-=1
+                //handle grade and credit calculation
+            }
+            else
+            {
+                if course not in unapplicable_courses_for_credits
+                {
+                    if track.additionalRequirement is not empty
                     {
-                        if course is in track.electiveCourses
+                        if course in track.additionalRequirement.courses || 
+                            (course.num >= 600 && track.additionalRequirement.sixHundredCourses=="True")
+                        {
+                            let additionalRequirementCredits+=course credit value
+                            reqStatus[0]+=1
+                            unsatisfiedCourseNum-=1
+                            //handle grade and credit calculation
+                        }
+                        else
                         {
                             reqStatus[0]+=1
                             unsatisfiedCourseNum-=1
-                            //update credit and grade related variables
+                            //handle grade and credit calculation
                         }
                     }
                 }
             }
-            reqStatus[2]+=unsatisfiedCoursesNum
-            cumulativeGPA=cumulativeGPA/numCourses
-            
-            if cumulativeGPA at least the values in the degree requirement
-            {
-                reqStatus[0]+=1
-            }
-            else
-            {
-                reqStatus[2]+=1
-            }
+        }
+        if !theoryBreadthTaken { reqStatus[2]+=1}
+        if !systemsBreadthTaken { reqStatus[2]+=1}
+        if !informationSystemsBreadthTake { reqStatus[2]+=1}
 
-            if taken_credits>= track.totalCredits
-            {
-                reqStatus[0]+=1
-            }
-            elseif taken_credits+pending_credits>=track.totalCredits
-            {
-                reqStatus[0]+=1
-            }
-            else
-            {
-                reqStatus[2]+=1
-            }
-            return reqStatus
-            */
-      break;
-    }
-    case 'CSE': {
-      break;
+        if cumulativeGPA at least the value in the degree requirement
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+
+        let min = min value for additionalRequirementCredits in track
+        if taken_credits>= track.totalCredits && additionalRequirementCredits<min
+        {
+            reqStatus[0]+=1
+        }
+        elseif taken_credits+pending_credits>=track.totalCredits && additionalRequirementCredits<min
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+
+        */
+        break;
     }
     case 'ECE': {
-      break;
+        break;
     }
     default: {
       // maybe throw an error or return reqStatus as is or (-1,-1,-1)
-      break;
+        break;
     }
   }
 }
@@ -267,6 +359,3 @@ function isCourseInRange(c: Course, r: string) {
   const max: number = +r.substr(8, 9);// upper bound for range
   return (c.department === dep && c.number >= min && c.number <= max);
 }
-
-
-
