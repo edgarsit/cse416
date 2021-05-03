@@ -121,7 +121,7 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
                   // eslint-disable-next-line react/no-array-index-key
                   <tr key={i} onClick={() => window.location.assign(url)}>
                     {Object.keys(cols).map((k) => (
-                      <td key={k}><Link to={url}>{x[k]}</Link></td>
+                      <td className="pointer" key={k}><Link to={url}>{x[k]}</Link></td>
                     ))}
                   </tr>
                 );

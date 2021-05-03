@@ -1,5 +1,5 @@
 import {
-  getDiscriminatorModelForClass, getModelForClass,
+  getDiscriminatorModelForClass, getModelForClass, mongoose,
 } from '@typegoose/typegoose';
 
 import {
@@ -8,6 +8,8 @@ import {
 import { DegreeRequirements } from '../model/degreeRequirements';
 import { User, GPD, Student } from '../model/user';
 import type { Description, Fields } from '../model/util';
+
+mongoose.Schema.Types.String.checkRequired((v) => v != null);
 
 export const UserModel = getModelForClass(User);
 export const GPDModel = getDiscriminatorModelForClass(UserModel, GPD);

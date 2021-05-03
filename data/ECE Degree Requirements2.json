@@ -1,4 +1,4 @@
-﻿{
+{
   "degreeName": "Computer Engineering",
   "requirementVersion": "Fall 2020",
   "maxTransferCredits": 12,
@@ -95,7 +95,7 @@
  "ESE 699"
            ]
        }
-    },  
+    },
 {
        "name": "Thesis Option",
       "totalCredits": 30,

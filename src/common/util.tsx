@@ -12,7 +12,7 @@ export function Bar({ title }: { title?: string }): JSX.Element {
         <Navbar.Collapse id="basic-navbar-nav" style={{ display: 'inline-block!important' }}>
           <Nav className="mr-auto">
             <NavDropdown title="Quick Links" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/home">Home</NavDropdown.Item>
+              <NavDropdown.Item href="/GPD_Home">Home</NavDropdown.Item>
               <NavDropdown.Item href="/import">Import</NavDropdown.Item>
               <NavDropdown.Item href="/addStudent">Add Student</NavDropdown.Item>
               <NavDropdown.Item href="/searchForStudent">Browse/search for students</NavDropdown.Item>

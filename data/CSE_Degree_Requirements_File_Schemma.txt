@@ -5,8 +5,8 @@
   "registrationRequired": "(True/False)",
   "foreignLanguageRequired": "(True/False)",
   "CSE587Info": {
-     "max_credits": (positive whole number),
-     "max_classes": (positive whole number)
+     "maxCredits": (positive whole number),
+     "maxClasses": (positive whole number)
      },
 
 

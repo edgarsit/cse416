@@ -1,4 +1,4 @@
-﻿{
+{
   "degreeName": "Applied Mathematics and Statistics",
   "requirementVersion": "Fall 2020",
   "xCreditsGradeY": {
@@ -73,7 +73,7 @@
         "totalCredits": 12,
         "range": "AMS 542­-556",
         "substitutions": [
-            "1 in AMS 570-­586", 
+            "1 in AMS 570-­586",
                 "1 in AMS 511­-523"
                  ]
         }
