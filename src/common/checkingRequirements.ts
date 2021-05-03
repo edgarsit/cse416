@@ -161,10 +161,10 @@ function requirementStatus(s: Student) {
             }
             return reqStatus
             */
-           break; 
-        } 
-        case "BMI": { //I think foreign language can be ignored
-           /*
+      break;
+    }
+    case 'BMI': { // I think foreign language can be ignored
+      /*
            //One thing not written here is handling the case where a student is checked to see if they are full
            //time and if they are taking the fullTImeRequiredCourse in the degree requirement
 
@@ -186,7 +186,6 @@ function requirementStatus(s: Student) {
             //If the value goes over the vlaue in the degree requirement, the credits over that value should be subtracted from
             //taken or pending credit variables, might not have the time to deal with that specific case so maybe it can be ignored
             let totalCreditsForCourses=0//same as the previous variable but for maxTotalCreditsForCourses in the degree
-
 
             Get track of student
             let unsatisfiedCoursesNum=requiredCourses+num courses in sequence (3 with degree requirement1 file)+
@@ -222,7 +221,7 @@ function requirementStatus(s: Student) {
             }
             reqStatus[2]+=unsatisfiedCoursesNum
             cumulativeGPA=cumulativeGPA/numCourses
-            
+
             if cumulativeGPA at least the values in the degree requirement
             {
                 reqStatus[0]+=1
@@ -267,6 +266,3 @@ function isCourseInRange(c: Course, r: string) {
   const max: number = +r.substr(8, 9);// upper bound for range
   return (c.department === dep && c.number >= min && c.number <= max);
 }
-
-
-

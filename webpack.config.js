@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 // https://github.com/webpack-contrib/mini-css-extract-plugin
+// TODO lint
 
 module.exports = function (env, argv) {
   const base = {
@@ -39,9 +40,11 @@ module.exports = function (env, argv) {
   };
 
   if (env.platform === 'web') {
+    // TODO fix
     base.entry = {
       client: './src/client/client.tsx',
-      login: './src/client/login.tsx'
+      login: './src/client/login.tsx',
+      editCoursePlan: './src/client/editCoursePlan.tsx',
     };
     base.output = {
       filename: '[name].js',

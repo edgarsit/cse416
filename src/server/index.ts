@@ -8,6 +8,7 @@ import argon2 from 'argon2';
 
 import {
   copyStudentWithPermissions,
+  CoursePlanModel,
   getQS, GPDModel,
   StudentModel, UserModel,
 } from './models';
@@ -17,6 +18,7 @@ import { auth } from './auth';
 import Login from '../common/login';
 import { Student } from '../model/user';
 import { imports } from './imports';
+import EditCoursePlan from '../common/editCoursePlan';
 
 const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -132,6 +134,37 @@ server.post('/editStudentInfor/:email', async (req, res) => {
     );
   } catch (e) { console.error(e); }
   res.redirect(303, req.originalUrl);
+});
+
+server.get('/editCoursePlan/get/:sbuId', async (req, res) => {
+  const { sbuId } = req.params;
+  const sbuId_ = sbuId ? +sbuId : undefined;
+  const courses = await CoursePlanModel.find({ sbuId: sbuId_ }).sort({ year: 1, semester: 1 });
+  const body = renderToString(EditCoursePlan({ sbuId: sbuId!, courses }));
+  res.send(html(body, { sbuId: sbuId!, courses }, 'editCoursePlan'));
+});
+
+server.post('/editCoursePlan/delete/:sbuId/:id', async (req, res) => {
+  const { id, sbuId } = req.params;
+  await CoursePlanModel.findByIdAndRemove(id);
+  res.redirect(`/editCoursePlan/get/${sbuId}`);
+});
+
+server.post('/editCoursePlan/set/:sbuId/:id', async (req, res) => {
+  const { id, sbuId } = req.params;
+  const grade = req.body[id!];
+  const o = await CoursePlanModel.findById(id);
+  if (o) {
+    o.grade = grade;
+    o.save();
+  }
+  res.redirect(`/editCoursePlan/get/${sbuId}`);
+});
+
+server.post('/editCoursePlan/add/:sbuId', async (req, res) => {
+  const { sbuId } = req.params;
+  await CoursePlanModel.create(req.body);
+  res.redirect(`/editCoursePlan/get/${sbuId}`);
 });
 
 server.get('/Student_Home/:email', async (req, res) => {
