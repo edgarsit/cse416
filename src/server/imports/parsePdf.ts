@@ -107,11 +107,46 @@ function parseDesc1(desc: string): {
   };
 }
 
+// https://stackoverflow.com/a/42755876
+class ExtendedError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+    this.message = message;
+    if (typeof Error.captureStackTrace === 'function') {
+      Error.captureStackTrace(this, this.constructor);
+    } else {
+      this.stack = (new Error(message)).stack;
+    }
+  }
+}
+
+class RethrownError extends ExtendedError {
+  original: Error
+
+  newStack: Error['stack']
+
+  constructor(message, error) {
+    super(message);
+    if (!error) throw new Error('RethrownError requires a message and error');
+    this.original = error;
+    this.newStack = this.stack;
+    const messageLines = (this.message.match(/\n/g) || []).length + 1;
+    if (this.stack !== undefined) {
+      this.stack = `${this.stack.split('\n').slice(0, messageLines + 1).join('\n')}\n${
+        error.stack}`;
+    }
+  }
+}
+
 const titleRe = /^\s*(\S+)\s+(\d+)\s*:\s*(.*)$/;
 export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'courseSet' | '__t' | 'prerequisites'>[]> {
   const start = performance.now();
   const loadingTask = pdf.getDocument(fileName);
-  const doc = await loadingTask.promise;
+  let doc;
+  try {
+    doc = await loadingTask.promise;
+  } catch (e) { throw new RethrownError('Unable to parse PDF', e); }
   const { numPages } = doc;
 
   const loadPage = async (pageNum: number) => {
