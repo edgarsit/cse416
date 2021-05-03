@@ -5,8 +5,8 @@
   "registrationRequired": "True",
   "foreignLanguageRequired": "False",
   "CSE587Info": {
-     "max_credits": 4,
-     "max_classes": 2
+     "maxCredits": 4,
+     "maxClasses": 2
      },
 
 
@@ -64,7 +64,7 @@
               ],
        "additionalCourses": 7,
        "additionalRequirement": {},
-      "unapplicable_courses_for_credits": [
+      "unapplicableCoursesCredits": [
             "CSE 599 Laboratory in Computer Science"
               ]
     },
@@ -89,7 +89,7 @@
               "CSE 595"
               ]
            },
-      "unapplicable_courses_for_credits": [
+      "unapplicableCoursesCredits": [
             "CSE 523 Laboratory in Computer Science",
         "CSE 524 Laboratory in Computer Science",
             "CSE 599 Laboratory in Computer Science"
@@ -104,7 +104,7 @@
               ],
         "additionalCourses": 6,
          "additionalRequirement": {},
-          "unapplicable_courses_for_credits": []
+          "unapplicableCoursesCredits": []
      }
    ]
 }

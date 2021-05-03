@@ -62,7 +62,7 @@
     "BMI 695 Special Topics in Biomedical Informatics",
     "BMI 696 Special Problems in Biomedical Informatics"
 ],
-             "unapplicable_courses_for_credits": [
+             "unapplicableCoursesCredits": [
             "BMI 598 M.S. Capstone Project in Biomedical Informatics"
               ]
 
@@ -98,7 +98,7 @@
     "BMI 695 Special Topics in Biomedical Informatics",
     "BMI 696 Special Problems in Biomedical Informatics"
 ],
- "unapplicable_courses_for_credits": [
+ "unapplicableCoursesCredits": [
             "BMI 598 M.S. Capstone Project in Biomedical Informatics"
               ]
     },
@@ -130,7 +130,7 @@
     "BMI 695 Special Topics in Biomedical Informatics",
     "BMI 696 Special Problems in Biomedical Informatics"
 ],
-  "unapplicable_courses_for_credits": [
+  "unapplicableCoursesCredits": [
             "BMI 598 M.S. Capstone Project in Biomedical Informatics"
               ]
     },
@@ -162,7 +162,7 @@
     "BMI 695 Special Topics in Biomedical Informatics",
     "BMI 696 Special Problems in Biomedical Informatics"
 ],
-  "unapplicable_courses_for_credits": [
+  "unapplicableCoursesCredits": [
             "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
               ]
     },
@@ -196,7 +196,7 @@
     "BMI 695 Special Topics in Biomedical Informatics",
     "BMI 696 Special Problems in Biomedical Informatics"
 ],
-"unapplicable_courses_for_credits": [
+"unapplicableCoursesCredits": [
             "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
               ]
     },
@@ -228,7 +228,7 @@
     "BMI 695 Special Topics in Biomedical Informatics",
     "BMI 696 Special Problems in Biomedical Informatics"
 ],
-"unapplicable_courses_for_credits": [
+"unapplicableCoursesCredits": [
             "BMI 599 M.S. Research and Thesis in Biomedical Informatics"
               ]
         }

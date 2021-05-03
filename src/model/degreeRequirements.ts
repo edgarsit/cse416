@@ -52,10 +52,10 @@ export class MaxCreditsForGradeY {
 
 export class CSE587Info {
   @rprop()
-  public max_credits!: number
-  
+  public maxCredits!: number
+
   @rprop()
-  public min_credits!: number
+  public maxClasses!: number
 }
 
 export class minCourcesSubArea {
@@ -112,14 +112,14 @@ export class DegreeRequirements {
   @rprop({ map: ['Required', 'Not-Required'], get: id, set: (x) => ['Required', 'Not-Required'].indexOf(x) })
   public finalRecommendation!: boolean
 
-  @prop({ map: ['False', 'True'] })
+  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
   public registrationRequired!: boolean
 
-  @prop({ map: ['False', 'True'] })
+  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
   public foreignLanguageRequired!: boolean
 
-  @rprop()
-  public fullTimeCourseRequirement!: Course
+  @c({ type: () => [Course] })
+  public fullTimeCourseRequirement!: Course[]
 
   @c({ type: () => [Course] })
   public coreCourses!: Course[]
@@ -164,8 +164,8 @@ export class Tracks {
   @rprop()
   public totalCredits!: number
 
-  @prop({ map: ['False', 'True'] })
-  public thesisRequired?: boolean
+  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
+  public thesisRequired!: boolean
 
   @rprop({ type: () => XCreditsForCourseY })
   public xCreditsForCourseY!: XCreditsForCourseY[]

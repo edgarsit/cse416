@@ -7,8 +7,14 @@
 },
   "coreCourseGPA": 3.0,
   "finalRecommendation": "Required",
- "timeLimit": "3 years",
-
+  "timeLimit": "3 years",
+  "registrationRequired": "False",
+  "foreignLanguageRequired": "False",
+  "cse587Info": {
+     "maxCredits": 0,
+     "maxClasses": 0
+     },
+  "fullTimeCourseRequirement": [],
   "minimumCumulativeGPA": "B",
   "tracks": [
     {
