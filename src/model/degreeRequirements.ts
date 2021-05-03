@@ -8,7 +8,7 @@ const cc = (s: string): Course => {
   return { department: department!, number: +number! };
 };
 
-const c = (v) => rprop({
+const c = (v) => prop({
   ...v,
   set(ss: string[] | string): Course[] | Course {
     return Array.isArray(ss) ? ss.map(cc) : cc(ss);
@@ -31,7 +31,7 @@ export class MaxCreditsForCourseY {
   public credits!: number
 
   @c({ type: () => [Course] })
-  public courses!: Course[]
+  public courses?: Course[]
 }
 
 export class XCreditsGradeY {
@@ -71,10 +71,10 @@ export class RegularLectureBasedCourses {
   public minCourses!: number
 
   @c({ type: () => [Course] })
-  public notCountedCourses!: Course[]
+  public notCountedCourses?: Course[]
 
   @c({ type: () => [Course] })
-  public courawaOnlyOnce!: Course[]
+  public courawaOnlyOnce?: Course[]
 }
 
 export class RequiredCreditsOfCourseX {
@@ -85,7 +85,7 @@ export class RequiredCreditsOfCourseX {
   public maxCredits!: number
 
   @c({ type: () => [Course] })
-  public substitutionsWithApproval!: Course[]
+  public substitutionsWithApproval?: Course[]
 }
 
 export class SubArea {
@@ -93,7 +93,7 @@ export class SubArea {
   public name!: string
 
   @c({ type: () => [Course] })
-  public courses!: Course[]
+  public courses?: Course[]
 }
 
 export class DegreeRequirements {
@@ -119,10 +119,10 @@ export class DegreeRequirements {
   public foreignLanguageRequired!: boolean
 
   @c({ type: () => [Course] })
-  public fullTimeCourseRequirement!: Course[]
+  public fullTimeCourseRequirement?: Course[]
 
   @c({ type: () => [Course] })
-  public coreCourses!: Course[]
+  public coreCourses?: Course[]
 
   @prop({ ref: () => XCreditsGradeY })
   public prerequisites?: XCreditsGradeY
@@ -177,16 +177,16 @@ export class Tracks {
   public maxCreditsForCourseY?: MaxCreditsForCourseY
 
   @c({ type: () => [Course] })
-  public sequence!: Course[]
+  public sequence?: Course[]
 
   @c({ type: () => [Course] })
-  public coreCourses!: Course[]
+  public coreCourses?: Course[]
 
   @c({ type: () => [Course] })
-  public electiveCourses!: Course[]
+  public electiveCourses?: Course[]
 
   @c({ type: () => [Course] })
-  public unapplicableCoursesCredits!: Course[]
+  public unapplicableCoursesCredits?: Course[]
 
   @prop({ type: () => minCourcesSubArea })
   public minOneCourseInEachSubArea?: minCourcesSubArea

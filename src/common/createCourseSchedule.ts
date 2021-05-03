@@ -1,257 +1,402 @@
-// need to consider multiple semester
-// need to consider fall/spring
-// need precise time for each class
 // need to add the thingy from degree requirement to add classes
 // need to account for preferred classes
-// need to check when degree is actuall completed
 // need to output it into the website
-//
 // to run, "tsc src\common\createCourseSchedule.tsx"
 // then    "node src\common\createCourseSchedule.js "<--- (js)
 
-class classes {
-    name: string;
+import { Semester } from '../model/course';
 
-    startTime: Date;
+class dateSemester {
+  semester:string;
 
-    endTime: Date;
+  year:number;
 
-    credits: number;
+  startTime?:number; // assume that start time/end time hold info for what day it is
 
-    requirements: classes[] = [];
+  endTime?:number;
 
-    elective: boolean;
+  constructor(semester:string, year:number, startTime?:number, endTime?:number) {
+    this.semester = semester;
+    this.year = year;
+    this.startTime = startTime;
+    this.endTime = endTime;
+  }
 
-    constructor(name: string, credits: number, elective: boolean, startTime: Date, endTime: Date) {
-      this.name = name;
-      this.credits = credits;
-      this.startTime = startTime;
-      this.endTime = endTime;
-      this.elective = elective;
-    }
+  addTimeslot(startTime:number, endTime:number) {
+    this.startTime = startTime;
+    this.endTime = endTime;
+  }
 
-    getStartTime() {
-      return this.startTime;
-    }
-
-    toString() {
-      return this.name;
-    }
-
-    addRequirements(requirement: classes) {
-      this.requirements.push(requirement);
-    }
-
-    getRequirements() {
-      return this.requirements;
-    }
-
-    // was bugged, now fixed?
-    metRequirement(currentClass: classes, remainingClasses: classes[]) {
-      // what does this do?
-      // uh, check if class mets requirement to graduate, and that means checking
-      // if any of the requirement classes in the array still exist in the remaining classes
-      // if not, that good, if there are classes still remaining, then not good.
-      for (const requiredClasses of this.requirements) {
-        if (remainingClasses.indexOf(requiredClasses) > -1) {
+  // is it available this semester
+  // should work, tested it with a bunch of test
+  available(semester:semester) {
+    console.log(`${semester.semester} ${this.semester}`);
+    console.log(`${semester.year} ${this.year}`);
+    if (semester.semester != this.semester) { console.log('failed semester check'); return false; }
+    if (semester.year != this.year) { console.log('failed year check'); return false; }
+    for (const classes of semester.schedule) {
+      if (classes.takenDate!.startTime! <= this.startTime!) { // if class start after the class on the schdule
+        if (classes.takenDate!.endTime! > this.startTime!) { // if the class end after/on start time
+          console.log('failed time check');
           return false;
         }
       }
-      return true;
-    }
-}
+      if (classes.takenDate!.startTime! >= this.startTime!) { // if class start after
+        if (classes.takenDate!.startTime! < this.endTime!) {
+          console.log('failed time check');
 
-class semesterSchedule {
-    MonWedFri: classes[] = [];
-
-    TuTH: classes[] = [];
-
-    MonWedFriTime: Date = new Date(0, 0, 0, 0, 0);
-
-    TuTHTime: Date = new Date(0, 0, 0, 0, 0);
-
-    constructor() { }
-
-    // appends a class to the schedule
-    addClass(addClass: classes, mwf: boolean, availableClasses: availableClasses) {
-      if (mwf) {
-        this.MonWedFri.push(addClass);
-        this.MonWedFriTime = addClass.endTime;
-        availableClasses.removeClass(addClass);
-      } else {
-        this.TuTH.push(addClass);
-        this.TuTHTime = addClass.endTime;
-      }
-    }
-
-    to_string(): string {
-      const temp = this.MonWedFri.toString() + this.TuTH.toString();
-      return temp;
-    }
-
-    nextAvailableTimeSlot(mwf: boolean) {
-      if (mwf) {
-        return this.MonWedFriTime;
-      }
-
-      return this.TuTHTime;
-    }
-}
-
-// class student would like to take
-class preferredClasses {
-    preferredClasses: classes[] = [];
-
-    constructor() { }
-
-    addClass(classes: classes) {
-      this.preferredClasses.push(classes);
-    }
-
-    removeClass(classes: classes) {
-      const index = this.preferredClasses.indexOf(classes);
-      if (index > -1) {
-        this.preferredClasses.splice(index, 1);
-      }
-    }
-}
-
-// all classes the student can take that counts toward degree completion
-class availableClasses {
-    availableClasses: classes[];
-
-    constructor(classes: classes[]) {
-      this.availableClasses = classes;
-    }
-
-    // removes classes that does not fit in schedule
-    filterByTime() { }
-
-    removeClass(classes: classes) {
-      const index = this.availableClasses.indexOf(classes, 0);
-      if (index > -1) {
-        this.availableClasses.splice(index, 1);
-      }
-    }
-
-    earliestTimeMatch(endTime: Date) { // endtime is the time the class ends
-      let temp = new Date(0, 0, 23, 59);
-      let tempClass;
-      const test = new Date(0, 0, 11, 23);
-      // console.log("Earliest Time Match");
-      // console.log("the end time is "+endTime.toLocaleTimeString());
-      for (const avaClass of this.availableClasses) {
-        if (avaClass.startTime < temp && avaClass.startTime > endTime) {
-          if (avaClass.metRequirement(avaClass, this.availableClasses)) {
-            temp = avaClass.startTime;
-            tempClass = avaClass;
-          } else {
-          }
-        }
-      }
-      return tempClass;
-    }
-}
-
-// requirement for student
-class majorRequirement {
-    listedCourse: classes[]; // mandatory courses
-
-    // need to expand on this for multiple named course, but you can pick which one you can take
-    electives: number; // number of elective needed
-
-    electiveCredit: number; // number of elective credit needed
-
-    constructor(listedCourse: classes[], electives: number, electiveCredit: number) {
-      this.listedCourse = listedCourse;
-      this.electives = electives;
-      this.electiveCredit = electiveCredit;
-    }
-
-    // change major requirement based on classes taken
-    degreeProgress(classesTaken: classes) {
-      if (classesTaken.elective) {
-        this.electives--;
-        this.electiveCredit--;
-      } else {
-        const index = this.listedCourse.indexOf(classesTaken, 0);
-        if (index > -1) {
-          this.listedCourse.splice(index, 1);
+          return false;
         }
       }
     }
+    return true;
+  }
+}
 
-    isComplete() {
-      if (this.electiveCredit <= 0 && this.listedCourse.length == 0) {
+class classes {
+  name: string;
+
+  credits: number;
+
+  requirements: classes[] = [];
+
+  elective: boolean;
+
+  availableDates:dateSemester[];
+
+  takenDate?:dateSemester;
+
+  // add a preffered tag here
+
+  constructor(name: string, credits: number, elective: boolean, availableDates:dateSemester[]) {
+    this.name = name;
+    this.credits = credits;
+    this.elective = elective;
+    this.availableDates = availableDates;
+  }
+
+  toString() {
+    return this.name;
+  }
+
+  addRequirements(requirement: classes) {
+    this.requirements.push(requirement);
+  }
+
+  metRequirement(currentClass: classes, remainingClasses: classes[]) {
+    // what does this do?
+    // uh, check if class mets requirement to graduate, and that means checking
+    // if any of the requirement classes in the array still exist in the remaining classes
+    // if not, that good, if there are classes still remaining, then not good.
+    for (const requiredClasses of this.requirements) {
+      if (remainingClasses.indexOf(requiredClasses) > -1) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+// holds classes for one schedule
+class semester {
+  schedule: classes[] = [];
+
+  semester:string;
+
+  year:number;
+
+  creditLimit=18; // hard cap at 18
+
+  constructor(semester:string, year:number) {
+    this.semester = semester;
+    this.year = year;
+  }
+
+  addClass(newClass:classes) {
+    this.schedule.push(newClass);
+  }
+
+  addCreditLimit(limit:number) {
+    this.creditLimit = limit;
+  }
+
+  creditTaken() {
+    let credit = 0;
+    for (const classes of this.schedule) {
+      credit += classes.credits;
+    }
+    return credit;
+  }
+}
+
+// this is good
+class takeAllClass {
+  allClass:classes[];
+
+  removeClass:classes[]=[];
+
+  constructor(allClass:classes[]) {
+    this.allClass = allClass;
+  }
+
+  fillSchedule(schedule:semester[]) {
+    for (const semester of schedule) {
+      if (semester.creditLimit > semester.creditTaken()) {
+        for (const possibleClass of this.allClass) {
+          this.addToSchedule(semester, possibleClass); // add it to the schedule if possible
+        }
+      }
+    }
+    this.removeClasses();
+  }
+
+  addToSchedule(semester:semester, possibleClass:classes) {
+    // add one class to schedule
+    for (const dates of possibleClass.availableDates) {
+      if (dates.available(semester)) {
+        possibleClass.takenDate = dates;
+        semester.addClass(possibleClass);
+        this.removeClass.push(possibleClass);
         return true;
       }
-
-      return false;
     }
+    return false;
+  }
+
+  removeClasses() {
+    for (const remove of this.removeClass) {
+      const temp = this.allClass.indexOf(remove, 0);
+      this.allClass.splice(temp, 1);
+    }
+    this.removeClass = [];
+  }
+
+  // checks is all classes have been taken
+  // should be empty if all classes have been taken
+  fulfillsRequirement() {
+    return this.allClass.length == 0;
+  }
 }
 
-// iterate from availble classes, take those that fit the requirement and is mandatory
-// take the earliest
-// repeat until full
-// if not full, take the earlier available elective
-// repeat until credit limit is hit
+// need to fulfill x amount of credit
+// good
+class takeXCredit {
+  potentialClasses:classes[];
 
-// do it for one semester, 18 credits, 1 elective, with 4 credits
-// rest are 5 3 credit classes,
-// ams 101 ams 102 ams 103
-// cse 101 cse 102
-// ele 101
-// schdule should be ams 101, cse 101, ele 101
-// and thats it
+  credit:number;
+
+  creditsTaken =0;
+
+  removeClass:classes[]=[];
+
+  constructor(potentialClasses:classes[], credit:number) {
+    this.potentialClasses = potentialClasses;
+    this.credit = credit;
+  }
+
+  fillSchedule(schedule:semester[]) {
+    console.log('here?');
+    for (const semester of schedule) {
+      console.log(`${semester.creditLimit} ${semester.creditTaken()}`);
+      console.log(`${this.credit} ${this.creditsTaken}`);
+      if ((semester.creditLimit > semester.creditTaken()) && (this.credit >= this.creditsTaken)) {
+        console.log('hi?');
+        for (const possibleClass of this.potentialClasses) {
+          this.addToSchedule(semester, possibleClass); // add it to the schedule if possible
+        }
+      }
+    }
+    this.removeClasses();
+  }
+
+  addToSchedule(semester:semester, possibleClass:classes) {
+    // add one class to schedule
+    for (const dates of possibleClass.availableDates) {
+      console.log(this.credit <= this.creditsTaken);
+      if (dates.available(semester) && (this.credit > this.creditsTaken)) {
+        console.log('datres are ava');
+        possibleClass.takenDate = dates;
+        semester.addClass(possibleClass);
+        this.creditsTaken += possibleClass.credits; // adds the credit check
+        this.removeClass.push(possibleClass);
+        return true;
+      }
+    }
+    console.log('dates not ava');
+    return false;
+  }
+
+  removeClasses() {
+    for (const remove of this.removeClass) {
+      const temp = this.potentialClasses.indexOf(remove, 0);
+      this.potentialClasses.splice(temp, 1);
+    }
+    this.removeClass = [];
+  }
+
+  // check if enough elective credits have been taken
+  fulfillsRequirement() {
+    return this.creditsTaken >= this.credit;
+  }
+}
+
+// pick one
+// works good
+class takeOneClass {
+  potentialClasses:classes[];
+
+  takenClass?:classes;
+
+  taken= false;
+
+  removeClass:classes[]=[];
+
+  constructor(class1:classes[]) {
+    this.potentialClasses = class1;
+  }
+
+  fillSchedule(schedule:semester[]) {
+    for (const semester of schedule) {
+      // each semester
+      // check for credit limit
+      if (semester.creditLimit > semester.creditTaken() && this.taken == false) {
+        for (const possibleClass of this.potentialClasses) {
+          this.addToSchedule(semester, possibleClass); // add it to the schedule if possible
+        }
+      }
+    }
+  }
+
+  addToSchedule(semester:semester, possibleClass:classes) {
+    // add one class to schedule
+    for (const dates of possibleClass.availableDates) {
+      if (dates.available(semester) && this.taken == false) {
+        possibleClass.takenDate = dates;
+        semester.addClass(possibleClass);
+        this.taken = true;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  fulfillsRequirement() {
+    return this.taken;
+  }
+}
+
+// pick at least x class
+// this is good
+class atLeastXClass {
+  potentialClasses:classes[];
+
+  classesToTake:number;
+
+  classesTaken =0;
+
+  removeClass:classes[]=[];
+
+  constructor(classList:classes[], classesToTake:number) {
+    this.potentialClasses = classList;
+    this.classesToTake = classesToTake;
+  }
+
+  fillSchedule(schedule:semester[]) {
+    for (const semester of schedule) {
+      // each semester
+      // check for credit limit
+      if (semester.creditLimit > semester.creditTaken() && this.classesTaken < this.classesToTake) {
+        for (const possibleClass of this.potentialClasses) {
+          this.addToSchedule(semester, possibleClass); // add it to the schedule if possible
+        }
+      }
+    }
+  }
+
+  addToSchedule(semester:semester, possibleClass:classes) {
+    // add one class to schedule
+    for (const dates of possibleClass.availableDates) {
+      if (dates.available(semester) && this.classesTaken < this.classesToTake) {
+        possibleClass.takenDate = dates;
+        semester.addClass(possibleClass);
+        this.classesTaken++; // increment classes taken
+        this.removeClass.push(possibleClass);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  removeClasses() {
+    for (const remove of this.removeClass) {
+      const temp = this.potentialClasses.indexOf(remove, 0);
+      this.potentialClasses.splice(temp, 1);
+    }
+    this.removeClass = [];
+  }
+
+  fulfillsRequirement() {
+    return this.classesTaken >= this.classesToTake;
+  }
+}
 
 function generateSchedule() {
-  const ams101 = new classes('AMS101', 3, false, new Date(0, 0, 0, 8, 45), new Date(0, 0, 0, 9, 15)); // datetime might be fucked
-  const ams102 = new classes('AMS102', 3, false, new Date(0, 0, 0, 10, 45), new Date(0, 0, 0, 11, 15));
-  const ams103 = new classes('AMS103', 3, false, new Date(0, 0, 0, 10, 45), new Date(0, 0, 0, 11, 15));
-  ams102.addRequirements(ams101);
-  ams103.addRequirements(ams102);
-  const cse101 = new classes('CSE101', 3, false, new Date(0, 0, 0, 12, 15), new Date(0, 0, 0, 13, 30));
-  const cse102 = new classes('CSE102', 3, false, new Date(0, 0, 0, 14, 30), new Date(0, 0, 0, 15, 30));
-  cse102.addRequirements(cse101);
-  const ele101 = new classes('ELE101', 3, true, new Date(0, 0, 1, 17, 15), new Date(0, 0, 0, 18, 15));
+  // new algo here
+  // pull degree requirement
+  // pull corresponding courses from courses
+  // generate the corresponding pools from the degree requirements
+  // run the pools
+  // done
+  // test run
+  const fall = 'Fall';
+  const spring = 'Spring';
+  const ams101 = makeClass('AMS101', 3, fall, 2012, 7, 8);
+  const ams102 = makeClass('AMS102', 3, fall, 2012, 8, 9);
+  const ams103 = makeClass('AMS103', 3, fall, 2012, 9, 10);
+  const ams104 = makeClass('AMS104', 3, fall, 2012, 14, 15);
+  const temp1 = makeClass('temp1', 3, spring, 2013, 7, 8);
+  const temp12 = makeClass('temp12', 3, spring, 2013, 10, 12);
+  const temp13 = makeClass('temp13', 3, spring, 2013, 15, 18);
+  const temp14 = makeClass('temp14', 3, spring, 2013, 20, 22);
 
-  const allClass: classes[] = [ele101, ams102, ams103, cse101, cse102, ams101];
-
-  const AvailableClasses = new availableClasses(allClass);
-  const requirement = new majorRequirement([ams102, ams101, cse101, cse102], 1, 3);
-  const semester1 = new semesterSchedule();
-
-  // fill out the schedule
-
-  let endTime = new Date(0, 0, 0, 0, 0);
-  const filled = true;
-  let tempClass: classes;
-  const schedule:classes[] = [];
-  while (true) {
-    tempClass = AvailableClasses.earliestTimeMatch(endTime); // get the first class
-    if (tempClass == undefined) {
-      break; // fail to find any classes
-    }
-    endTime = tempClass.endTime;
-    AvailableClasses.removeClass(tempClass); // remove it from list of class can be taken
-    schedule.push(tempClass);
-    requirement.degreeProgress(tempClass);
-    if (requirement.isComplete()) break;
-  }
-  printSchedule(schedule);
-}
-function printSchedule(schedule:classes[]) {
-  const mwf = new Date(0, 0, 0, 0, 0);
-  const tuth = new Date(0, 0, 1, 0, 0);
-  console.log('Monday');
-  for (const thisClass of schedule) {
-    if (thisClass.startTime.getDate() == tuth.getDate()) {
-      console.log('');
-      console.log('Tuesday');
-      tuth.setDate(2);
-    }
-    console.log(`${thisClass.name} ${thisClass.credits} ${thisClass.startTime.getHours()}:${thisClass.startTime.getMinutes()
-    }-${thisClass.endTime.getHours()}:${thisClass.endTime.getMinutes()}`);
+  const allclass = new atLeastXClass([ams101, ams102, ams103, ams104, temp1, temp12, temp13, temp14], 3);
+  const semester2012 = new semester(fall, 2012);
+  const courseplan:semester[] = [semester2012];
+  allclass.fillSchedule(courseplan);
+  if (allclass.fulfillsRequirement()) {
+    console.log(courseplan[0]);
+    console.log(courseplan[1]);
+    console.log('complete');
+  } else {
+    const newSemester:semester = nextSemester(courseplan);
+    courseplan.push(newSemester);
+    allclass.fillSchedule(courseplan);
+    console.log(courseplan[0]);
+    console.log(courseplan[1]);
   }
 }
+
 generateSchedule();
+
+function makeClass(className:string, credit:number, semester:string, year:number, start:number, end:number) {
+  const temptime = new dateSemester(semester, year, start, end);
+  const tempclass = new classes(className, credit, false, [temptime]);
+  return tempclass;
+}
+
+function nextSemester(semesterAll:semester[]) {
+  let newSemester;
+  let newYear;
+  const semester1 = semesterAll[semesterAll.length - 1];
+  if (semester1 == undefined) { return new semester('Fall', 0); } // catcher for undefined squiigly line
+  if (semester1.semester === 'Fall') {
+    newSemester = 'Spring';
+    newYear = semester1.year + 1;
+  } else {
+    newSemester = 'Fall';
+    newYear = semester1.year;
+  }
+
+  const semester2 = new semester(newSemester, newYear);
+  return semester2;
+}

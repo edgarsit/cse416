@@ -114,11 +114,20 @@ module.exports = {
         'new-cap': 'off',
         'no-constant-condition': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
+        'max-len': 'off',
+        'no-param-reassign': 'off',
       },
     },
     {
       files: ['src/common/degreeRequirementImport.ts'],
       rules: {
+        'max-len': 'off',
+      },
+    },
+    {
+      files: ['src/common/checkingRequirements.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
         'max-len': 'off',
       },
     },
