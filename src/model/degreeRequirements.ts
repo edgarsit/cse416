@@ -2,7 +2,6 @@ import { Course } from './course';
 import { prop, rprop } from './util';
 
 // Short name cuz no time
-const id = <T>(x: T): T => x;
 const cc = (s: string): Course => {
   const [department, number] = s.split(/\s+/);
   return { department: department!, number: +number! };
@@ -22,8 +21,8 @@ export class XCreditsForCourseY {
   @rprop()
   public credits!: number
 
-  @rprop()
-  public course!: Course
+  @c({ type: () => Course })
+  public course?: Course
 }
 
 export class MaxCreditsForCourseY {
@@ -39,7 +38,7 @@ export class XCreditsGradeY {
   public credits!: number
 
   @rprop()
-  public courses!: Course
+  public grade!: Course
 }
 
 export class MaxCreditsForGradeY {
@@ -56,14 +55,6 @@ export class CSE587Info {
 
   @rprop()
   public maxClasses!: number
-}
-
-export class minCourcesSubArea {
-  @rprop()
-  public minCourses!: number
-
-  @rprop({ type: () => [SubArea] })
-  public subArea!: SubArea[]
 }
 
 export class RegularLectureBasedCourses {
@@ -90,7 +81,7 @@ export class RequiredCreditsOfCourseX {
 
 export class SubArea {
   @rprop()
-  public name!: string
+  public subArea!: string
 
   @c({ type: () => [Course] })
   public courses?: Course[]
@@ -106,20 +97,20 @@ export class DegreeRequirements {
   @rprop()
   public minimumCumulativeGPA!: string
 
-  @rprop()
-  public timeLimit!: string
+  @prop()
+  public timeLimit?: string
 
-  @rprop({ map: ['Required', 'Not-Required'], get: id, set: (x) => ['Required', 'Not-Required'].indexOf(x) })
-  public finalRecommendation!: boolean
+  @prop()
+  public finalRecommendationRequired?: boolean
 
-  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
-  public registrationRequired!: boolean
+  @prop()
+  public registrationRequired?: boolean
 
-  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
-  public foreignLanguageRequired!: boolean
+  @prop()
+  public foreignLanguageRequired?: boolean
 
-  @c({ type: () => [Course] })
-  public fullTimeCourseRequirement?: Course[]
+  @c({ type: () => Course })
+  public fullTimeCourseRequirement?: Course
 
   @c({ type: () => [Course] })
   public coreCourses?: Course[]
@@ -127,17 +118,17 @@ export class DegreeRequirements {
   @prop({ ref: () => XCreditsGradeY })
   public prerequisites?: XCreditsGradeY
 
-  @rprop({ type: () => XCreditsForCourseY })
-  public maxCreditsInCombinationY!: XCreditsForCourseY[]
+  @prop({ type: () => XCreditsForCourseY })
+  public maxCreditsInCombinationY?: XCreditsForCourseY[]
 
-  @rprop({ type: () => XCreditsForCourseY })
-  public maxTotalCreditsForCourses!: XCreditsForCourseY[]
+  @prop({ type: () => XCreditsForCourseY })
+  public maxTotalCreditsForCourses?: XCreditsForCourseY[]
 
-  @rprop({ type: () => CSE587Info })
-  public cse587Info!: CSE587Info
+  @prop({ type: () => CSE587Info })
+  public cse587Info?: CSE587Info
 
-  @rprop({ type: () => [SubArea] })
-  public breaths!: SubArea[]
+  @prop({ type: () => [SubArea] })
+  public breaths?: SubArea[]
 
   @rprop({ type: () => [Tracks] })
   public tracks!: Tracks[]
@@ -153,8 +144,8 @@ export class Elective {
   @prop()
   public range?: string
 
-  @rprop({ type: () => [[String]] })
-  public substitutions!: string[][]
+  @rprop({ type: () => [String] })
+  public substitutions!: string[]
 }
 
 export class Tracks {
@@ -164,14 +155,14 @@ export class Tracks {
   @rprop()
   public totalCredits!: number
 
-  @rprop({ map: ['True', 'False'], get: id, set: (x) => ['True', 'False'].indexOf(x) })
-  public thesisRequired!: boolean
+  @prop()
+  public thesisRequired?: boolean
 
-  @rprop({ type: () => XCreditsForCourseY })
-  public xCreditsForCourseY!: XCreditsForCourseY[]
+  @prop({ type: () => XCreditsForCourseY })
+  public xCreditsForCourseY?: XCreditsForCourseY[]
 
-  @rprop({ type: () => XCreditsForCourseY })
-  public maxCreditsInCombinationY!: XCreditsForCourseY[]
+  @prop({ type: () => XCreditsForCourseY })
+  public maxCreditsInCombinationY?: XCreditsForCourseY[]
 
   @prop({ type: () => MaxCreditsForCourseY })
   public maxCreditsForCourseY?: MaxCreditsForCourseY
@@ -188,11 +179,11 @@ export class Tracks {
   @c({ type: () => [Course] })
   public unapplicableCoursesCredits?: Course[]
 
-  @prop({ type: () => minCourcesSubArea })
-  public minOneCourseInEachSubArea?: minCourcesSubArea
+  @prop({ type: () => [SubArea] })
+  public minOneCourseInEachSubArea?: [SubArea]
 
-  @prop({ type: () => minCourcesSubArea })
-  public minTwoCourseInEachSubArea?: minCourcesSubArea
+  @prop({ type: () => [SubArea] })
+  public minTwoCourseInEachSubArea?: [SubArea]
 
   @prop({ type: () => RegularLectureBasedCourses })
   public minRegularLectureCourses?: RegularLectureBasedCourses
@@ -200,6 +191,6 @@ export class Tracks {
   @prop({ type: () => RequiredCreditsOfCourseX })
   public requiredCreditsOfCourseX?: RequiredCreditsOfCourseX
 
-  @rprop({ type: () => Elective })
-  public elective!: Elective
+  @prop({ type: () => Elective })
+  public elective?: Elective
 }

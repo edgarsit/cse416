@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`insert degree-req-import AMS Degree Requirements1.json 1`] = `undefined`;
+
+exports[`insert degree-req-import AMS Degree Requirements2.json 1`] = `undefined`;
+
+exports[`insert degree-req-import AMS Degree Requirements3.json 1`] = `undefined`;
+
+exports[`insert degree-req-import BMI Degree Requirements1.json 1`] = `undefined`;
+
+exports[`insert degree-req-import BMI Degree Requirements2.json 1`] = `undefined`;
+
+exports[`insert degree-req-import BMI Degree Requirements3.json 1`] = `undefined`;
+
+exports[`insert degree-req-import CSE Degree Requirements1.json 1`] = `undefined`;
+
+exports[`insert degree-req-import CSE Degree Requirements2.json 1`] = `undefined`;
+
+exports[`insert degree-req-import CSE Degree Requirements3.json 1`] = `undefined`;
+
+exports[`insert degree-req-import ECE Degree Requirements1.json 1`] = `undefined`;
+
+exports[`insert degree-req-import ECE Degree Requirements2.json 1`] = `undefined`;
+
+exports[`insert degree-req-import ECE Degree Requirements3.json 1`] = `undefined`;

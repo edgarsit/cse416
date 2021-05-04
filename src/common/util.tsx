@@ -98,7 +98,7 @@ function FieldLeft({
       </Form.Control>
     );
   }
-  throw new Error('Invalid type');
+  throw new Error(`Invalid type ${ty}`);
 }
 
 export function Field(props: FieldLeftProps & { long: string }): JSX.Element {

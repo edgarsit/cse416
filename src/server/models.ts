@@ -50,7 +50,7 @@ export function getQS<T>(originalURL: string, d: Description<Fields<T>>): { [P i
         }
         return [k, { [c]: v }];
       } if (ty === Boolean) {
-        const i = ve.map!.findIndex((x) => x === v);
+        const i = ve.mapper!.findIndex((x) => x === v);
         if (i === -1) {
           return null;
         }
