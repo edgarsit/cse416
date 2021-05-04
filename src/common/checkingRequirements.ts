@@ -248,9 +248,210 @@ function requirementStatus(s: Student) {
       break;
     }
     case 'CSE': {
+/*
+        if finalRecommendation is true
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+
+        let creditsNeeded=track.totalCredits
+        taken_credits=0 //update these two variables to keep track of credit requirement
+        pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
+        let coursesTaken=0
+        let cumulativeGPA=0
+
+        let theoryBreadthTaken=False
+        let systemsBreadthTaken=False
+        let informationSystemsBreadthTaken=False
+
+        Get student track
+        let unsatisfiedCoursesNum=core courses in track + track.additionalCourses
+        let numElectives=track.additionalCourses
+        let additionalRequirementCredits=0 //if this is more than the max vlaue in the degree doc, subtract
+        //credits by difference
+        cse587credits=0
+
+        for course in coursePlan
+        {
+            //if the course is cse587, add credit amount to cse587credits. If it's above max_credits
+            //subtract the difference from total credits
+
+            //check if the course falls is in any of the three breadths, if it is, change the variable associated
+            //to it to true
+            if course is in track.coreCourses
+            {
+                reqStatus[0]+=1
+                unsatisfiedCourseNum-=1
+                //handle grade and credit calculation
+            }
+            else
+            {
+                if course not in unapplicable_courses_for_credits
+                {
+                    if track.additionalRequirement is not empty
+                    {
+                        if course in track.additionalRequirement.courses ||
+                            (course.num >= 600 && track.additionalRequirement.sixHundredCourses=="True")
+                        {
+                            let additionalRequirementCredits+=course credit value
+                            reqStatus[0]+=1
+                            unsatisfiedCourseNum-=1
+                            //handle grade and credit calculation
+                        }
+                        else
+                        {
+                            reqStatus[0]+=1
+                            unsatisfiedCourseNum-=1
+                            //handle grade and credit calculation
+                        }
+                    }
+                }
+            }
+        }
+        if !theoryBreadthTaken { reqStatus[2]+=1}
+        if !systemsBreadthTaken { reqStatus[2]+=1}
+        if !informationSystemsBreadthTake { reqStatus[2]+=1}
+
+        if cumulativeGPA at least the value in the degree requirement
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+
+        let min = min value for additionalRequirementCredits in track
+        if taken_credits>= track.totalCredits && additionalRequirementCredits<min
+        {
+            reqStatus[0]+=1
+        }
+        elseif taken_credits+pending_credits>=track.totalCredits && additionalRequirementCredits<min
+        {
+            reqStatus[0]+=1
+        }
+        else
+        {
+            reqStatus[2]+=1
+        }
+	reqStatus[2]+=unsatisfiedCoursesNum
+	return reqStatus
+
+*/
       break;
     }
     case 'ECE': {
+/*
+            let creditsNeeded=track.totalCredits
+            taken_credits=0 //update these two variables to keep track of credit requirement
+            pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
+            let coursesTaken=0
+            let cumulativeGPA=0
+
+            let hardwareSubAreaTaken=False
+            let networkSubAreaTaken=False
+            let cadAndVLSISubAreaTaken=False
+
+            let numTheoryAndSoftwareSubAreaNeeded=2 //this requirement is complete when this is 0
+
+            Get student track
+            let unsatisfiedCoursesNum=6 + track.minLectureBasedCourses.numCourses//6 from subarea courses and required course
+            let numElectives=track.additionalCourses
+
+            let thesisTaken=False//only checked if student is on thesis track
+            let requiredCourseTaken=False
+            let numLecturesTaken=0
+            let cse670Counted=False
+
+            For course in coursePlan
+            { //handle all grade and credit calculation for each one
+                if course in hardware and hardwareSubAreaTaken==False
+                {
+                    reqStatus[0]+=1
+                    unsatisfiedCourseNum-=1
+                    hardwareSubAreaTaken=True
+                }
+                elseif course in network and networkSubAreaTaken==False
+                {
+                    reqStatus[0]+=1
+                    unsatisfiedCourseNum-=1
+                    networkSubAreaTaken=True
+                }
+                elseif course in cadAndVLSI and cadAndVLSISubAreaTaken==False
+                {
+                    reqStatus[0]+=1
+                    unsatisfiedCourseNum-=1
+                    cadAndVLSISubAreaTaken=True
+                }
+                elseif course in numTheoryAndSoftware and numTheoryAndSoftwareSubAreaTaken>0
+                {
+                    reqStatus[0]+=1
+                    unsatisfiedCourseNum-=1
+                    cadAndVLSISubAreaTaken-=1
+                }
+                elseif (course in requiredCreditsOfCourseX or requiredCreditsOfCourseX.substirutionsWithApproval) and requiredCourseTaken==False
+                {
+                    reqStatus[0]+=1
+                    unsatisfiedCourseNum-=1
+                    requiredCourseTaken=True
+                }
+                else if track.thesisRequired==True and course is ESE 599
+                {
+                    reqStatus[0]+=1
+                    thesisTaken=True
+                }
+                elseif course not in minRegularLectureBasedCourses.notCountedCourses and numLecturesTaken<minRegularLectureBasedCourses.numCourses
+                {
+                    if course.num is 670 and cse670Taken==False
+                    {
+                        reqStatus[0]+=1
+                        unsatisfiedCourseNum-=1
+                        numLecturesTaken+=1
+                        cse670Taken=True
+                    }
+                    else if course.num is not 670
+                    {
+                        reqStatus[0]+=1
+                        unsatisfiedCourseNum-=1
+                        numLecturesTaken+=1
+                    }
+                }
+            }
+            reqStatus[2]+=unsatisfiedCoursesNum
+            if track.thesisRequired==True and thesisTaken==False
+            {
+                reqStatus[2]+=1
+            }
+            if cumulativeGPA at least the value in the degree requirement
+            {
+                reqStatus[0]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
+
+
+            //the following lines need additional conditions to deal with maxCreditsInCombinationY,xCreditsForCourseY,maxCreditsForCourseY (the right two can just be
+            //dealt as the same) but im not sure how to incorporate that into the psuedocode
+            if taken_credits>= track.totalCredits
+            {
+                reqStatus[0]+=1
+            }
+            elseif taken_credits+pending_credits>=track.totalCredits
+            {
+                reqStatus[1]+=1
+            }
+            else
+            {
+                reqStatus[2]+=1
+            }
+            return reqStatus
+*/
       break;
     }
     default: {
