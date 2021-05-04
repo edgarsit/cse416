@@ -248,7 +248,7 @@ function requirementStatus(s: Student) {
       break;
     }
     case 'CSE': {
-/*
+      /*
         if finalRecommendation is true
         {
             reqStatus[0]+=1
@@ -338,14 +338,14 @@ function requirementStatus(s: Student) {
         {
             reqStatus[2]+=1
         }
-	reqStatus[2]+=unsatisfiedCoursesNum
-	return reqStatus
+    reqStatus[2]+=unsatisfiedCoursesNum
+    return reqStatus
 
 */
       break;
     }
     case 'ECE': {
-/*
+      /*
             let creditsNeeded=track.totalCredits
             taken_credits=0 //update these two variables to keep track of credit requirement
             pending_credits=0 //credits for courses taken in current semester. above variable is for past course credits
@@ -434,7 +434,6 @@ function requirementStatus(s: Student) {
             {
                 reqStatus[2]+=1
             }
-
 
             //the following lines need additional conditions to deal with maxCreditsInCombinationY,xCreditsForCourseY,maxCreditsForCourseY (the right two can just be
             //dealt as the same) but im not sure how to incorporate that into the psuedocode
