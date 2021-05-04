@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "degreeName": "Applied Mathematics and Statistics",
   "requirementVersion": "Spring 2021",
@@ -126,3 +127,136 @@
     }
   ]
 }
+=======
+{
+  "degreeName": "Applied Mathematics and Statistics",
+  "requirementVersion": "Spring 2021",
+  "xCreditsGradeY": {
+    "Credits": 18,
+    "Grade": "B"
+  },
+  "coreCourseGPA": 3.0,
+  "finalRecommendationRequired": true,
+  "timeLimit": "3 years",
+  "registrationRequired": false,
+  "foreignLanguageRequired": false,
+  "cse587Info": {
+    "maxCredits": 0,
+    "maxClasses": 0
+  },
+  "fullTimeCourseRequirement": [],
+  "minimumCumulativeGPA": "B",
+  "maxTotalCreditsForCourses": [],
+  "maxCreditsInCombinationY": [],
+  "breaths": [],
+  "tracks": [
+    {
+      "name": "Computational Applied Mathematics",
+      "totalCredits": 31,
+      "coreCourses": [
+        "AMS 501 Differential Equations and Boundary Value Problems",
+        "AMS 503 Applications of Complex Analysis",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 526 Numerical Analysis I",
+        "AMS 527 Numerical Analysis II",
+        "AMS 528 Numerical Analysis III",
+        "AMS 595 Fundamentals of Computing (1 credit)"
+      ],
+      "additionalCoreCourseRequirements": [],
+      "elective": {
+        "numCourses": 4,
+        "totalCredits": 12,
+        "range": "",
+        "substitutions": []
+      }
+    },
+    {
+      "name": "Computational Biology",
+      "totalCredits": 30,
+      "coreCourses": [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "MCB 520 Graduate Biochemistry OR CHE 541 Biomolecular Structure and Analysis",
+        "AMS 531 Laboratory Rotations in Computational Biology (two semesters, 0 credit)",
+        "AMS 532 Journal Club in Computational Biology (two semesters, 0 credit)",
+        "AMS 533 Numerical Methods and Algorithms in Computational Biology",
+        "AMS 535 Intro to Computational Structural Biology & Drug Design",
+        "AMS 537 Biological Networks & Dynamics",
+        "AMS 539 Introduction to Physical & Quantitative Biology (0 credit)",
+        "CSE 549 Computational Biology"
+      ],
+      "additionalCoreCourseRequirements": [],
+      "elective": {
+        "numCourses": 3,
+        "totalCredits": 9,
+        "range": "",
+        "substitutions": []
+      }
+    },
+    {
+      "name": "Operations Research",
+      "totalCredits": 30,
+      "coreCourses": [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 540 Linear Programming",
+        "AMS 550 Stochastic Models",
+        "AMS 553 Simulation and Modeling",
+        "AMS 595 Fundamentals of Computing (1 credit)"
+      ],
+      "additionalCoreCourseRequirements": ["1 in AMS 570-586"],
+      "elective": {
+        "numCourses": 4,
+        "totalCredits": 12,
+        "range": "AMS 542­-556",
+        "substitutions": ["1 in AMS 570-­586", "1 in AMS 511­-523"]
+      }
+    },
+    {
+      "name": "Statistics",
+      "totalCredits": 30,
+      "coreCourses": [
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 507 Introduction to Probability",
+        "AMS 570 Mathematical Statistics I",
+        "AMS 572 Exploratory Data Analysis",
+        "AMS 573 Design & Analysis of Categorical Data",
+        "AMS 578 Regression Theory",
+        "AMS 582 Design of Experiments",
+        "AMS 597 Statistical Computing"
+      ],
+      "additionalCoreCourseRequirements": [],
+      "elective": {
+        "numCourses": 2,
+        "totalCredits": 6,
+        "range": "",
+        "substitutions": []
+      }
+    },
+    {
+      "name": "Quantitative Finance",
+      "totalCredits": 36,
+      "coreCourses": [
+        "AMS 507 Introduction to Probability",
+        "AMS 510 Analytical Methods for Applied Mathematics and Statistics",
+        "AMS 511 Foundations of Quantitative Finance",
+        "AMS 512 Capital Markets & Portfolio Theory",
+        "AMS 513 Financial Derivatives and Stochastic Calculus",
+        "AMS 514 Computational Finance",
+        "AMS 516 Statistical Methods in Finance",
+        "AMS 517 Quantitative Risk Management",
+        "AMS 518 Advanced Stochastic Models, Risk Assessment & Portfolio Optimization",
+        "AMS 572 Data Analysis I",
+        "FIN 539 Investment Analysis"
+      ],
+      "additionalCoreCourseRequirements": [],
+      "elective": {
+        "numCourses": 1,
+        "totalCredits": 3,
+        "range": "",
+        "substitutions": []
+      }
+    }
+  ]
+}
+>>>>>>> d234e81790b079767d0e58a1a19f95a4ddd9bf8b
