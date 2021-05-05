@@ -92,6 +92,9 @@ export class ScrapedCourse extends Course {
   @rprop()
   public repeat?: number
 
+  @rprop({ type: () => [Course] })
+  public offeredAs!: Course[]
+
   @rprop({ ref: () => ScrapedCourseSet })
   public courseSet!: Ref<ScrapedCourseSet>[]
 }

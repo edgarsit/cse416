@@ -20,7 +20,9 @@ const sp = (r: RegExp) => RegExp(r.source.replace(/ /g, '\\s*'), r.flags);
 // Hoisted to give more room to read and debug
 const re = sp(/(?:(?:(\d+)-)?(\d+) credits?, )?((?:Letter graded \(A, A-, B\+, etc\.\))|(?:S\/U grading))?( (?:May be repeated for credit|May be repeated (\d+) times? FOR credit)\.?)?$/i);
 const prRe = /.*Prerequisite.*:(.*)/i;
-const re2 = /([a-z]{3})(\/[a-z]{3})?\s*(\d{3})/ig;
+const offeredAsRe = /Offered\s+As(.*)/i;
+const courseRe = /([a-z]{3})(\/[a-z]{3})?\s*(\d{3})/ig;
+
 function parseDesc(desc: string) {
   const m = desc.match(re);
   if (m == null) {
@@ -29,12 +31,14 @@ function parseDesc(desc: string) {
   const [_, minS, maxS, _grading, rep, repCount] = m;
   const prerequisites: Course[] = [];
   let inbetween = desc.slice(0, m.index);
+  let offeredAsStr = inbetween;
   const pr = inbetween.match(prRe);
   if (pr != null) {
     const [_, pq] = pr;
     if (pq) {
       inbetween = pq;
-      for (const p of pq.matchAll(re2)) {
+      offeredAsStr = inbetween.slice(0, pr.index);
+      for (const p of pq.matchAll(courseRe)) {
         const [_, d0, d1, number] = p;
         prerequisites.push({ department: d0!, number: +number! });
         if (d1 != null) {
@@ -63,6 +67,21 @@ function parseDesc(desc: string) {
     repeat = +(repCount ?? Number.POSITIVE_INFINITY);
   }
 
+  const offeredAs: Course[] = [];
+  const oa = offeredAsStr.match(offeredAsRe);
+  if (oa != null) {
+    const [_, oa0] = oa;
+    if (oa0) {
+      for (const p of oa0.matchAll(courseRe)) {
+        const [_, d0, d1, number] = p;
+        offeredAs.push({ department: d0!, number: +number! });
+        if (d1 != null) {
+          offeredAs.push({ department: d1, number: +number! });
+        }
+      }
+    }
+  }
+
   return {
     minCredits: +(minS ?? maxS ?? 3) | 0,
     maxCredits: +(maxS ?? 3) | 0,
@@ -72,38 +91,41 @@ function parseDesc(desc: string) {
     },
     repeat,
     prerequisites,
+    offeredAs,
   };
 }
 
 const creditsRe = /(?:(\d+)-)?(\d+) credits?/i;
 function parseDesc1(desc: string): {
   minCredits: number, maxCredits: number,
-  offering: Offering, prerequisites: Course[]
+  offering: Offering, prerequisites: Course[],
+  offeredAs: Course[]
 } {
   const p = parseDesc(desc);
   if (p != null) {
     return p;
   }
-  const base = {
-    offering: {
-      semester: [],
-      yearParity: -1,
-    },
-    prerequisites: [],
-  };
   const m = desc.match(creditsRe);
   if (!m) {
     return {
       minCredits: 3,
       maxCredits: 3,
-      ...base,
+      offering: {
+        semester: [],
+      },
+      prerequisites: [],
+      offeredAs: [],
     };
   }
   const [_, minS, maxS] = m;
   return {
     minCredits: +(minS ?? maxS ?? 3) | 0,
     maxCredits: +(maxS ?? 3) | 0,
-    ...base,
+    offering: {
+      semester: [],
+    },
+    prerequisites: [],
+    offeredAs: [],
   };
 }
 
@@ -133,8 +155,7 @@ class RethrownError extends ExtendedError {
     this.newStack = this.stack;
     const messageLines = (this.message.match(/\n/g) || []).length + 1;
     if (this.stack !== undefined) {
-      this.stack = `${this.stack.split('\n').slice(0, messageLines + 1).join('\n')}\n${
-        error.stack}`;
+      this.stack = `${this.stack.split('\n').slice(0, messageLines + 1).join('\n')}\n${error.stack}`;
     }
   }
 }
@@ -207,6 +228,9 @@ export async function parsePdf(fileName: string): Promise<Omit<ScrapedCourse, 'c
     desc: [],
     acc: [],
   };
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Starting scraping');
+  }
   for (let pageNum = 1; pageNum <= numPages; pageNum++) {
     // eslint-disable-next-line no-await-in-loop
     const ps = await loadPage(pageNum);
