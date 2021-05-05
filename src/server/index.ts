@@ -151,27 +151,28 @@ server.post('/editCoursePlan/delete/:sbuId/:id', async (req, res) => {
   res.redirect(`/editCoursePlan/get/${sbuId}`);
 });
 
-server.get('/degree/:email', async (req) => {
-  const { email } = req.params;
-
-  const user_ = await StudentModel.findOne({ email });
-  const user = pickFromQ(user_) as Student;
-  requirementStatus(user);
-});
-
-server.get('/editStudentInfo/:email', async (req, res) => {
-  const { email } = req.params;
-  // TODO proper err
-  const user_ = await StudentModel.findOne({ email });
-  const user = pickFromQ(user_);
-  const body = renderToString(ServerApp(req.url, { user }));
-  res.send(html(body, { user }));
+server.post('/editCoursePlan/set/:sbuId/:id', async (req, res) => {
+  const { id, sbuId } = req.params;
+  const grade = req.body[id!];
+  const o = await CoursePlanModel.findById(id);
+  if (o) {
+    o.grade = grade;
+    o.save();
+  }
+  res.redirect(`/editCoursePlan/get/${sbuId}`);
 });
 
 server.post('/editCoursePlan/add/:sbuId', async (req, res) => {
   const { sbuId } = req.params;
   await CoursePlanModel.create(req.body);
   res.redirect(`/editCoursePlan/get/${sbuId}`);
+});
+
+server.get('/degree/:email', async (req) => {
+  const { email } = req.params;
+  const user_ = await StudentModel.findOne({ email });
+  const user = pickFromQ(user_) as Student;
+  requirementStatus(user);
 });
 
 server.get('/Student_Home/:email', async (req, res) => {
