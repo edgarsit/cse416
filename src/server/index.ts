@@ -19,6 +19,7 @@ import Login from '../common/login';
 import { Student } from '../model/user';
 import { imports } from './imports';
 import EditCoursePlan from '../common/editCoursePlan';
+import { requirementStatus } from '../common/checkingRequirements';
 
 const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -150,15 +151,21 @@ server.post('/editCoursePlan/delete/:sbuId/:id', async (req, res) => {
   res.redirect(`/editCoursePlan/get/${sbuId}`);
 });
 
-server.post('/editCoursePlan/set/:sbuId/:id', async (req, res) => {
-  const { id, sbuId } = req.params;
-  const grade = req.body[id!];
-  const o = await CoursePlanModel.findById(id);
-  if (o) {
-    o.grade = grade;
-    o.save();
-  }
-  res.redirect(`/editCoursePlan/get/${sbuId}`);
+server.get('/degree/:email', async (req) => {
+  const { email } = req.params;
+
+  const user_ = await StudentModel.findOne({ email });
+  const user = pickFromQ(user_) as Student;
+  requirementStatus(user);
+});
+
+server.get('/editStudentInfo/:email', async (req, res) => {
+  const { email } = req.params;
+  // TODO proper err
+  const user_ = await StudentModel.findOne({ email });
+  const user = pickFromQ(user_);
+  const body = renderToString(ServerApp(req.url, { user }));
+  res.send(html(body, { user }));
 });
 
 server.post('/editCoursePlan/add/:sbuId', async (req, res) => {
@@ -250,10 +257,10 @@ if (process.argv[2] !== '--test') {
     }, { upsert: true });
     await StudentModel.findOneAndUpdate({ email: 'skiena' }, {
       password: await argon2.hash('asd'),
-      department: 'CS',
+      department: 'Computer Science',
       track: 'Thesis',
-      requirementVersionSemester: '123',
-      requirementVersionYear: '123',
+      requirementVersionSemester: 'Spring',
+      requirementVersionYear: '2021',
       graduationSemester: 'Spring',
       graduationYear: '2020',
       coursePlan: '',

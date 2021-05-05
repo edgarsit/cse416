@@ -49,13 +49,6 @@ export class MaxCreditsForGradeY {
   public grade!: string
 }
 
-export class CSE587Info {
-  @rprop()
-  public maxCredits!: number
-
-  @rprop()
-  public maxClasses!: number
-}
 
 export class RegularLectureBasedCourses {
   @rprop()
@@ -123,9 +116,6 @@ export class DegreeRequirements {
 
   @prop({ type: () => XCreditsForCourseY })
   public maxTotalCreditsForCourses?: XCreditsForCourseY[]
-
-  @prop({ type: () => CSE587Info })
-  public cse587Info?: CSE587Info
 
   @prop({ type: () => [SubArea] })
   public breaths?: SubArea[]
