@@ -25,6 +25,20 @@ export class XCreditsForCourseY {
   public course?: Course
 }
 
+export class AdditionalRequirement {
+  @prop()
+  public mincredits!: number
+
+  @prop()
+  public maxcredits!: number
+
+  @prop()
+  public sixHundredCourses?: boolean
+
+  @c({ type: () => [Course] })
+  public courses?: Course[]
+}
+
 export class MaxCreditsForCourseY {
   @rprop()
   public credits!: number
@@ -48,7 +62,6 @@ export class MaxCreditsForGradeY {
   @rprop()
   public grade!: string
 }
-
 
 export class RegularLectureBasedCourses {
   @rprop()
@@ -174,6 +187,12 @@ export class Tracks {
 
   @prop({ type: () => [SubArea] })
   public minTwoCourseInEachSubArea?: [SubArea]
+
+  @prop()
+  public additionalCourses?: number
+
+  @prop()
+  public additionalRequirement!: AdditionalRequirement
 
   @prop({ type: () => RegularLectureBasedCourses })
   public minRegularLectureCourses?: RegularLectureBasedCourses

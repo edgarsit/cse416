@@ -31,11 +31,7 @@ const toSem = (v: string): Semester => {
   return ret;
 };
 
-export function keysOf<T>(e: T): (keyof T)[] {
-  return Object.keys(e).filter((x) => Number.isNaN(+x)) as any;
-}
-
-const semProp = (v?: Omit<BasePropOptions, 'required'>): PropertyDecorator => rprop({
+export const semProp = (v?: Omit<BasePropOptions, 'required'>): PropertyDecorator => rprop({
   ...v,
   set(ss: string[] | string): Semester[] | Semester {
     return Array.isArray(ss) ? ss.map(toSem) : toSem(ss);
@@ -45,6 +41,10 @@ const semProp = (v?: Omit<BasePropOptions, 'required'>): PropertyDecorator => rp
   },
   enum: Semester,
 });
+
+export function keysOf<T>(e: T): (keyof T)[] {
+  return Object.keys(e).filter((x) => Number.isNaN(+x)) as any;
+}
 
 export class ScrapedCourseSet {
   declare public _id: Types.ObjectId;
@@ -92,9 +92,6 @@ export class ScrapedCourse extends Course {
   @rprop()
   public repeat?: number
 
-  @rprop({ type: () => [Course] })
-  public offeredAs!: Course[]
-
   @rprop({ ref: () => ScrapedCourseSet })
   public courseSet!: Ref<ScrapedCourseSet>[]
 }
@@ -140,21 +137,6 @@ export class CourseOffering {
   public timeslot!: string
 }
 
-const id = <T>(x: T): T => x;
-const Grade_ = {
-  A: 4.00,
-  'A-': 3.67,
-  'B+': 3.33,
-  B: 3.00,
-  'B-': 2.67,
-  'C+': 2.33,
-  C: 2.00,
-  'C-': 1.67,
-  F: 0.00,
-} as const;
-
-const Grade: typeof Grade_ = Object.assign(Object.create(null), Grade_);
-
 // TODO fix up schema, index on all except grade
 @fields
 export class CoursePlan {
@@ -170,7 +152,7 @@ export class CoursePlan {
   department!: string
 
   @ruprop()
-  courseNum!: string
+  courseNum!: number
 
   @ruprop()
   section!: string
@@ -181,13 +163,6 @@ export class CoursePlan {
   @ruprop()
   year!: string
 
-  @uprop({
-    type: Number,
-    enum: Grade,
-    get: id,
-    set(v: string) {
-      return Grade?.[v];
-    },
-  })
-  grade?: typeof Grade[keyof typeof Grade]
+  @uprop()
+  grade?: number
 }
