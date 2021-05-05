@@ -57,7 +57,7 @@ See [test-report.md](test-report.md)
 
 - Ayoub Benchaita: Created Degree Requirments class for storage of parsed degree requirment data.
 
-- Menachem Goldring: Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for AMS and ECE, as well as the file schema for those Degree Requirements.
+- Menachem Goldring: Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for all degrees, as well as the file schema for those Degree Requirements. Contributed to the majority of the logic behind checking Degree Requirements.
 
 - Edgar Sit: Wrote frontend and backend for 5.1, 5.2, 5.3, 5.5, 5.6. Updated authentication to use hash and salt, 5.9 to share the schema between the frontend and backend. Wrote concurrency.md; updated test-report for 5.1, 5.3, 5.5, 5.6 and implementation-status for HW7. Set up CI for smoke tests and linting. Updated implementation-grading-sheet-team5.xlsx . Created video
 
