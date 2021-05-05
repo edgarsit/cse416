@@ -53,7 +53,7 @@ export default function StudentBar(): JSX.Element {
 
 interface FieldLeftProps {
   name: string,
-  type: 'boolean' | 'string' | 'number' | readonly string[],
+  type: typeof Boolean | typeof String | typeof Number | readonly string[],
   cmp?: boolean,
   required?: boolean,
 }
@@ -61,10 +61,10 @@ interface FieldLeftProps {
 function FieldLeft({
   name, type, cmp, required,
 }: FieldLeftProps) {
-  const ty = type === Boolean.name.toLowerCase() ? ['True', 'False'] : type;
-  if (ty === String.name.toLowerCase()) {
+  const ty = type === Boolean ? ['True', 'False'] : type;
+  if (ty === String) {
     return <Form.Control type="text" name={name} required={required} />;
-  } if (ty === Number.name.toLowerCase()) {
+  } if (ty === Number) {
     if (cmp) {
       const [selected, setSelected] = React.useState('=');
       return (

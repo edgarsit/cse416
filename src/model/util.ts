@@ -9,7 +9,8 @@ type IsNotFunction<T, R> = T extends (...args: any[]) => unknown ? never : IsStr
 type ConstructorOf<T> = T extends string ? StringConstructor :
   T extends boolean ? BooleanConstructor :
   T extends number ? NumberConstructor :
-  unknown;
+  T extends Array<unknown> ? ArrayConstructor :
+  never;
 export type Fields<T> = {
   [P in keyof T as IsNotFunction<T[P], P>]-?: NonNullable<T[P]>
 }
@@ -38,11 +39,24 @@ export function uprop(options?: OptionsI<BasePropOptions>, kind?: WhatIsIt): Pro
   const {
     type, short, long, map,
   } = options ?? {};
+  // imagine mut on bindings :(
+  let enum_ = (options ?? {}).enum;
   return (target: any, propertyKey) => {
     if (typeof propertyKey !== 'string') {
       throw new Error('Cannot annotate symbols');
     }
-    const ty = type ?? Reflect.getMetadata('design:type', target, propertyKey);
+    if (enum_ != null) {
+      if (Array.isArray(enum_)) {
+        throw new Error('Enum should be proper enum');
+      }
+      if (type !== Number) {
+        throw new Error('String enums are unimplemented');
+      }
+      enum_ = Object.entries(enum_)
+        .filter(([_, v]) => typeof v === 'number')
+        .map(([k, _]) => k);
+    }
+    const ty = enum_ ?? type ?? Reflect.getMetadata('design:type', target, propertyKey);
     const name = toView(propertyKey);
     if (ty !== Boolean && map != null) {
       throw new Error('Do not use "map" on non-boolean keys');

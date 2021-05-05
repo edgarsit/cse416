@@ -7,9 +7,9 @@ import { Bar, Field } from './util';
 
 // TODO this should just be User.fields, but we're still missing some fields on User
 export const cols = {
-  email: ['Email', 'Email', 'string'],
-  firstName: ['First Name', 'First Name', 'string'],
-  lastName: ['Last Name', 'Last Name', 'string'],
+  email: ['Email', 'Email', String],
+  firstName: ['First Name', 'First Name', String],
+  lastName: ['Last Name', 'Last Name', String],
   sat: ['Sat Reqs', 'Satisfied Requirements'],
   pend: ['Pend Reqs', 'Pending Requirements'],
   unsat: ['Unsat Reqs', 'Unatisfied Requirements'],
@@ -18,7 +18,7 @@ export const cols = {
   nsem: ['# Sem', 'Number of Semesters in the Program'],
   valid: ['P Valid', 'Course Plan Validity', ['Ignore', 'Valid', 'Invalid']],
   compl: ['P Compl', 'Course Plan Completeness', ['Ignore', 'Complete', 'Incomplete']],
-  department: ['Dept', 'Department', 'string'],
+  department: ['Dept', 'Department', String],
 } as const;
 
 interface FilterProps {
@@ -44,7 +44,9 @@ function Filter({ show, onHide, c }: FilterProps) {
       <Form action="/searchForStudent" method="get">
         <Modal.Body>
           {
-            Object.entries(c).map(([k, [_, l, t]]) => (<Field key={k} long={l} name={k} type={t ?? 'number'} cmp />))
+            Object.entries(c).map(([k, [_, l, t]]) => (
+              <Field key={k} long={l} name={k} type={t ?? Number} cmp />
+            ))
           }
         </Modal.Body>
         <Modal.Footer>
@@ -106,7 +108,7 @@ export default function SearchForStudent({ values }: { values?: any[] }): JSX.El
                       <Tooltip id={k}>{l}</Tooltip>
                     }
                   >
-                    <th onClick={sortBy(k)}>{ showSort(k, s) }</th>
+                    <th onClick={sortBy(k)}>{showSort(k, s)}</th>
                   </OverlayTrigger>
                 ))
               }

@@ -16,7 +16,7 @@ export default function EditCoursePlan(
         <h1>Add</h1>
         <Form method="post" action={`/editCoursePlan/set/${sbuId}`}>
           {
-            f.map(([k, v]) => <Field key={k} long={v.long} name={k} type="string" />)
+            f.map(([k, v]) => <Field key={k} long={v.long} name={k} type={v.ty} />)
           }
           <Button type="submit" block>Submit</Button>
         </Form>
@@ -41,7 +41,7 @@ export default function EditCoursePlan(
                     }
                     <td>
                       {
-                      c.grade === ''
+                      c.grade === undefined
                         ? <Button formAction={`/editCoursePlan/delete/${c.sbuId}/${c._id}`} type="submit">X</Button>
                         : (
                           <>

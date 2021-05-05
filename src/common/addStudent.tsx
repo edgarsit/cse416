@@ -15,7 +15,7 @@ export default function AddStudent(): JSX.Element {
         <Form action="/addStudent" method="post">
           {
             s.map((f) => (
-              <Field key={f} type="string" name={f} long={toView(f)} required />
+              <Field key={f} type={String} name={f} long={toView(f)} required />
             ))
           }
           <Button type="submit">
