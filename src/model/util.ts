@@ -40,7 +40,7 @@ export function uprop(options?: OptionsI<BasePropOptions>, kind?: WhatIsIt): Pro
     type, short, long, map,
   } = options ?? {};
   // imagine mut on bindings :(
-  let enum_ = (options ?? {}).enum;
+  let enum_ = options?.enum;
   return (target: any, propertyKey) => {
     if (typeof propertyKey !== 'string') {
       throw new Error('Cannot annotate symbols');
@@ -55,6 +55,9 @@ export function uprop(options?: OptionsI<BasePropOptions>, kind?: WhatIsIt): Pro
       enum_ = Object.entries(enum_)
         .filter(([_, v]) => typeof v === 'number')
         .map(([k, _]) => k);
+      if (!options?.required) {
+        enum_.push('None');
+      }
     }
     const ty = enum_ ?? type ?? Reflect.getMetadata('design:type', target, propertyKey);
     const name = toView(propertyKey);
