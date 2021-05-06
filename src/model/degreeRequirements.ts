@@ -25,6 +25,17 @@ export class XCreditsForCourseY {
   public course?: Course
 }
 
+export class Range {
+  @rprop()
+  public numCourses!: number
+
+  @c({ type: () => Course })
+  public minCourse?: Course
+
+  @c({ type: () => Course })
+  public maxCourse?: Course
+}
+
 export class AdditionalRequirement {
   @prop()
   public mincredits!: number
@@ -137,20 +148,6 @@ export class DegreeRequirements {
   public tracks!: Tracks[]
 }
 
-export class Elective {
-  @rprop()
-  public numCourses!: number
-
-  @rprop()
-  public totalCredits!: number
-
-  @prop()
-  public range?: string
-
-  @rprop({ type: () => [String] })
-  public substitutions!: string[]
-}
-
 export class Tracks {
   @rprop()
   public name!: string
@@ -191,8 +188,11 @@ export class Tracks {
   @prop()
   public additionalCourses?: number
 
+  @prop({ type: () => Range })
+  public additionalCoreCourses?: Range
+
   @prop()
-  public additionalRequirement!: AdditionalRequirement
+  public additionalRequirement?: AdditionalRequirement
 
   @prop({ type: () => RegularLectureBasedCourses })
   public minRegularLectureCourses?: RegularLectureBasedCourses
@@ -200,6 +200,6 @@ export class Tracks {
   @prop({ type: () => RequiredCreditsOfCourseX })
   public requiredCreditsOfCourseX?: RequiredCreditsOfCourseX
 
-  @prop({ type: () => Elective })
-  public elective?: Elective
+  @prop({ type: () => [Range] })
+  public elective?: Range[]
 }
