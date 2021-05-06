@@ -25,12 +25,9 @@
         "AMS 528 Numerical Analysis III",
         "AMS 595 Fundamentals of Computing (1 credit)"
       ],
-      "additionalCoreCourseRequirements": [],
+      "additionalCoreCourseRequirements": {},
       "elective": {
-        "numCourses": 4,
-        "totalCredits": 12,
-        "range": "",
-        "substitutions": []
+        "substitutions": [{"numCourses": 4}]
       }
     },
     {
@@ -48,12 +45,9 @@
         "AMS 539 Introduction to Physical & Quantitative Biology (0 credit)",
         "CSE 549 Computational Biology"
       ],
-      "additionalCoreCourseRequirements": [],
+      "additionalCoreCourseRequirements": {},
       "elective": {
-        "numCourses": 3,
-        "totalCredits": 9,
-        "range": "",
-        "substitutions": []
+        "substitutions": [{"numCourses": 3}]
       }
     },
     {
@@ -67,12 +61,9 @@
         "AMS 553 Simulation and Modeling",
         "AMS 595 Fundamentals of Computing (1 credit)"
       ],
-      "additionalCoreCourseRequirements": ["1 in AMS 570-586"],
+      "additionalCoreCourseRequirements": {},
       "elective": {
-        "numCourses": 4,
-        "totalCredits": 12,
-        "range": "AMS 542­-556",
-        "substitutions": ["1 in AMS 570-­586", "1 in AMS 511­-523"]
+        "substitutions": [{"numCourses": 4, "minCourse": "AMS 542", "maxCourse": "AMS 556"}, {"numCourses": 1, "minCourse": "AMS 511", "maxCourse": "AMS 523"}]
       }
     },
     {
@@ -88,12 +79,9 @@
         "AMS 582 Design of Experiments",
         "AMS 597 Statistical Computing"
       ],
-      "additionalCoreCourseRequirements": [],
+      "additionalCoreCourseRequirements": {},
       "elective": {
-        "numCourses": 2,
-        "totalCredits": 6,
-        "range": "",
-        "substitutions": []
+        "substitutions": [{"numCourses": 2}]
       }
     },
     {
@@ -112,12 +100,9 @@
         "AMS 572 Data Analysis I",
         "FIN 539 Investment Analysis"
       ],
-      "additionalCoreCourseRequirements": [],
+      "additionalCoreCourseRequirements": {},
       "elective": {
-        "numCourses": 1,
-        "totalCredits": 3,
-        "range": "",
-        "substitutions": []
+        "substitutions": [{"numCourses": 1}]
       }
     }
   ]
