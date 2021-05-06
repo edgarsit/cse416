@@ -35,6 +35,6 @@ jobs:
         run: npm ci
       - name: Run lints
         run: npm run lint
-      - name: Run tests that do not require db access
+      - name: Run tests
         # TODO all tests
-        run: npx jest src/server/imports.test.ts
+        run: npx jest --ci --runInBand imports.test.ts parsePdf.test.ts

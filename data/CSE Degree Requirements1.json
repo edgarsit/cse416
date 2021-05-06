@@ -1,9 +1,13 @@
 {
   "degreeName": "Computer Science",
   "requirementVersion": "Spring 2021",
-  "minimumCumulativeGPA": "3.00",
+  "minimumCumulativeGPA": "B",
   "registrationRequired": true,
   "foreignLanguageRequired": false,
+  "CSE587Info": {
+    "maxCredits": 4,
+    "maxClasses": 2
+  },
 
   "breaths": [
     {
@@ -87,7 +91,7 @@
       "name": "With Thesis",
       "totalCredits": 31,
       "thesisRequired": true,
-      "coreCourses": ["CSE 599 Laboratory in Computer Science"],
+      "coreCourses": ["CSE 599 Laboratory in Computer Science (9 credit)"],
       "additionalCourses": 6,
       "additionalRequirement": {},
       "unapplicableCoursesCredits": []
