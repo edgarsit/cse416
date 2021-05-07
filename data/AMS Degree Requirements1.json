@@ -9,9 +9,6 @@
   "finalRecommendationRequired": true,
   "timeLimit": "3 years",
   "minimumCumulativeGPA": "B",
-  "maxTotalCreditsForCourses": [],
-  "maxCreditsInCombinationY": [],
-  "breaths": [],
   "tracks": [
     {
       "name": "Computational Applied Mathematics",
@@ -26,9 +23,7 @@
         "AMS 595 Fundamentals of Computing (1 credit)"
       ],
       "additionalCoreCourseRequirements": {},
-      "elective": {
         "substitutions": [{"numCourses": 4}]
-      }
     },
     {
       "name": "Computational Biology",
@@ -46,9 +41,7 @@
         "CSE 549 Computational Biology"
       ],
       "additionalCoreCourseRequirements": {},
-      "elective": {
         "substitutions": [{"numCourses": 3}]
-      }
     },
     {
       "name": "Operations Research",
@@ -62,9 +55,7 @@
         "AMS 595 Fundamentals of Computing (1 credit)"
       ],
       "additionalCoreCourseRequirements": {},
-      "elective": {
         "substitutions": [{"numCourses": 4, "minCourse": "AMS 542", "maxCourse": "AMS 556"}, {"numCourses": 1, "minCourse": "AMS 511", "maxCourse": "AMS 523"}]
-      }
     },
     {
       "name": "Statistics",
@@ -80,9 +71,8 @@
         "AMS 597 Statistical Computing"
       ],
       "additionalCoreCourseRequirements": {},
-      "elective": {
+
         "substitutions": [{"numCourses": 2}]
-      }
     },
     {
       "name": "Quantitative Finance",
@@ -101,9 +91,8 @@
         "FIN 539 Investment Analysis"
       ],
       "additionalCoreCourseRequirements": {},
-      "elective": {
+
         "substitutions": [{"numCourses": 1}]
-      }
     }
   ]
 }

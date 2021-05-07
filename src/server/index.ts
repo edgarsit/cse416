@@ -19,7 +19,6 @@ import Login from '../common/login';
 import { Student } from '../model/user';
 import { imports } from './imports';
 import EditCoursePlan from '../common/editCoursePlan';
-import { requirementStatus } from '../common/checkingRequirements';
 
 const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';

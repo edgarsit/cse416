@@ -23,13 +23,8 @@
         "AMS 528 Numerical Analysis III",
         "AMS 595 Fundamentals of Computing (1 credit)"
       ],
-      "additionalCoreCourseRequirements": [],
-      "elective": {
-        "numCourses": 4,
-        "totalCredits": 12,
-        "range": "",
-        "substitutions": []
-      }
+      "additionalCoreCourseRequirements": {},
+        "substitutions": [{"numCourses":4}]
     },
     {
       "name": "Computational Biology",
@@ -47,12 +42,7 @@
         "CSE 549 Computational Biology"
       ],
       "additionalCoreCourseRequirements": [],
-      "elective": {
-        "numCourses": 3,
-        "totalCredits": 9,
-        "range": "",
-        "substitutions": []
-      }
+        "substitutions": [{"numCourses":3}]
     },
     {
       "name": "Operations Research",
@@ -65,13 +55,9 @@
         "AMS 553 Simulation and Modeling",
         "AMS 595 Fundamentals of Computing (1 credit)"
       ],
-      "additionalCoreCourseRequirements": ["1 in AMS 570-586"],
-      "elective": {
-        "numCourses": 4,
-        "totalCredits": 12,
-        "range": "AMS 542­-556",
-        "substitutions": ["1 in AMS 570-­586", "1 in AMS 511­-523"]
-      }
+      "additionalCoreCourseRequirements": {"numCourses AMS 570-586":1, "minCourse": "AMS 570","maxCourse": "AMS 586"},
+        "substitutions": [{"numCourses":4, "minCourse":"AMS 542", "manxCourse":"AMS 556"},  {"numCourses":1, "minCourse":"AMS 570", "manxCourse":"AMS 586"}, 
+          {"numCourses":1, "minCourse":"AMS 511", "manxCourse":"AMS 523"}]
     },
     {
       "name": "Statistics",
@@ -110,13 +96,8 @@
         "AMS 572 Data Analysis I",
         "FIN 539 Investment Analysis"
       ],
-      "additionalCoreCourseRequirements": [],
-      "elective": {
-        "numCourses": 1,
-        "totalCredits": 3,
-        "range": "",
-        "substitutions": []
-      }
+      "additionalCoreCourseRequirements": {},
+        "substitutions": [{"numCourses":1}]
     }
   ]
 }

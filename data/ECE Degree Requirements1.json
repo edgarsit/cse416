@@ -14,11 +14,11 @@
       },
       "xCreditsForCourseY": {
         "credits": 3,
-        "course": "ESE 698"
+        "course": ["ESE 698"]
       },
       "maxCreditsForCourseY": {
         "credits": 3,
-        "course": "ESE 597"
+        "course": ["ESE 597"]
       },
       "minOneCourseInEachSubArea": [
         {
