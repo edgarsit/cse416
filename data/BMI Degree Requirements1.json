@@ -4,7 +4,6 @@
   "minimumCumulativeGPA": "B",
   "registrationRequired": true,
   "foreignLanguageRequired": false,
-  "requiredCourses": [" BMI 540 Statistical Methods in Biomedical Informatics"],
   "fullTimeCourseRequirement": "BMI 592 Biomedical Informatics",
   "maxCreditsInCombinationY": {
     "credits": 6,
@@ -37,7 +36,7 @@
         "BMI 511 Translational Bioinformatics"
       ],
       "coreCourses": [
-        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics", "BMI 540 Statistical Methods in Biomedical Informatics"
       ],
       "electiveCourses": [
         "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
@@ -69,7 +68,7 @@
         "BMI 512 Clinical Bioinformatics"
       ],
       "coreCourses": [
-        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics", "BMI 540 Statistical Methods in Biomedical Informatics"
       ],
       "electiveCourses": [
         "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
@@ -103,7 +102,7 @@
         "BMI 513 Imaging Bioinformatics"
       ],
       "coreCourses": [
-        "BMI 599 M.S. Research and Thesis in Biomedical Informatics (12 credit)"
+        "BMI 599 M.S. Research and Thesis in Biomedical Informatics", "BMI 540 Statistical Methods in Biomedical Informatics"
       ],
       "electiveCourses": [
         "BMI 514 Imaging Informatics Analysis",
@@ -135,7 +134,7 @@
         "BMI 511 Translational Bioinformatics"
       ],
       "coreCourses": [
-        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics", "BMI 540 Statistical Methods in Biomedical Informatics"
       ],
       "electiveCourses": [
         "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
@@ -167,7 +166,7 @@
         "BMI 512 Clinical Bioinformatics"
       ],
       "coreCourses": [
-        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics", "BMI 540 Statistical Methods in Biomedical Informatics"
       ],
       "electiveCourses": [
         "BMI 517 Current Research in Signaling Pathways, Biochemistry, and Tissue Morphology of Disease",
@@ -201,7 +200,7 @@
         "BMI 513 Imaging Bioinformatics"
       ],
       "coreCourses": [
-        "BMI 598 M.S. Capstone Project in Biomedical Informatics (6 credit)"
+        "BMI 598 M.S. Capstone Project in Biomedical Informatics", "BMI 540 Statistical Methods in Biomedical Informatics"
       ],
       "electiveCourses": [
         "BMI 514 Imaging Informatics Analysis",

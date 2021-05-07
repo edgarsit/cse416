@@ -21,8 +21,8 @@ export class XCreditsForCourseY {
   @rprop()
   public credits!: number
 
-  @c({ type: () => Course })
-  public course?: Course
+  @c({ type: () => [Course] })
+  public course!: Course[]
 }
 
 export class Range {
@@ -45,14 +45,6 @@ export class AdditionalRequirement {
 
   @prop()
   public sixHundredCourses?: boolean
-
-  @c({ type: () => [Course] })
-  public courses?: Course[]
-}
-
-export class MaxCreditsForCourseY {
-  @rprop()
-  public credits!: number
 
   @c({ type: () => [Course] })
   public courses?: Course[]
@@ -136,10 +128,10 @@ export class DegreeRequirements {
   public prerequisites?: XCreditsGradeY
 
   @prop({ type: () => XCreditsForCourseY })
-  public maxCreditsInCombinationY?: XCreditsForCourseY[]
+  public maxCreditsInCombinationY?: XCreditsForCourseY
 
   @prop({ type: () => XCreditsForCourseY })
-  public maxTotalCreditsForCourses?: XCreditsForCourseY[]
+  public maxTotalCreditsForCourses?: XCreditsForCourseY
 
   @prop({ type: () => [SubArea] })
   public breaths?: SubArea[]
@@ -159,13 +151,13 @@ export class Tracks {
   public thesisRequired?: boolean
 
   @prop({ type: () => XCreditsForCourseY })
-  public xCreditsForCourseY?: XCreditsForCourseY[]
+  public xCreditsForCourseY?: XCreditsForCourseY
 
   @prop({ type: () => XCreditsForCourseY })
-  public maxCreditsInCombinationY?: XCreditsForCourseY[]
+  public maxCreditsInCombinationY?: XCreditsForCourseY
 
-  @prop({ type: () => MaxCreditsForCourseY })
-  public maxCreditsForCourseY?: MaxCreditsForCourseY
+  @prop({ type: () => XCreditsForCourseY })
+  public maxCreditsForCourseY?: XCreditsForCourseY
 
   @c({ type: () => [Course] })
   public sequence?: Course[]
@@ -180,10 +172,10 @@ export class Tracks {
   public unapplicableCoursesCredits?: Course[]
 
   @prop({ type: () => [SubArea] })
-  public minOneCourseInEachSubArea?: [SubArea]
+  public minOneCourseInEachSubArea?: SubArea[]
 
   @prop({ type: () => [SubArea] })
-  public minTwoCourseInEachSubArea?: [SubArea]
+  public minTwoCourseInEachSubArea?: SubArea[]
 
   @prop()
   public additionalCourses?: number

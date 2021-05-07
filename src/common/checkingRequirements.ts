@@ -38,6 +38,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         if (v.grade) grades.push(v.grade);
       }
     });
+    let creditsTaken = 0;
     const b = degree.breaths as SubArea[]; // check if at least one course from each subarea is completed
     for (let index = 0; index < b.length; index++) {
       let p = 0;
@@ -79,6 +80,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         temp1 += 1;
         if (temp1 >= 3) {
           delete pending[value];
+          creditsTaken += 3;
         }
       }
     }
@@ -88,6 +90,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         temp2 += 1;
         if ((temp1 + temp2) >= 3) {
           delete completed[value];
+          creditsTaken += 3;
         }
       }
     }
@@ -122,6 +125,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         for (let value2 = 0; value2 < pending.length; value2++) {
           if (value.number === pending[value2]) {
             delete pending[value2];
+            creditsTaken += 3;
             numPending += 1;
             numCore -= 1;
             break;
@@ -164,7 +168,6 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         }
       }
     }
-    const additional = degree.tracks[trackNum]?.additionalCourses;
     let add = 0;
     const check = degree.tracks[trackNum]?.additionalRequirement;
     if (check) {
@@ -185,12 +188,14 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
                 if (co.number === completed[value2]) {
                   add += 1;
                   if ((add * 3) > maxcred) {
+                    creditsTaken += 3;
                     delete completed[value2];
                   }
                 }
                 if (completed[value2] as number >= 600 && check.sixHundredCourses === true) {
                   add += 1;
                   if ((add * 3) > maxcred) {
+                    creditsTaken += 3;
                     delete completed[value2];
                   }
                 }
@@ -199,12 +204,14 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
                 if (co.number === pending[value2]) {
                   add += 1;
                   if ((add * 3) > maxcred) {
+                    creditsTaken += 3;
                     delete pending[value2];
                   }
                 }
                 if (pending[value2] as number >= 600 && check.sixHundredCourses === true) {
                   add += 1;
                   if ((add * 3) > maxcred) {
+                    creditsTaken += 3;
                     delete pending[value2];
                   }
                 }
@@ -213,7 +220,6 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
           }
         }
       }
-      let creditsTaken = 0;
       creditsTaken += (pending.length * 3);
       creditsTaken += (completed.length * 3);
       if (creditsNeeded) { // check credits requriement
@@ -241,6 +247,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
   }
 
   if (degree?.degreeName === 'Applied Mathematics and Statistics') {
+    let creditsTaken = 0;
     const completed: Array<number> = [];
     const pending: Array<number> = [];
     const grades: Array<number> = [];
@@ -293,6 +300,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         temp1 += 1;
         if (temp1 >= 3) {
           delete pending[value];
+          creditsTaken += 3;
         }
       }
     }
@@ -302,6 +310,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         temp2 += 1;
         if ((temp1 + temp2) >= 3) {
           delete completed[value];
+          creditsTaken += 3;
         }
       }
     }
@@ -336,6 +345,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         for (let value2 = 0; value2 < pending.length; value2++) {
           if (value.number === pending[value2]) {
             delete pending[value2];
+            creditsTaken += 3;
             numPending += 1;
             numCore -= 1;
             break;
@@ -344,6 +354,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         for (let value2 = 0; value2 < completed.length; value2++) {
           if (value.number === completed[value2]) {
             delete completed[value2];
+            creditsTaken += 3;
             numPending += 1;
             numCore -= 1;
             break;
@@ -378,7 +389,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         }
       }
     }
-    const additional = degree.tracks[trackNum]?.additionalCourses;
+
     let add = 0;
     const check = degree.tracks[trackNum]?.additionalRequirement;
     if (check) {
@@ -400,12 +411,14 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
                   add += 1;
                   if ((add * 3) > maxcred) {
                     delete completed[value2];
+                    creditsTaken += 3;
                   }
                 }
                 if (completed[value2] as number >= 600 && check.sixHundredCourses === true) {
                   add += 1;
                   if ((add * 3) > maxcred) {
                     delete completed[value2];
+                    creditsTaken += 3;
                   }
                 }
               }
@@ -414,19 +427,21 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
                   add += 1;
                   if ((add * 3) > maxcred) {
                     delete pending[value2];
+                    creditsTaken += 3;
                   }
                 }
                 if (pending[value2] as number >= 600 && check.sixHundredCourses === true) {
                   add += 1;
                   if ((add * 3) > maxcred) {
                     delete pending[value2];
+                    creditsTaken += 3;
                   }
                 }
               }
             }
           }
         }
-        let creditsTaken = 0;
+
         creditsTaken += (pending.length * 3);
         creditsTaken += (completed.length * 3);
         if (creditsNeeded) { // check credits requriement
@@ -453,18 +468,18 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
     }
     reqStatus = [satisfied, numPending, unsatisfied];
   }
-  if (degree?.degreeName === 'Applied Mathematics and Statistics') {
+
+  if (degree?.degreeName === 'Biomedical Informatics') {
+    let creditsTaken = 0;
     const completed: Array<number> = [];
     const pending: Array<number> = [];
     const grades: Array<number> = [];
     Object.values(coursePlans).forEach((v) => {
-      if (v.department === 'AMS') {
-        if (v.grade === 0) {
-          pending.push(v.courseNum);
-        } else {
-          completed.push(v.courseNum);
-          if (v.grade) grades.push(v.grade);
-        }
+      if (v.grade === 0) {
+        pending.push(v.courseNum);
+      } else {
+        completed.push(v.courseNum);
+        if (v.grade) grades.push(v.grade);
       }
     });
 
@@ -492,6 +507,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         temp1 += 1;
         if (temp1 >= 3) {
           delete pending[value];
+          creditsTaken += 3;
         }
       }
     }
@@ -501,6 +517,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         temp2 += 1;
         if ((temp1 + temp2) >= 3) {
           delete completed[value];
+          creditsTaken += 3;
         }
       }
     }
@@ -515,8 +532,74 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
       }
     }
 
-    const creditsNeeded = degree.tracks[trackNum]?.totalCredits;
+    const maxComb = degree.maxCreditsInCombinationY;
+    if (maxComb) {
+      let cred = maxComb.credits;
+      Object.values(maxComb.course).forEach((value) => {
+        for (let value2 = 0; value2 < completed.length; value2++) {
+          if (value.number === completed[value2]) {
+            if (cred > 0) {
+              cred -= 3;
+            } else {
+              delete completed[value2];
+              creditsTaken += 3;
+            }
+          }
+        }
+        for (let value2 = 0; value2 < pending.length; value2++) {
+          if (value.number === pending[value2]) {
+            if (cred > 0) {
+              cred -= 3;
+            } else {
+              delete pending[value2];
+              creditsTaken += 3;
+            }
+          }
+        }
+      });
+    }
 
+    const fcourse = degree.fullTimeCourseRequirement;
+    const all = completed.concat(pending);
+    if (fcourse) {
+      const fcourseNum = fcourse.number;
+      if (fcourseNum) {
+        if (all.find((element) => element === fcourseNum)) {
+          satisfied += 1;
+        } else {
+          unsatisfied += 1;
+        }
+      }
+    }
+
+    const maxtotal = degree.maxTotalCreditsForCourses;
+    if (maxtotal) {
+      let cred = maxtotal.credits;
+      Object.values(maxtotal.course).forEach((value) => {
+        for (let value2 = 0; value2 < completed.length; value2++) {
+          if (value.number === completed[value2]) {
+            if (cred > 0) {
+              cred -= 3;
+            } else {
+              delete completed[value2];
+              creditsTaken += 3;
+            }
+          }
+        }
+        for (let value2 = 0; value2 < pending.length; value2++) {
+          if (value.number === pending[value2]) {
+            if (cred > 0) {
+              cred -= 3;
+            } else {
+              delete pending[value2];
+              creditsTaken += 3;
+            }
+          }
+        }
+      });
+    }
+
+    const creditsNeeded = degree.tracks[trackNum]?.totalCredits;
     const core = degree.tracks[trackNum]?.coreCourses;
     if (core) { // check number of core courses
       let numCore = core.length;
@@ -524,6 +607,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         for (let value2 = 0; value2 < pending.length; value2++) {
           if (value.number === pending[value2]) {
             delete pending[value2];
+            creditsTaken += 3;
             numPending += 1;
             numCore -= 1;
             break;
@@ -532,6 +616,7 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
         for (let value2 = 0; value2 < completed.length; value2++) {
           if (value.number === completed[value2]) {
             delete completed[value2];
+            creditsTaken += 3;
             numPending += 1;
             numCore -= 1;
             break;
@@ -541,64 +626,320 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
       unsatisfied += numCore;
     }
 
-    const additional = degree.tracks[trackNum]?.additionalCoreCourses;
-    if (additional) {
-      const minCourse = additional.minCourse?.number;
-      const maxCourse = additional.maxCourse?.number;
-      if (minCourse && maxCourse) {
-        let num = additional.numCourses;
-        for (let value = 0; value < completed.length; value++) {
-          if (completed[value] as number >= minCourse && completed[value] as number <= maxCourse && num > 0) {
-            satisfied += 1;
-            num -= 1;
-          }
-        }
-        for (let value = 0; value < pending.length; value++) {
-          if (pending[value] as number >= minCourse && pending[value] as number <= maxCourse && num > 0) {
+    const ele = degree.tracks[trackNum]?.electiveCourses;
+    if (ele && creditsNeeded) { // check number of core courses
+      Object.values(ele).forEach((value) => {
+        for (let value2 = 0; value2 < pending.length; value2++) {
+          if (value.number === pending[value2] && creditsTaken < creditsNeeded) {
+            delete pending[value2];
+            creditsTaken += 3;
             numPending += 1;
-            num -= 1;
+            break;
           }
         }
-        unsatisfied += num;
+        for (let value2 = 0; value2 < completed.length; value2++) {
+          if (value.number === completed[value2] && creditsTaken < creditsNeeded) {
+            delete completed[value2];
+            creditsTaken += 3;
+            numPending += 1;
+            break;
+          }
+        }
+      });
+    }
+    const seq = degree.tracks[trackNum]?.sequence;
+    if (seq) { // check number of core courses
+      let numCore = seq.length;
+      Object.values(seq).forEach((value) => {
+        for (let value2 = 0; value2 < pending.length; value2++) {
+          if (value.number === pending[value2]) {
+            delete pending[value2];
+            creditsTaken += 3;
+            numPending += 1;
+            numCore -= 1;
+            break;
+          }
+        }
+        for (let value2 = 0; value2 < completed.length; value2++) {
+          if (value.number === completed[value2]) {
+            delete completed[value2];
+            creditsTaken += 3;
+            numPending += 1;
+            numCore -= 1;
+            break;
+          }
+        }
+      });
+      unsatisfied += numCore;
+    }
+
+    const unapplicable = degree.tracks[trackNum]?.unapplicableCoursesCredits;
+    for (let value = 0; value < pending.length; value++) {
+      if (unapplicable) {
+        for (let value2 = 0; value2 < unapplicable.length; value2++) {
+          const co = unapplicable[value2]?.number;
+          if (co) {
+            if (co === pending[value]) {
+              delete pending[value];
+            }
+          }
+        }
       }
     }
-    const elective = degree.tracks[trackNum]?.elective;
-    if (elective) {
-      for (let index = 0; index < elective.length; index++) {
-        const k = elective[index];
-        if (k) {
-          const minCourse = k.minCourse?.number;
-          const maxCourse = k.maxCourse?.number;
-          let num = k.numCourses;
-          if (minCourse && maxCourse) {
-            for (let value = 0; value < completed.length; value++) {
-              if (completed[value] as number >= minCourse && completed[value] as number <= maxCourse && num > 0) {
-                satisfied += 1;
-                num -= 1;
-              }
+    for (let value = 0; value < completed.length; value++) {
+      if (unapplicable) {
+        for (let value2 = 0; value2 < unapplicable.length; value2++) {
+          const co = unapplicable[value2]?.number;
+          if (co) {
+            if (co === completed[value]) {
+              delete completed[value];
             }
-            for (let value = 0; value < pending.length; value++) {
-              if (pending[value] as number >= minCourse && pending[value] as number <= maxCourse && num > 0) {
-                numPending += 1;
-                num -= 1;
-              }
-            }
-            unsatisfied += num;
-          } else {
-            for (let value = 0; value < completed.length; value++) {
-              if (num > 0) {
-                satisfied += 1;
-                num -= 1;
-              }
-            }
-            for (let value = 0; value < pending.length; value++) {
-              if (num > 0) {
-                numPending += 1;
-                num -= 1;
-              }
-            }
-            unsatisfied += num;
           }
+        }
+      }
+    }
+    if (creditsNeeded) { // check credits requriement
+      if (creditsTaken >= creditsNeeded) {
+        satisfied += 1;
+      } else {
+        unsatisfied += (creditsNeeded - creditsTaken) / 3;
+      }
+    }
+  }
+  if (degree?.degreeName === 'Computer Engineering') {
+    let creditsTaken = 0;
+    const completed: Array<number> = [];
+    const pending: Array<number> = [];
+    const grades: Array<number> = [];
+    Object.values(coursePlans).forEach((v) => {
+      if (v.grade === 0) {
+        pending.push(v.courseNum);
+      } else {
+        completed.push(v.courseNum);
+        if (v.grade) grades.push(v.grade);
+      }
+    });
+
+    let grade = 0;
+    Object.values(grades).forEach((value) => {
+      grade += value;
+    });
+    grade /= grades.length; // check grade reqirement
+    if (grade >= +degree.minimumCumulativeGPA) {
+      satisfied += 1;
+    } else {
+      unsatisfied += 1;
+    }
+
+    const studentTrack = s.track;
+    let trackNum = -1;
+    for (let index = 0; index < degree.tracks.length; index++) {
+      if (degree[index].name === studentTrack) {
+        trackNum = index;
+      }
+    }
+    let temp1 = 0;
+    for (let value = 0; value < pending.length; value++) { // if thesis isued for more than 9 credits remove it
+      if (pending[value] === 599) {
+        temp1 += 1;
+        if (temp1 >= 3) {
+          delete pending[value];
+          creditsTaken += 3;
+        }
+      }
+    }
+    let temp2 = 0;
+    for (let value = 0; value < completed.length; value++) { // if thesis isued for more than 9 credits remove it
+      if (completed[value] === 599) {
+        temp2 += 1;
+        if ((temp1 + temp2) >= 3) {
+          delete completed[value];
+          creditsTaken += 3;
+        }
+      }
+    }
+    // thesis requirement
+    if (degree.tracks[trackNum]?.thesisRequired) {
+      if (temp2 >= 3) {
+        satisfied += 1;
+      } else if ((temp1 + temp2) >= 3) {
+        numPending += 1;
+      } else {
+        unsatisfied += 1;
+      }
+    }
+    const student = degree.tracks[trackNum];
+    if (student) {
+      const maxComb1 = student.maxCreditsInCombinationY;
+      if (maxComb1) {
+        let cred = maxComb1.credits;
+        Object.values(maxComb1.course).forEach((value) => {
+          for (let value2 = 0; value2 < completed.length; value2++) {
+            if (value.number === completed[value2]) {
+              if (cred > 0) {
+                cred -= 3;
+              } else {
+                delete completed[value2];
+                creditsTaken += 3;
+              }
+            }
+          }
+          for (let value2 = 0; value2 < pending.length; value2++) {
+            if (value.number === pending[value2]) {
+              if (cred > 0) {
+                cred -= 3;
+              } else {
+                delete pending[value2];
+                creditsTaken += 3;
+              }
+            }
+          }
+        });
+        const maxComb2 = student.xCreditsForCourseY;
+        if (maxComb2) {
+          let cred = maxComb2.credits;
+          Object.values(maxComb2.course).forEach((value) => {
+            for (let value2 = 0; value2 < completed.length; value2++) {
+              if (value.number === completed[value2]) {
+                if (cred > 0) {
+                  cred -= 3;
+                  satisfied += 1;
+                } else {
+                  delete completed[value2];
+                  creditsTaken += 3;
+                }
+              }
+            }
+            for (let value2 = 0; value2 < pending.length; value2++) {
+              if (value.number === pending[value2]) {
+                if (cred > 0) {
+                  cred -= 3;
+                  numPending += 1;
+                } else {
+                  delete pending[value2];
+                  creditsTaken += 3;
+                }
+              }
+            }
+          });
+          unsatisfied += cred;
+        }
+        const maxComb = student.maxCreditsForCourseY;
+        if (maxComb) {
+          let cred = maxComb.credits;
+          Object.values(maxComb.course).forEach((value) => {
+            for (let value2 = 0; value2 < completed.length; value2++) {
+              if (value.number === completed[value2]) {
+                if (cred > 0) {
+                  cred -= 3;
+                } else {
+                  delete completed[value2];
+                  creditsTaken += 3;
+                }
+              }
+            }
+            for (let value2 = 0; value2 < pending.length; value2++) {
+              if (value.number === pending[value2]) {
+                if (cred > 0) {
+                  cred -= 3;
+                } else {
+                  delete pending[value2];
+                  creditsTaken += 3;
+                }
+              }
+            }
+          });
+        }
+      }
+      const b = student.minOneCourseInEachSubArea as SubArea[]; // check if at least one course from each subarea is completed
+      for (let index = 0; index < b.length; index++) {
+        let p = 0;
+        let c = 0;
+        let subArea = false;
+        const x = b[index]?.courses;
+        if (x) {
+          Object.values(x).forEach((value) => {
+            Object.values(pending).forEach((value2) => {
+              if (value.number === value2 && subArea === false) {
+                subArea = true;
+                p += 1;
+              }
+            });
+            Object.values(pending).forEach((value2) => {
+              if (value.number === value2 && subArea === false) {
+                subArea = true;
+                c += 1;
+              }
+            });
+          });
+        }
+        if (subArea === false) {
+          unsatisfied += 1;
+        }
+        satisfied += c;
+        numPending += p;
+      }
+
+      const c = student.minTwoCourseInEachSubArea as SubArea[]; // check if at least one course from each subarea is completed
+      for (let index = 0; index < b.length; index++) {
+        let p = 0;
+        let c = 0;
+        let subArea = 0;
+        const x = b[index]?.courses;
+        if (x) {
+          Object.values(x).forEach((value) => {
+            Object.values(pending).forEach((value2) => {
+              if (value.number === value2 && subArea < 2) {
+                subArea += 1;
+                p += 1;
+              }
+            });
+            Object.values(pending).forEach((value2) => {
+              if (value.number === value2 && subArea < 2) {
+                subArea += 1;
+                c += 1;
+              }
+            });
+          });
+        }
+        if (subArea < 2) {
+          unsatisfied += 2 - subArea;
+        }
+        satisfied += c;
+        numPending += p;
+      }
+      // take out unapplicable courses
+      const unapplicable = student.minRegularLectureCourses?.notCountedCourses;
+      for (let value = 0; value < pending.length; value++) {
+        if (unapplicable) {
+          for (let value2 = 0; value2 < unapplicable.length; value2++) {
+            const co = unapplicable[value2]?.number;
+            if (co) {
+              if (co === pending[value]) {
+                delete pending[value];
+              }
+            }
+          }
+        }
+      }
+      for (let value = 0; value < completed.length; value++) {
+        if (unapplicable) {
+          for (let value2 = 0; value2 < unapplicable.length; value2++) {
+            const co = unapplicable[value2]?.number;
+            if (co) {
+              if (co === completed[value]) {
+                delete completed[value];
+              }
+            }
+          }
+        }
+      }
+      const creditsNeeded = student.totalCredits;
+      if (creditsNeeded) { // check credits requriement
+        if (creditsTaken >= creditsNeeded) {
+          satisfied += 1;
+        } else {
+          unsatisfied += (creditsNeeded - creditsTaken) / 3;
         }
       }
     }
