@@ -14,7 +14,7 @@ export default function EditCoursePlan(
       <Bar />
       <Container>
         <h1>Add</h1>
-        <Form method="post" action={`/editCoursePlan/set/${sbuId}`}>
+        <Form method="post" action={`/editCoursePlan/add/${sbuId}`}>
           {
             f.map(([k, v]) => <Field key={k} long={v.long} name={k} type={v.ty} />)
           }

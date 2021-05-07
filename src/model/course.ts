@@ -175,8 +175,17 @@ export class CoursePlan {
   @ruprop()
   section!: string
 
-  @ruprop()
-  semester!: string
+  @ruprop({
+    set(ss: string[] | string): Semester[] | Semester {
+      return Array.isArray(ss) ? ss.map(toSem) : toSem(ss);
+    },
+    get(s) {
+      return s;
+    },
+    enum: Semester,
+    type: Number,
+  })
+  semester!: Semester
 
   @ruprop()
   year!: string
