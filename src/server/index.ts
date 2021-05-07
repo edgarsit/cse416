@@ -10,7 +10,7 @@ import {
   copyStudentWithPermissions,
   CoursePlanModel,
   getQS, GPDModel,
-  StudentModel, UserModel,
+  StudentModel,
 } from './models';
 import * as modelHack from './models';
 import { ServerApp } from '../common/app';

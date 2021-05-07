@@ -13,3 +13,9 @@ export function pre<_T>(_method: unknown, _fn: unknown): PropertyDecorator {
     // empty
   };
 }
+
+export function modelOptions<_T>(_method: unknown, _fn: unknown): ClassDecorator {
+  return () => {
+    // empty
+  };
+}

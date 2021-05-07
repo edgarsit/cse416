@@ -5,6 +5,7 @@ import type { Description, Fields } from './util';
 import {
   rprop, prop, fields, ruprop, uprop,
 } from './util';
+import { modelOptions } from './RT-PROP';
 
 export enum Semester {
   Spring,
@@ -133,7 +134,6 @@ export class CourseOffering {
   public timeslot!: string
 }
 
-const id = <T>(x: T): T => x;
 const Grade_ = {
   A: 4.00,
   'A-': 3.67,
@@ -150,6 +150,13 @@ const Grade: typeof Grade_ = Object.assign(Object.create(null), Grade_);
 
 // TODO fix up schema, index on all except grade
 @fields
+@modelOptions({
+  schemaOptions: {
+    toJSON: {
+      getters: true,
+    },
+  },
+})
 export class CoursePlan {
   declare static fields: Description<Fields<CoursePlan>>
 
@@ -177,7 +184,18 @@ export class CoursePlan {
   @uprop({
     type: Number,
     enum: Grade,
-    get: id,
+    get(val?: number) {
+      if (val == null) {
+        return undefined;
+      }
+      return Object.entries(Grade)
+        .map(([k, v]) => [k, Math.abs(v - val)] as const)
+        .reduce((x0, x1) => {
+          const [_k0, v0] = x0;
+          const [_k1, v1] = x1;
+          return v0 < v1 ? x0 : x1;
+        }, [undefined, Number.POSITIVE_INFINITY] as readonly [string | undefined, number])[0];
+    },
     set(v: string) {
       return Grade?.[v];
     },
