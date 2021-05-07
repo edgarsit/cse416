@@ -25,7 +25,21 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
   let satisfied = 0;
   let unsatisfied = 0;
   const coursePlans = await CoursePlanModel.find({ sbuId: s.sbuId }) as CoursePlan[];
-  const degree = await DegreeRequirementsModel.findOne({ requirementVersion: `${s.requirementVersionSemester} ${s.requirementVersionYear}`, degreeName: s.department });
+  let department = '';
+  if (s.department === 'CSE') {
+    department = 'Computer Science';
+  }
+  if (s.department === 'AMS') {
+    department = 'Applied Mathematics and Statistics';
+  }
+  if (s.department === 'ECE') {
+    department = 'Computer Engineering';
+  }
+  if (s.department === 'BMI') {
+    department = 'Biomedical Informatics';
+  }
+
+  const degree = await DegreeRequirementsModel.findOne({ requirementVersion: `${s.requirementVersionSemester} ${s.requirementVersionYear}`, degreeName: department });
   if (degree?.degreeName === 'Computer Science') {
     const completed: Array<number> = [];
     const pending: Array<number> = [];

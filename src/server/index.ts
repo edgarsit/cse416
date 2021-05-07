@@ -168,13 +168,6 @@ server.post('/editCoursePlan/add/:sbuId', async (req, res) => {
   res.redirect(`/editCoursePlan/get/${sbuId}`);
 });
 
-server.get('/degree/:email', async (req) => {
-  const { email } = req.params;
-  const user_ = await StudentModel.findOne({ email });
-  const user = pickFromQ(user_) as Student;
-  requirementStatus(user);
-});
-
 server.get('/Student_Home/:email', async (req, res) => {
   const { email } = req.params;
   // TODO proper err
