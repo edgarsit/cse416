@@ -228,38 +228,10 @@ if (process.argv[2] !== '--test') {
     });
 
     // TODO empty password crashes
-    await UserModel.findOneAndUpdate({ email: 'asd@stonybrook.edu' }, { password: '' }, { upsert: true });
-
     await GPDModel.findOneAndUpdate({ email: 'ayoub.benchaita@stonybrook.edu' }, { password: '' }, { upsert: true });
     await GPDModel.findOneAndUpdate({ email: 'edgar.sit@stonybrook.edu' }, { password: '' }, { upsert: true });
     await GPDModel.findOneAndUpdate({ email: 'menachem.goldring@stonybrook.edu' }, { password: '' }, { upsert: true });
     await GPDModel.findOneAndUpdate({ email: 'qwe' }, { password: await argon2.hash('qwe') }, { upsert: true });
-    await StudentModel.findOneAndUpdate({ email: 'scott' }, {
-      password: await argon2.hash('asd'),
-      department: 'CS',
-      track: 'Thesis',
-      requirementVersionSemester: '123',
-      requirementVersionYear: '123',
-      graduationSemester: 'Spring',
-      graduationYear: '2020',
-      coursePlan: '',
-      graduated: false,
-      comments: 'Hello',
-      sbuId: 123,
-    }, { upsert: true });
-    await StudentModel.findOneAndUpdate({ email: 'skiena' }, {
-      password: await argon2.hash('asd'),
-      department: 'Computer Science',
-      track: 'Thesis',
-      requirementVersionSemester: 'Spring',
-      requirementVersionYear: '2021',
-      graduationSemester: 'Spring',
-      graduationYear: '2020',
-      coursePlan: '',
-      graduated: false,
-      comments: 'Hello',
-      sbuId: 456,
-    }, { upsert: true });
 
     https.createServer({
       key: fs.readFileSync('key.pem'),
