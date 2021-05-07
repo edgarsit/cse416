@@ -14,26 +14,19 @@ export enum Semester {
   Winter
 }
 
+export function keysOf<T>(e: T): (keyof T)[] {
+  return Object.keys(e).filter((x) => Number.isNaN(+x)) as any;
+}
+
 const toSem = (v: string): Semester => {
-  let ret: Semester | undefined;
   const a = v.replace(/\s/g, '');
-  const b = a[0];
-  if (b !== undefined) {
-    const c = b.toUpperCase() + a.slice(1).toLowerCase();
-    if (c === 'Summer') {
-      return Semester.SummerI;
-    }
-    ret = Semester[c];
-  }
-  if (ret === undefined) {
+  const b = a.toLowerCase();
+  const ret = keysOf(Semester).map((x) => x.toLowerCase()).findIndex((x) => x === b);
+  if (ret === -1) {
     throw new Error(`Unable to parse "${v}" as Semester`);
   }
   return ret;
 };
-
-export function keysOf<T>(e: T): (keyof T)[] {
-  return Object.keys(e).filter((x) => Number.isNaN(+x)) as any;
-}
 
 const semProp = (v?: Omit<BasePropOptions, 'required'>): PropertyDecorator => rprop({
   ...v,
