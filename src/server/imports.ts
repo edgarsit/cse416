@@ -166,9 +166,6 @@ router.post('/studentData', async (req, res) => {
       };
     }),
   );
-  await StudentModel.create(
-    profile.map((c) => me(c, ([k, v]) => [sc2cc(k as string), v])),
-  );
   // TODO parallelize
   const plan: any[] = await readCSV(files.plan?.path);
   await CoursePlanModel.bulkWrite(
@@ -190,6 +187,10 @@ router.post('/studentData', async (req, res) => {
         },
       };
     }),
+  );
+
+  await StudentModel.create(
+    profile.map((c) => me(c, ([k, v]) => [sc2cc(k as string), v])),
   );
   await CoursePlanModel.create(
     plan.map((c) => {
