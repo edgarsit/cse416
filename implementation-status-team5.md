@@ -8,7 +8,7 @@ Implemented, but the portions for easy viewing of this information (5.9 and 5.10
 
 ### 5.2 import degree requirements
 
-Unimplemented, currently we are manually entering data into the database
+Implemented
 
 ### 5.4 Delete All Student Data
 
@@ -20,11 +20,11 @@ Implemented, now uses a common schema with the backend
 
 ### 5.8 Browse/Search for Students
 
-Incomplete: sorting direction is still not done; filters currently reload the page instead of using AJAX; fields for incomplete parts of the model are shown as empty currently
+Complete: fields for incomplete parts of the model are shown as empty currently
 
 ### 5.9 View/Edit student information
 
-Incomplete: the course plan page is not done; client side validation is incomplete but it is still validated server side
+Complete
 
 ### 5.10 Suggest course plan
 
