@@ -19,7 +19,10 @@ export function keysOf<T>(e: T): (keyof T)[] {
   return Object.keys(e).filter((x) => Number.isNaN(+x)) as any;
 }
 
-const toSem = (v: string): Semester => {
+export const toSem = (v: string | Semester): Semester => {
+  if (typeof v === 'number') {
+    return v;
+  }
   const a = v.replace(/\s/g, '');
   const b = a.toLowerCase();
   const ret = keysOf(Semester).map((x) => x.toLowerCase()).findIndex((x) => x === b);

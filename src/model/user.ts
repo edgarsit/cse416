@@ -65,7 +65,7 @@ export class Student extends User {
   @ruprop({ short: 'Grad Year' })
   public graduationYear!: string
 
-  @ruprop({ default: false, get(x) { return x }, set(x: string) { return String(x).toLowerCase() === 'true' } })
+  @ruprop({ default: false, get(x) { return x; }, set(x: string) { return String(x).toLowerCase() === 'true'; } })
   public graduated!: boolean
 
   @ruprop({ default: '' })

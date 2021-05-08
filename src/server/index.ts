@@ -22,6 +22,8 @@ import {
 } from './imports';
 import EditCoursePlan from '../common/editCoursePlan';
 import { requirementStatus } from '../common/checkingRequirements';
+import ViewEnrollmentTrends from '../common/viewEnrollmentTrends';
+import { toSem } from '../model/course';
 
 const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -103,12 +105,14 @@ const pickFromQ = <T>(s: DocumentType<T> | null) => {
 server.get('/searchForStudent', async (req, res) => {
   // TODO sec forall tbh
   for (const s of await StudentModel.find({})) {
-    // eslint-disable-next-line no-await-in-loop
-    const [satisfied, pending, unsatisfied] = await requirementStatus(s);
-    s.satisfied = satisfied;
-    s.pending = pending;
-    s.unsatisfied = unsatisfied;
-    s.save();
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      const [satisfied, pending, unsatisfied] = await requirementStatus(s);
+      s.satisfied = satisfied;
+      s.pending = pending;
+      s.unsatisfied = unsatisfied;
+      s.save();
+    } catch (e) { console.error(e); }
   }
   const s = await StudentModel.find(getQS(req.originalUrl, Student.fields));
   const values = s.map((x) => pickFromQ(x));
@@ -122,11 +126,13 @@ server.get('/editStudentInformation/:email', async (req, res) => {
   // TODO proper err
   const user_ = await StudentModel.findOne({ email });
   if (user_ != null) {
-    const [satisfied, pending, unsatisfied] = await requirementStatus(user_);
-    user_.satisfied = satisfied;
-    user_.pending = pending;
-    user_.unsatisfied = unsatisfied;
-    user_.save();
+    try {
+      const [satisfied, pending, unsatisfied] = await requirementStatus(user_);
+      user_.satisfied = satisfied;
+      user_.pending = pending;
+      user_.unsatisfied = unsatisfied;
+      user_.save();
+    } catch (e) { console.error(e); }
   }
   const user = pickFromQ(user_);
   const body = renderToString(ServerApp(req.url, { user }));
@@ -221,6 +227,50 @@ server.post('/addStudent', async (req, res) => {
   const s = req.body;
   await StudentModel.create(s);
   res.redirect('/');
+});
+
+const uw = new Error();
+const u = <T>(x: T): NonNullable<T> => {
+  if (x == null) {
+    throw uw;
+  } else {
+    return x as any;
+  }
+};
+server.get('/viewEnrollmentTrends/', async (req, res) => {
+  const params = new URL(req.originalUrl, 'http://localhost').searchParams;
+  const data: any[][] = [];
+
+  try {
+    const syear = +u(params.get('syear'));
+    const ssemester = toSem(u(params.get('ssemester')));
+    const eyear = +u(params.get('eyear'));
+    const esemester = toSem(u(params.get('esemester')));
+    const classes = u(params.get('classes')).split(',').map((x) => x.split(/\s+/g));
+
+    for (const c of classes) {
+      const data0: any[] = [];
+      const start = syear * 5 + ssemester;
+      const end = eyear * 5 + esemester;
+      for (let date = start; date <= end; date++) {
+        const year = (date / 5) | 0;
+        const semester = date % 5;
+        // eslint-disable-next-line no-await-in-loop
+        const p = await CoursePlanModel.find({
+          department: c[0]!,
+          courseNum: +c[1]!,
+          semester,
+          year,
+        } as any).exec();
+        const count = p.length;
+        data0.push({ x: date, y: count });
+      }
+      data.push(data0);
+    }
+  } catch (e) { if (e !== uw) console.error(e); }
+
+  const body = renderToString(ViewEnrollmentTrends({ data }));
+  res.send(html(body, { data }, 'viewEnrollmentTrends'));
 });
 
 server.use('/import', imports);

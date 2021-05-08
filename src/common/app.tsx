@@ -7,7 +7,6 @@ import { StaticRouter, Switch, Route } from 'react-router-dom';
 import AddStudent from './addStudent';
 import Import from './import';
 import { Bar } from './util';
-import ViewEnrollmentTrends from './viewEnrollmentTrends';
 import SearchForStudent from './searchForStudent';
 import EditStudentInformation from './editStudentInformation';
 import EditStudentInfo from './editStudentInfo';
@@ -45,9 +44,6 @@ export function Routes({ values, user }: { values?: any[], user?: any }): JSX.El
       </Route>
       <Route path="/editStudentInformation">
         <EditStudentInformation user={user} />
-      </Route>
-      <Route path="/viewEnrollmentTrends">
-        <ViewEnrollmentTrends />
       </Route>
       <Route path="/GPD_Home">
         <Home />

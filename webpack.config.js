@@ -45,6 +45,7 @@ module.exports = function (env, argv) {
       client: './src/client/client.tsx',
       login: './src/client/login.tsx',
       editCoursePlan: './src/client/editCoursePlan.tsx',
+      viewEnrollmentTrends: './src/client/viewEnrollmentTrends.tsx',
     };
     base.output = {
       filename: '[name].js',

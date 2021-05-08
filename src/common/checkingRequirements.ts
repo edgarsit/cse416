@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { Student } from '../model/user';
 import type { Course, CoursePlan } from '../model/course';
 import { CoursePlanModel, DegreeRequirementsModel } from '../server/models';
