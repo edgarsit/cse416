@@ -57,15 +57,25 @@ See [test-report.md](test-report.md)
 
 - Ayoub Benchaita: Created Degree Requirments class for storage of parsed degree requirment data.
 
-- Menachem Goldring: Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for all degrees, as well as the file schema for those Degree Requirements. Contributed to the majority of the logic behind checking Degree Requirements.
+- Menachem Goldring: Developed the structure for Degree Requirements and created the JSON files for the Degree Requirements for all degrees, as well as the file schema for those Degree Requirements.
 
 - Edgar Sit: Wrote frontend and backend for 5.1, 5.2, 5.3, 5.5, 5.6. Updated authentication to use hash and salt, 5.9 to share the schema between the frontend and backend. Wrote concurrency.md; updated test-report for 5.1, 5.3, 5.5, 5.6 and implementation-status for HW7. Set up CI for smoke tests and linting. Updated implementation-grading-sheet-team5.xlsx . Created video
 
 - Kevin Zheng:
 
+### HW8 and 8
+
+- Ayoub Benchaita:
+
+- Menachem Goldring: Contributed to the majority of the logic behind checking Degree Requirements.
+
+- Edgar Sit: Attached check degree requirements to database; created view enrollment trends; misc fixes and tests to prevent regressions; helped fix errors in checkingRequirements.ts; set up option to automatically set up database for demo
+
+- Kevin Zheng:
+
 ## 7. Code and Data
 
-This zip file was created from commit 96bbbf6a3d44beb921fd9c5549339e538f9f0752 from <https://github.com/edgarsit/cse416/tree/react>
+This zip file was created from commit XXX from <https://github.com/edgarsit/cse416/tree/react>
 
 ## 8. Requirements and 9. Design
 
