@@ -458,6 +458,8 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
             }
           }
         }
+      }
+    }
 
         creditsTaken += (pending.length * 3);
         creditsTaken += (completed.length * 3);
@@ -481,8 +483,8 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
             unsatisfied += (temp - (pending.length + completed.length));
           }
         }
-      }
-    }
+      
+    
     reqStatus = [satisfied, numPending, unsatisfied];
   }
 
