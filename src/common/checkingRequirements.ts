@@ -84,7 +84,8 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
     const studentTrack = s.track;
     let trackNum = -1;
     for (let index = 0; index < degree.tracks.length; index++) {
-      if (degree[index].name === studentTrack) {
+      // @ts-ignore;
+      if (degree.tracks[index].name === studentTrack) {
         trackNum = index;
       }
     }
@@ -304,7 +305,8 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
     const studentTrack = s.track;
     let trackNum = -1;
     for (let index = 0; index < degree.tracks.length; index++) {
-      if (degree[index].name === studentTrack) {
+      // @ts-ignore;
+      if (degree.tracks[index].name === studentTrack) {
         trackNum = index;
       }
     }
@@ -511,7 +513,8 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
     const studentTrack = s.track;
     let trackNum = -1;
     for (let index = 0; index < degree.tracks.length; index++) {
-      if (degree[index].name === studentTrack) {
+      // @ts-ignore;
+      if (degree.tracks[index]?.name === studentTrack) {
         trackNum = index;
       }
     }
@@ -748,7 +751,8 @@ export async function requirementStatus(s: Student): Promise<[number, number, nu
     const studentTrack = s.track;
     let trackNum = -1;
     for (let index = 0; index < degree.tracks.length; index++) {
-      if (degree[index].name === studentTrack) {
+      // @ts-ignore;
+      if (degree.tracks[index].name === studentTrack) {
         trackNum = index;
       }
     }
