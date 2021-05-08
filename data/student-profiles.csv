@@ -1,0 +1,6 @@
+sbu_id,first_name,last_name,email,department,track,entry_semester,entry_year,requirement_version_semester,requirement_version_year,graduation_semester,graduation_year,password
+666777888,Test,Test1,hanke.kimm.0@stonybrook.edu,AMS,Operations Research,Spring,2021,Fall,2021,Spring,2022,foo_bar
+666777889,Test,Test2,hanke.kimm.1@stonybrook.edu,AMS,Operations Research,Spring,2021,Fall,2021,Spring,2022,foo_bar
+777888999,Test,Test3,hanke.kimm.2@stonybrook.edu,AMS,Operations Research,Spring,2021,Fall,2021,Spring,2022,foo_bar
+888999000,Test,Test4,hanke.kimm.3@stonybrook.edu,AMS,Operations Research,Spring,2021,Fall,2021,Spring,2022,foo_bar
+999888777,Test,Test5,hanke.kimm.4@stonybrook.edu,AMS,Operations Research,Spring,2021,Fall,2021,Spring,2022,foo_bar

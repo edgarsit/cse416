@@ -17,7 +17,9 @@ import { ServerApp } from '../common/app';
 import { auth } from './auth';
 import Login from '../common/login';
 import { Student } from '../model/user';
-import { imports } from './imports';
+import {
+  imports, scrape, degreeRequirements, parseCourseOffering, studentData,
+} from './imports';
 import EditCoursePlan from '../common/editCoursePlan';
 import { requirementStatus } from '../common/checkingRequirements';
 
@@ -231,6 +233,33 @@ server.get('*', (req, res) => {
     ),
   );
 });
+
+if (process.argv[2] === '--load') {
+  (async () => {
+    await mongoose.connect('mongodb://localhost:27017/', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+      dbName: 'cse416',
+    });
+    mongoose.connection.db.dropDatabase();
+
+    await scrape('data/courses/grad-courses-spring-2021.pdf', { year: '2021', semester: 'Spring', department: 'AMS, BMI, CSE, ESE, CHE, FIN, MCB' });
+
+    await degreeRequirements('data/AMS Degree Requirements1.json');
+    await degreeRequirements('data/BMI Degree Requirements1.json');
+    await degreeRequirements('data/CSE Degree Requirements1.json');
+    await degreeRequirements('data/ECE Degree Requirements1.json');
+
+    await parseCourseOffering('data/course-offerings-AMS.csv');
+    await parseCourseOffering('data/course-offerings-BMI.csv');
+    await parseCourseOffering('data/course-offerings-CSE.csv');
+    await parseCourseOffering('data/course-offerings-ESE.csv');
+
+    await studentData('data/student-profiles.csv', 'data/course-plans.csv');
+  })();
+}
 
 // TODO actual testing
 if (process.argv[2] !== '--test') {

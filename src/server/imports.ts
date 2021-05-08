@@ -52,11 +52,10 @@ async function parseForm(
 
 const router = Router();
 
-router.post('/scrape', async (req, res) => {
-  const { fields, files } = await parseForm(req);
-  // TODO parallelize
-  const path = files.file?.path;
-  if (path == null) { throw Error(); }
+export async function scrape(
+  path: string,
+  fields: { year: string, semester: string, department: string },
+): Promise<void> {
   const pdfCourses = await parsePdf(path);
   const { year, semester, department } = fields;
   const departments = (department as string).split(',').map((x) => x.trim());
@@ -78,19 +77,31 @@ router.post('/scrape', async (req, res) => {
       };
     }).filter(<U>(x: U): x is NonNullable<U> => x != null),
   );
+}
+
+router.post('/scrape', async (req, res) => {
+  const { fields, files } = await parseForm(req);
+  // TODO parallelize
+  const path = files.file?.path;
+  if (path == null) { throw Error(); }
+  await scrape(path, fields as any);
   return res.redirect('/');
 });
+
+export async function degreeRequirements(path: string): Promise<void> {
+  const dr = JSON.parse(await fsp.readFile(path, { encoding: 'utf8' }));
+  await DegreeRequirementsModel.create(dr);
+}
 
 router.post('/degreeRequirements', async (req, res) => {
   const { files } = await parseForm(req);
   const path = files.file?.path;
   if (path == null) { throw Error(); }
-  const dr = JSON.parse(await fsp.readFile(path, { encoding: 'utf8' }));
-  await DegreeRequirementsModel.create(dr);
+  await degreeRequirements(path);
   return res.redirect('/');
 });
 
-async function parseCourseOffering(path: fs.PathLike | undefined) {
+export async function parseCourseOffering(path: fs.PathLike | undefined): Promise<void> {
   const acc: (Omit<CourseOffering, 'number'> & { 'course_num': any; })[] = await readCSV(path);
   await CourseOfferingModel.bulkWrite(
     acc.map((c) => {
@@ -132,10 +143,13 @@ const sc2cc = (s: string) => {
   const a = s.split('_');
   return a[0] + a.slice(1).map((x) => x[0]?.toUpperCase() + x.slice(1)).join('');
 };
-// TODO extract common functionality
-router.post('/studentData', async (req, res) => {
-  const { files } = await parseForm(req);
-  const profile: any[] = await readCSV(files.profile?.path);
+
+export async function studentData(
+  profilePath: string | undefined,
+  planPath: string | undefined,
+): Promise<void> {
+  const profile: any[] = await readCSV(profilePath);
+  const plan: any[] = await readCSV(planPath);
   await CoursePlanModel.bulkWrite(
     profile.map((c) => {
       const filter = { sbuId: { $eq: c.sbu_id } };
@@ -167,7 +181,6 @@ router.post('/studentData', async (req, res) => {
     }),
   );
   // TODO parallelize
-  const plan: any[] = await readCSV(files.plan?.path);
   await CoursePlanModel.bulkWrite(
     plan.map((c) => {
       const filter = { sbuId: { $eq: c.sbu_id } };
@@ -198,6 +211,12 @@ router.post('/studentData', async (req, res) => {
       return filter;
     }),
   );
+}
+
+// TODO extract common functionality
+router.post('/studentData', async (req, res) => {
+  const { files } = await parseForm(req);
+  await studentData(files.profile?.path, files.plan?.path);
   return res.redirect('/');
 });
 
