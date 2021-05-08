@@ -8,7 +8,7 @@ export function Bar({ title }: { title?: string }): JSX.Element {
   return (
     <Navbar bg="light" expand="md">
       <div style={{ flex: '1' }}>
-        <Navbar.Brand href="/login">MAST System</Navbar.Brand>
+        <Navbar.Brand href="/">MAST System</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav" style={{ display: 'inline-block!important' }}>
           <Nav className="mr-auto">
             <NavDropdown title="Quick Links" id="basic-nav-dropdown">
