@@ -70,10 +70,13 @@ export function uprop(options?: OptionsI<BasePropOptions>, kind?: WhatIsIt): Pro
       long: long ?? name,
       map: map ?? ['True', 'False'],
     };
-    const ts: { [x: string]: typeof v } = hasOwnPropery(target, s)
-      ? target[s]
-      // eslint-disable-next-line no-param-reassign
-      : target[s] = Object.create(target[s] ?? null);
+    let ts: { [x: string]: typeof v };
+    if (hasOwnPropery(target, s)) {
+      ts = target[s];
+    } else {
+      // eslint-disable-next-line no-multi-assign, no-param-reassign
+      ts = target[s] = Object.assign(Object.create(null), target[s]);
+    }
     ts[propertyKey] = v;
     f(target, propertyKey);
   };
