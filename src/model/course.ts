@@ -25,6 +25,9 @@ export const toSem = (v: string | Semester): Semester => {
   }
   const a = v.replace(/\s/g, '');
   const b = a.toLowerCase();
+  if (b === 'summer') {
+    return Semester.SummerI;
+  }
   const ret = keysOf(Semester).map((x) => x.toLowerCase()).findIndex((x) => x === b);
   if (ret === -1) {
     throw new Error(`Unable to parse "${v}" as Semester`);
