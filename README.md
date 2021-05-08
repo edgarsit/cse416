@@ -65,7 +65,7 @@ See [test-report.md](test-report.md)
 
 ### HW8 and 8
 
-- Ayoub Benchaita:
+- Ayoub Benchaita: Implemented checking Degree Requirements.
 
 - Menachem Goldring: Contributed to the majority of the logic behind checking Degree Requirements.
 
