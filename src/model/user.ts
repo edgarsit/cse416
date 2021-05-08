@@ -73,4 +73,13 @@ export class Student extends User {
 
   @ruprop({ unique: true })
   public sbuId!: number
+
+  @ruprop({ default: 0 })
+  public pending!: number
+
+  @ruprop({ default: 0 })
+  public satisfied!: number
+
+  @ruprop({ default: 0 })
+  public unsatisfied!: number
 }

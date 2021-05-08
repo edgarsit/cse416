@@ -19,6 +19,7 @@ import Login from '../common/login';
 import { Student } from '../model/user';
 import { imports } from './imports';
 import EditCoursePlan from '../common/editCoursePlan';
+import { requirementStatus } from '../common/checkingRequirements';
 
 const html = (body: string, val?: any, url = 'client') => {
   const v = val != null ? `    <script>window._v = ${JSON.stringify(val)}</script>` : '';
@@ -99,6 +100,14 @@ const pickFromQ = <T>(s: DocumentType<T> | null) => {
 
 server.get('/searchForStudent', async (req, res) => {
   // TODO sec forall tbh
+  for (const s of await StudentModel.find({})) {
+    // eslint-disable-next-line no-await-in-loop
+    const [satisfied, pending, unsatisfied] = await requirementStatus(s);
+    s.satisfied = satisfied;
+    s.pending = pending;
+    s.unsatisfied = unsatisfied;
+    s.save();
+  }
   const s = await StudentModel.find(getQS(req.originalUrl, Student.fields));
   const values = s.map((x) => pickFromQ(x));
   // TODO qs state modal
@@ -110,6 +119,13 @@ server.get('/editStudentInformation/:email', async (req, res) => {
   const { email } = req.params;
   // TODO proper err
   const user_ = await StudentModel.findOne({ email });
+  if (user_ != null) {
+    const [satisfied, pending, unsatisfied] = await requirementStatus(user_);
+    user_.satisfied = satisfied;
+    user_.pending = pending;
+    user_.unsatisfied = unsatisfied;
+    user_.save();
+  }
   const user = pickFromQ(user_);
   const body = renderToString(ServerApp(req.url, { user }));
   res.send(html(body, { user }));
